@@ -1,0 +1,11 @@
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet_Kommunikation.exe.config
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet_Kommunikation.exe
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet_Kommunikation.pdb
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet.dll
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet.xml
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.AssemblyReference.cache
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.SuggestedBindingRedirects.cache
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.CoreCompileInputs.cache
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.CopyComplete
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.exe
+C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.pdb
