@@ -1,16 +1,26 @@
 ﻿using MQTTnet;
 using MQTTnet.Client;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MQTTnet_Kommunikation
 {
+
     internal class Program
     {
+        static List<string> connectedClientSessionIds = new List<string>();
         static void Main(string[] args)
         {
+
+            // Generate a new UUID (Guid)
+            Guid uuid = Guid.NewGuid();
+
+            // Convert the Guid to a string representation
+            string uuidString = uuid.ToString();
+
             string brokerAddress = "localhost";
             int brokerPort = 1883;
             string topic = "test";
@@ -27,30 +37,26 @@ namespace MQTTnet_Kommunikation
             // Wait a bit to ensure the connection is established.
             Thread.Sleep(2000);
 
-            string message = "Hello, MQTT!";
-            Publish(mqttClient, message, topic);
+            string message;
 
-            Subscribe(mqttClient, topic);
+            Subscribe(mqttClient, topic, uuidString);
             string userInput;
             do
-            {
-                Console.WriteLine("S: zum Nachrichten Schreiben. E: Zum Beenden");
-                userInput = Console.ReadLine();
-                if (userInput == "S")
-                {
-                    Console.WriteLine("Gib nun deine Nachricht ein: ");
-                    message = Console.ReadLine();
+            {       
+                    message = uuidString  + ": ";
+                    //Console.WriteLine("Gib nun deine Nachricht ein: ");
+                    message += Console.ReadLine();
                     Publish(mqttClient, message, topic);
-                }
-           
-            } while (userInput != "E");
-           
                 
-            
+           
+            } while (message != "E");
+
 
             Console.ReadLine(); // Wait for user input to keep the application running.
             Disconnect(mqttClient);
         }
+
+
 
         public static async Task Publish(IMqttClient mqttClient, string message, string topic)
         {
@@ -66,7 +72,7 @@ namespace MQTTnet_Kommunikation
 
                 if (publishResult.ReasonCode == MqttClientPublishReasonCode.Success)
                 {
-                    Console.WriteLine($"Nachricht erfolgreich gepublished! Topic = {topic}, Payload = {message}");
+                   // Console.WriteLine($"Nachricht erfolgreich gepublished! Topic = {topic}, Payload = {message}");
                 }
                 else
                 {
@@ -79,7 +85,7 @@ namespace MQTTnet_Kommunikation
             }
         }
 
-        public static async Task Subscribe(IMqttClient mqttClient, string topic)
+        public static async Task Subscribe(IMqttClient mqttClient, string topic, string uuid)
         {
             try
             {
@@ -87,9 +93,12 @@ namespace MQTTnet_Kommunikation
 
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
-                    Console.WriteLine("Received application message.");
                     string payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-                    Console.WriteLine($"Empfangene Nachricht: Thema = {e.ApplicationMessage.Topic}, Payload = {payload}");
+                    if (!payload.Contains(uuid))
+                    {
+                        //  Console.WriteLine($">>Empfangene Nachricht: Thema = {e.ApplicationMessage.Topic}, Payload = {payload}");
+                        Console.WriteLine($">>Thema = {e.ApplicationMessage.Topic}, Payload = {payload}");
+                    }
                     return Task.CompletedTask;
                 };
             }
@@ -107,12 +116,13 @@ namespace MQTTnet_Kommunikation
             try
             {
                 await mqttClient.ConnectAsync(options, CancellationToken.None);
+                Console.WriteLine("Verbunden mit MQTT Broker!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Fehler: {ex.Message}");
             }
-            Console.WriteLine("Verbunden mit MQTT Broker!");
+           
         }
 
         public static async Task Disconnect(IMqttClient mqttClient)
@@ -120,12 +130,13 @@ namespace MQTTnet_Kommunikation
             try
             {
                 await mqttClient.DisconnectAsync();
+                Console.WriteLine("Verbindung getrennt!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Fehler: {ex.Message}");
             }
-            Console.WriteLine("Verbindung getrennt!");
+            
         }
     }
 }
