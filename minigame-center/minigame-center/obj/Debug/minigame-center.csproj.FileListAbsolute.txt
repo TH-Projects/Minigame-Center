@@ -15,3 +15,5 @@ C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\minigam
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\minigame-center.exe
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\minigame-center.pdb
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\Components\ResponsiveLabel.g.cs
+C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\Components\ResponsiveLabel.baml
