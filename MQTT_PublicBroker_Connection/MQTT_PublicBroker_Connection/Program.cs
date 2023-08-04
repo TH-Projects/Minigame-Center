@@ -2,13 +2,14 @@
 using MQTTnet.Client;
 using System;
 using System.Collections.Generic;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-//using HiveMQtt.Client;
 
 
-namespace MQTTnet_Kommunikation
+namespace MQTT_PublicBroker_Connection
 {
 
     internal class Program
@@ -16,34 +17,39 @@ namespace MQTTnet_Kommunikation
         static List<string> connectedClientSessionIds = new List<string>();
         static void Main(string[] args)
         {
-
-            // Generate a new UUID (Guid)
             Guid uuid = Guid.NewGuid();
 
-            // Convert the Guid to a string representation
             string uuidString = uuid.ToString();
 
             string brokerAddress = "25aee1926b284dfeb459111a517f7201.s2.eu.hivemq.cloud";
-            int brokerPort = 8884;      //1883 ohne TLS
+            int brokerPort = 8883;      
             string topic = "test";
 
-            //var clientId = "YourClientID"; // Ihr Client-ID
-            var username = "test1"; // Ihr Client-Nutzer
-            var password = "StrongPassword1"; // Ihr Password
-           
+            var username = "minigame_inf22_dhbw"; 
+            var password = "Or4Q9IkA0IPLBWpbupwr"; 
+
             var factory = new MqttFactory();
             var mqttClient = factory.CreateMqttClient();
 
             var options = new MqttClientOptionsBuilder()
+                .WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V500)
                 .WithTcpServer(brokerAddress, brokerPort)
                 .WithCredentials(username, password)
-                .WithClientId(uuidString) //Hier evtl. die UUID mitgeben
+                .WithTls(
+                o =>
+                {
+                    o.CertificateValidationHandler = _ => true;
+
+                    o.SslProtocol = SslProtocols.Tls12;
+
+                })
+                .WithCleanSession()
                 .Build();
-            
 
-            Connect(mqttClient);
 
-            // Wait a bit to ensure the connection is established.
+            Connect(mqttClient, options);
+
+            // Wait a bit to ensure the connection is established
             Thread.Sleep(2000);
 
             string message;
@@ -51,19 +57,17 @@ namespace MQTTnet_Kommunikation
             Subscribe(mqttClient, topic, uuidString);
             string userInput;
             do
-            {       
-                    message = uuidString  + ": ";
-                    //Console.WriteLine("Gib nun deine Nachricht ein: ");
-                    message += Console.ReadLine();
-                    Publish(mqttClient, message, topic);
-                
-           
-            } while (message != "E");
-
+            {
+                message = uuidString + ": ";
+                //Console.WriteLine("Gib nun deine Nachricht ein: ");
+                message += Console.ReadLine();
+                Publish(mqttClient, message, topic);
+            } while (true);
 
             Console.ReadLine(); // Wait for user input to keep the application running.
             Disconnect(mqttClient);
         }
+
 
 
 
@@ -74,14 +78,14 @@ namespace MQTTnet_Kommunikation
                 var applicationMessage = new MqttApplicationMessageBuilder()
                     .WithTopic(topic)
                     .WithPayload(message)
-                    .WithRetainFlag()
+                    //.WithRetainFlag()     // Retain Flag belässt Nachricht im Topic
                     .Build();
 
                 MqttClientPublishResult publishResult = await mqttClient.PublishAsync(applicationMessage);
 
                 if (publishResult.ReasonCode == MqttClientPublishReasonCode.Success)
                 {
-                   // Console.WriteLine($"Nachricht erfolgreich gepublished! Topic = {topic}, Payload = {message}");
+                    //Console.WriteLine($"Deine Nachricht: {message}");
                 }
                 else
                 {
@@ -103,48 +107,36 @@ namespace MQTTnet_Kommunikation
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
                     string payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+
                     if (!payload.Contains(uuid))
                     {
                         //  Console.WriteLine($">>Empfangene Nachricht: Thema = {e.ApplicationMessage.Topic}, Payload = {payload}");
-                        Console.WriteLine($">>Thema = {e.ApplicationMessage.Topic}, Payload = {payload}");
+                        Console.WriteLine($">>Antwort: Topic = {e.ApplicationMessage.Topic}, Payload = {payload}");
                     }
                     return Task.CompletedTask;
                 };
             }
 
-
-
             catch (Exception ex)
             {
-                Console.WriteLine($"Fehler beim Subscribe: {ex.Message}");
+                Console.WriteLine($"Fehler: {ex.Message}");
             }
         }
 
-        //public static async Task Connect(IMqttClient mqttClient, MqttClientOptions options)
-        //{
-        //    try
-        //    {
-        //        await mqttClient.ConnectAsync(options);
-        //        Console.WriteLine("Verbunden mit MQTT Broker!");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"Fehler beim Connect: {ex.Message}");
-        //    }
-
-        //}
-        public static async Task Connect(IMqttClient mqttClient)
+        public static async Task Connect(IMqttClient mqttClient, MqttClientOptions options)
         {
-            // Use builder classes where possible in this project.
-            var mqttClientOptions = new MqttClientOptionsBuilder().WithTcpServer("25aee1926b284dfeb459111a517f7201.s2.eu.hivemq.cloud").Build();
-
-            var response = await mqttClient.ConnectAsync(mqttClientOptions, CancellationToken.None);
-
-            Console.WriteLine("The MQTT client is connected.");
-
+            try
+            {
+                await mqttClient.ConnectAsync(options, CancellationToken.None);
+                Console.WriteLine("Verbunden mit MQTT Broker!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler: {ex.Message}");
+            }
         }
 
-            public static async Task Disconnect(IMqttClient mqttClient)
+        public static async Task Disconnect(IMqttClient mqttClient)
         {
             try
             {

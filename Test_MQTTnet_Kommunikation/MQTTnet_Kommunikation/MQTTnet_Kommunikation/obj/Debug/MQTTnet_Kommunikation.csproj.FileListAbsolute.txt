@@ -9,3 +9,14 @@ C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTT
 C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.CopyComplete
 C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.exe
 C:\Users\hasse\Documents\DHBW\Visual_Studio_Workspace\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.pdb
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet_Kommunikation.exe.config
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet_Kommunikation.exe
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet_Kommunikation.pdb
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet.dll
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\bin\Debug\MQTTnet.xml
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.AssemblyReference.cache
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.SuggestedBindingRedirects.cache
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.CoreCompileInputs.cache
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.csproj.CopyComplete
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.exe
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\Test_MQTTnet_Kommunikation\MQTTnet_Kommunikation\MQTTnet_Kommunikation\obj\Debug\MQTTnet_Kommunikation.pdb
