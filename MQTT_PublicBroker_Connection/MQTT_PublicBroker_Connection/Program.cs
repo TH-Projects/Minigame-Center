@@ -61,7 +61,7 @@ namespace MQTT_PublicBroker_Connection
             Thread.Sleep(2000);
 
             //string message;
-            var message = new MessageData();
+            var messageData = new MessageData();
             string messageJSON;
 
 
@@ -69,14 +69,12 @@ namespace MQTT_PublicBroker_Connection
             string userInput;
             do
             {
-                //message = uuidString + ": ";
                 //Console.WriteLine("Gib nun deine Nachricht ein: ");
-                //message += Console.ReadLine();
-                message.senderId = uuidString;
-                message.messageType = "JSON-Test";
-                message.content = Console.ReadLine();
+                messageData.senderId = uuidString;
+                messageData.messageType = "JSON-Test";
+                messageData.content = Console.ReadLine();
 
-                messageJSON = JsonConvert.SerializeObject(message);
+                messageJSON = JsonConvert.SerializeObject(messageData);
 
                 Publish(mqttClient, messageJSON, topic);
             } while (true);
@@ -129,7 +127,6 @@ namespace MQTT_PublicBroker_Connection
 
                     if (messageData.senderId != uuid)
                     {
-                        //  Console.WriteLine($">>Empfangene Nachricht: Thema = {e.ApplicationMessage.Topic}, Payload = {payload}");
                         Console.WriteLine($">>Antwort: Topic = {e.ApplicationMessage.Topic}, messageContent = {messageData.content}, messageType = {messageData.messageType}");
                     }
                     return Task.CompletedTask;
