@@ -26,11 +26,11 @@
             <Grid Grid.Column="1">
                 <uc:ResponsiveLabel
                     x:Name="lbl_headline" 
-                    Text="No Headline Loaded"
+                    Text="Game Center (Gruppe 4 Prog.)"
                     MaxHeight="80"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Margin="10"
+                    Margin="10" Loaded="lbl_headline_Loaded"
                 />
             </Grid>
         </Grid>
