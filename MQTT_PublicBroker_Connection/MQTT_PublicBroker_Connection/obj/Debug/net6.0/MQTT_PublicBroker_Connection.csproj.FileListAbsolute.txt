@@ -19,3 +19,4 @@ D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\MQTT_PublicBroker_Co
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\MQTT_PublicBroker_Connection\MQTT_PublicBroker_Connection\obj\Debug\net6.0\MQTT_PublicBroker_Connection.pdb
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\MQTT_PublicBroker_Connection\MQTT_PublicBroker_Connection\obj\Debug\net6.0\MQTT_PublicBroker_Connection.genruntimeconfig.cache
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\MQTT_PublicBroker_Connection\MQTT_PublicBroker_Connection\obj\Debug\net6.0\ref\MQTT_PublicBroker_Connection.dll
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\MQTT_PublicBroker_Connection\MQTT_PublicBroker_Connection\bin\Debug\net6.0\Newtonsoft.Json.dll

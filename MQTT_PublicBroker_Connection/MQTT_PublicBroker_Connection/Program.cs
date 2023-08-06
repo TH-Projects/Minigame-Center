@@ -7,10 +7,18 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 
 namespace MQTT_PublicBroker_Connection
 {
+    class MessageData
+    {
+        public string senderId { get; set; }
+        public string messageType { get; set; }
+        public string content { get; set; }
+
+    }
 
     internal class Program
     {
@@ -52,16 +60,25 @@ namespace MQTT_PublicBroker_Connection
             // Wait a bit to ensure the connection is established
             Thread.Sleep(2000);
 
-            string message;
+            //string message;
+            var message = new MessageData();
+            string messageJSON;
+
 
             Subscribe(mqttClient, topic, uuidString);
             string userInput;
             do
             {
-                message = uuidString + ": ";
+                //message = uuidString + ": ";
                 //Console.WriteLine("Gib nun deine Nachricht ein: ");
-                message += Console.ReadLine();
-                Publish(mqttClient, message, topic);
+                //message += Console.ReadLine();
+                message.senderId = uuidString;
+                message.messageType = "JSON-Test";
+                message.content = Console.ReadLine();
+
+                messageJSON = JsonConvert.SerializeObject(message);
+
+                Publish(mqttClient, messageJSON, topic);
             } while (true);
 
             Console.ReadLine(); // Wait for user input to keep the application running.
@@ -106,12 +123,14 @@ namespace MQTT_PublicBroker_Connection
 
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
-                    string payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+                    string messageJSON = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
 
-                    if (!payload.Contains(uuid))
+                    var messageData = JsonConvert.DeserializeObject<MessageData>(messageJSON);
+
+                    if (messageData.senderId != uuid)
                     {
                         //  Console.WriteLine($">>Empfangene Nachricht: Thema = {e.ApplicationMessage.Topic}, Payload = {payload}");
-                        Console.WriteLine($">>Antwort: Topic = {e.ApplicationMessage.Topic}, Payload = {payload}");
+                        Console.WriteLine($">>Antwort: Topic = {e.ApplicationMessage.Topic}, messageContent = {messageData.content}, messageType = {messageData.messageType}");
                     }
                     return Task.CompletedTask;
                 };
