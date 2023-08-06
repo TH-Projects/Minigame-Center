@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\
+C:\Git\A1\minigame-center\minigame-center\obj\Debug\
 minigame_center
 none
 false
 DEBUG;TRACE
-C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\App.xaml
-2-1632792674
+C:\Git\A1\minigame-center\minigame-center\App.xaml
+4-534479272
 
-7-899315563
+9-393851713
 13-38814620
-Components\ResponsiveLabel.xaml;View\MainWindow.xaml;
+Components\ResponsiveLabel.xaml;View\MainWindow.xaml;View\Menue.xaml;View\TestUI.xaml;
 
 False
 

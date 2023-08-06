@@ -1,0 +1,9 @@
+﻿<Page x:Class="minigame_center.TestUI"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Test UI">
+
+    <Grid>
+        <Label Content="This is the Test UI" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+</Page>

@@ -22,7 +22,7 @@ Rollen werden für Sprint 1 fest vergeben, jeder Programmiert je nach Aufwand de
 - Auf den Dev-Branch darf nur mit Request gepusht werden.
 - Codingguidelines entsprechen den C#-Guidelines.
 
-## Dailys
+## Dailys 
 - Zur Mittags- / Vorlesungspause täglich Werktags.
 
 
