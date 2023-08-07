@@ -19,6 +19,7 @@ namespace MQTT_Event_Driven
         static void Init()
         {
             ConfigManager.BuildConfig();
+            var mq = new MQ
         }
     }
 }
