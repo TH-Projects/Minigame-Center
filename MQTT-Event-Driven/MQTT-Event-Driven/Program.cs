@@ -14,12 +14,14 @@ namespace MQTT_Event_Driven
         static void Main(string[] args)
         {
             Init();
+            while (true) { }
         }
 
-        static void Init()
+        static async void Init()
         {
             ConfigManager.BuildConfig();
-            var mq = new MQ
+            var mq = new MqttClientService();
+            await mq.Connect(ConfigManager.Server, ConfigManager.Port, ConfigManager.User, ConfigManager.Password);
         }
     }
 }

@@ -101,20 +101,13 @@ namespace MQTT_Event_Driven
                     .WithClientId(clientID.ToString())
                     .WithCleanSession()
                     .WithTls(
-                        o =>
-                        {
-                            // The used public broker sometimes has invalid certificates. This sample accepts all
-                            // certificates. This should not be used in live environments.
-                            o.CertificateValidationHandler = _ => true;
+                    o =>
+                    {
+                        o.CertificateValidationHandler = _ => true;
 
-                            // The default value is determined by the OS. Set manually to force version.
-                            o.SslProtocol = SslProtocols.Tls12;
+                        o.SslProtocol = SslProtocols.Tls12;
 
-                            // Please provide the file path of your certificate file. The current directory is /bin.
-                            var certificate = new X509Certificate("/opt/emqxsl-ca.crt", "");
-                            o.Certificates = new List<X509Certificate> { certificate };
-                        }
-                    )
+                    })
                     .Build();
 
                 await _mqttClient.ConnectAsync(options, CancellationToken.None);

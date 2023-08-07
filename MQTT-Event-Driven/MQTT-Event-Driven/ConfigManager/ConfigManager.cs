@@ -17,7 +17,7 @@ namespace MQTT_Event_Driven
         static public string Server;
         static public string User;
         static public string Password;
-        static public string Port;
+        static public int Port;
         
         
         public static void BuildConfig()
@@ -28,7 +28,7 @@ namespace MQTT_Event_Driven
 
             config = builder.Build();
             Server = config["MQTT-Broker:Server"];
-            Port = config["MQTT-Broker:Port"];
+            Port = int.Parse(config["MQTT-Broker:Port"]);
             Password = config["MQTT-Broker:Password"];
             User = config["MQTT-Broker:User"];
         }
