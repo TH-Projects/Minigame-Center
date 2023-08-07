@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "+DRo0dk1SuIRpeJyFVs8Db4SLal4130iB9Tw2bR9a7xgMQ3uO/SUriYWX+XVshCU/TN8U7xAyEULO7Sb4KJx/w==",
+  "success": true,
+  "projectFilePath": "D:\\Michael Schick\\Studium\\DHBW\\Semester2\\Semesterprojekt\\A1\\MQTT_PublicBroker_Connection\\MQTT_PublicBroker_Connection\\MQTT_PublicBroker_Connection.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\micha\\.nuget\\packages\\hivemqtt\\0.2.0\\hivemqtt.0.2.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\mqttnet\\4.2.1.781\\mqttnet.4.2.1.781.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\nlog\\5.1.1\\nlog.5.1.1.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\system.io.pipelines\\7.0.0\\system.io.pipelines.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
