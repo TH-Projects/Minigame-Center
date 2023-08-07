@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlTypes;
 using System.Threading;
+using MQTTnet.Client;
 
 namespace MQTT_Event_Driven
 {
@@ -19,13 +20,24 @@ namespace MQTT_Event_Driven
             while (true) { }
         }
 
+        // Event handler for received messages
+        static void HandleMessageReceived(object sender, MqttApplicationMessageReceivedEventArgs e)
+        {
+            Console.WriteLine($"Received message on topic on Main {e.ApplicationMessage.Topic}: {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
+            // Add your custom logic to handle the received message
+        }
+
         static async void Init()
         {
             ConfigManager.BuildConfig();
             await mq.Connect(ConfigManager.Server, ConfigManager.Port, ConfigManager.User, ConfigManager.Password);
+            mq.MessageReceived += HandleMessageReceived;
             Thread.Sleep(2000);
-            while(true)
-                await mq.Publish("", "test");
+            while (true) {
+                await mq.Subscribe("test");
+                await mq.Publish("Deine Mom", "test");
+                Thread.Sleep(1000);
+            }
         }
     }
 }

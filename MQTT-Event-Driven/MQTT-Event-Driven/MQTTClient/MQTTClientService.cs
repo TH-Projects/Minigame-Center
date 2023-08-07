@@ -26,11 +26,26 @@ namespace MQTT_Event_Driven
         private readonly IMqttClient _mqttClient;
         private readonly Guid clientID;
 
+        public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
+
         public MqttClientService()
         {
             var factory = new MqttFactory();
             _mqttClient = factory.CreateMqttClient();
             clientID = Guid.NewGuid();
+
+            _mqttClient.ApplicationMessageReceivedAsync += async ( e) =>
+            {
+                Console.WriteLine($"Received message on topic {e.ApplicationMessage.Topic}: {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
+
+                // Trigger the event when a message is received
+                await OnMessageReceivedAsync(e);
+            };
+        }
+
+        private async Task OnMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs e)
+        {
+            MessageReceived?.Invoke(this, e);
         }
 
         public async Task Publish(string message, string topic)
@@ -60,24 +75,12 @@ namespace MQTT_Event_Driven
             }
         }
 
-        public async Task Subscribe(string topic, string uuid)
+        public async Task Subscribe(string topic)
         {
             try
             {
                 await _mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic(topic).Build());
-
-                _mqttClient.ApplicationMessageReceivedAsync += e =>
-                {
-                    string messageJSON = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-
-                    var messageData = JsonConvert.DeserializeObject<MessageData>(messageJSON);
-
-                    if (messageData.senderId != uuid)
-                    {
-                        Console.WriteLine($">>Antwort: Topic = {e.ApplicationMessage.Topic}, messageContent = {messageData.content}, messageType = {messageData.messageType}");
-                    }
-                    return Task.CompletedTask;
-                };
+               
             }
 
             catch (Exception ex)
