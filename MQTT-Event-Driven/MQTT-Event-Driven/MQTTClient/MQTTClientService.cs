@@ -24,14 +24,12 @@ namespace MQTT_Event_Driven
     public class MqttClientService
     {
         private readonly IMqttClient _mqttClient;
-        private readonly MqttClientOptionsBuilder _optionsBuilder;
         private readonly Guid clientID;
 
         public MqttClientService()
         {
             var factory = new MqttFactory();
             _mqttClient = factory.CreateMqttClient();
-            _optionsBuilder = new MqttClientOptionsBuilder();
             clientID = Guid.NewGuid();
         }
 
@@ -49,7 +47,7 @@ namespace MQTT_Event_Driven
 
                 if (publishResult.ReasonCode == MqttClientPublishReasonCode.Success)
                 {
-                    //Console.WriteLine($"Deine Nachricht: {message}");
+                    Console.WriteLine($"Deine Nachricht: {message}");
                 }
                 else
                 {
@@ -90,26 +88,23 @@ namespace MQTT_Event_Driven
 
         public async Task Connect(string broker, int port, string username, string password)
         {
+            // Create MQTT client options
+            var options = new MqttClientOptionsBuilder()
+                .WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V500)
+                .WithTcpServer(broker, port)
+                .WithCredentials(username, password)
+                .WithTls(
+                o =>
+                {
+                    o.CertificateValidationHandler = _ => true;
+
+                    o.SslProtocol = SslProtocols.Tls12;
+
+                })
+                .WithCleanSession()
+                .Build();
             try
             {
-
-
-                // Create MQTT client options
-                var options = new MqttClientOptionsBuilder()
-                    .WithTcpServer(broker, port) // MQTT broker address and port
-                    .WithCredentials(username, password) // Set username and password
-                    .WithClientId(clientID.ToString())
-                    .WithCleanSession()
-                    .WithTls(
-                    o =>
-                    {
-                        o.CertificateValidationHandler = _ => true;
-
-                        o.SslProtocol = SslProtocols.Tls12;
-
-                    })
-                    .Build();
-
                 await _mqttClient.ConnectAsync(options, CancellationToken.None);
                 Console.WriteLine("Verbunden mit MQTT Broker!");
             }
