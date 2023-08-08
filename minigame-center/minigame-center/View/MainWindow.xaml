@@ -4,12 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:minigame_center.ViewModel"
-        xmlns:uc="clr-namespace:minigame_center.Components"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Window.DataContext>
-        <local:MainWindowViewModel/>
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -24,14 +20,17 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="1">
-                <uc:ResponsiveLabel
-                    x:Name="lbl_headline" 
-                    Text="Game Center (Gruppe 4 Prog.)"
-                    MaxHeight="80"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Margin="10" Loaded="lbl_headline_Loaded"
-                />
+                <Viewbox>
+                    <Label
+                        x:Name="lbl_headline" 
+                        Content="{Binding MainHeadline}"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Margin="5"
+                    />
+                </Viewbox>
             </Grid>
         </Grid>
 
@@ -43,7 +42,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="1">
-                <Frame x:Name="content_frame"/>
+                <Frame x:Name="fr_MainContent"/>
             </Grid>
             
         </Grid>

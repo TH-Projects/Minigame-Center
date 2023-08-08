@@ -55,16 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HelperClasses\NavigationService.cs" />
+    <Compile Include="HelperClasses\ViewLocator.cs" />
+    <Compile Include="Interfaces\INavigationService.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\MenueViewModel.cs" />
+    <Compile Include="ViewModel\TestUIViewModel.cs" />
     <Compile Include="View\Menue.xaml.cs">
       <DependentUpon>Menue.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TestUI.xaml.cs">
       <DependentUpon>TestUI.xaml</DependentUpon>
     </Compile>
-    <Page Include="Components\ResponsiveLabel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -72,9 +74,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Components\ResponsiveLabel.xaml.cs">
-      <DependentUpon>ResponsiveLabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
