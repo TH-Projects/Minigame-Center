@@ -15,7 +15,6 @@ abstract class MQTTBaseClient {
 }
 
 MQTTGameClient --|> MQTTBaseClient
-MQTTGameClient ..> GameStatus
 
 class MQTTGameClient {
     - opponent-id: Guid
@@ -28,11 +27,6 @@ class MQTTGameClient {
     + PublishGamePayload(GamePayload)
 }
 
-enum GameStatus {
-    Lobby,
-    Ongoing,
-    Winner,
-    Looser,
-}
+
 
 @enduml

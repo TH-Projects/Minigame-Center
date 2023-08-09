@@ -38,9 +38,18 @@ GameView -> MQTTClient: PublishGameMessage(GamePayload.json)
 MQTTClient -> MQTTClient: Publish(GamePayload.json, "/game")
 MQTTClient --> MQTTClient
 MQTTClient --> GameView
+GameView -> GameView: UpdateGameView(GamePayload)
+GameView --> GameView
+GameView -> GameView: BlockGameView()
+GameView --> GameView
+GameView --> GameView
+
 SpielerA <-- GameView
 
 SpielerB -> MQTTClient: OnGamePayloadReceived(GamePayload)
 MQTTClient -> GameView: UpdateGameView(GamePayload)
-SpielerB <-- GameView
+GameView -> GameView: UnblockGameView()
+GameView --> GameView
+MQTTClient <-- GameView
+MQTTClient --> SpielerB
 @enduml
