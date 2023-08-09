@@ -21,8 +21,8 @@ namespace minigame_center.ViewModel
 
         private void NavigateToInitialView()
         {
-            var viewModel = new TestUIViewModel();
-            MainHeadline = "TestUI";
+            var viewModel = new MenueViewModel();
+            MainHeadline = "Hauptmenü";
             _navigationService.NavigateToViewModel(viewModel);
         }
         

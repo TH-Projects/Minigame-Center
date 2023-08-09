@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace minigame_center.ViewModel
 {
-    internal class MenueViewModel
+    internal class MenueViewModel : BaseViewModel
     {
+
     }
 }
