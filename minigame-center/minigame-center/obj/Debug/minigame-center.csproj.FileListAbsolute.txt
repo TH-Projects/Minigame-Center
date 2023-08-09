@@ -59,3 +59,26 @@ C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\Menue.baml
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\Menue.g.cs
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.g.cs
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\bin\Debug\minigame-center.exe.config
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\bin\Debug\minigame-center.exe
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\bin\Debug\minigame-center.pdb
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.AssemblyReference.cache
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.SuggestedBindingRedirects.cache
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\View\Menue.baml
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\Components\ResponsiveLabel.g.cs
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\View\MainWindow.g.cs
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\View\Menue.g.cs
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.g.cs
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\App.g.cs
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center_MarkupCompile.cache
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center_MarkupCompile.lref
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\Components\ResponsiveLabel.baml
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\View\MainWindow.baml
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.g.resources
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame_center.Properties.Resources.resources
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.GenerateResource.cache
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.CoreCompileInputs.cache
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.exe
+D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.pdb
