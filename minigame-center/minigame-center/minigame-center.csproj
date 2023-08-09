@@ -126,5 +126,10 @@
   <ItemGroup>
     <Folder Include="Model\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\inProgress.jpg" />
+    <Resource Include="Assets\placeholder.png" />
+    <Resource Include="Assets\vierGewinnt.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
