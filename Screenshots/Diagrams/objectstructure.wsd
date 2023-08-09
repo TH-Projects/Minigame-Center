@@ -1,0 +1,38 @@
+@startuml
+!define ABSTRACT &#123;abstract&#125;
+!define DELEGATE &#123;DELEGATE&#125;
+abstract class MQTTBaseClient {
+    - client: MQTTClient
+    - clientID: Guid
+    ---
+    + OnMessageReceivedAsync() \t\t ABSTRACT
+    + OnQuitPayloadReceived()         \t\t ABSTRACT
+    + Publish(message, topic)
+    + Subscribe(string topic)
+    + Unsubscribe(string topic)
+    + Connect(broker, port, username, password)
+    + Disconnect()
+}
+
+MQTTGameClient --|> MQTTBaseClient
+MQTTGameClient ..> GameStatus
+
+class MQTTGameClient {
+    - opponent-id: Guid
+    ---
+    - OnMessageReceivedAsync()
+    + OnLoginPayloadReceived()    \t\t DELEGATE
+    + OnGamePayloadReceived()         \t\t DELEGATE
+    + OnQuitPayloadReceived()         \t\t DELEGATE
+    + PublishLoginPayload(LoginPayload)
+    + PublishGamePayload(GamePayload)
+}
+
+enum GameStatus {
+    Lobby,
+    Ongoing,
+    Winner,
+    Looser,
+}
+
+@enduml
