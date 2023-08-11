@@ -43,7 +43,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="1">
-                <Frame x:Name="fr_MainContent"/>
+                <Frame x:Name="fr_MainContent" NavigationUIVisibility="Hidden"/>
             </Grid>
             
         </Grid>

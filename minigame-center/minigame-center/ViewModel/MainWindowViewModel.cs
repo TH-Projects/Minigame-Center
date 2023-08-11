@@ -1,4 +1,5 @@
-﻿using minigame_center.Interfaces;
+﻿using minigame_center.HelperClasses;
+using minigame_center.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace minigame_center.ViewModel
 {
-    internal class MainWindowViewModel : BaseViewModel
+    public class MainWindowViewModel : BaseViewModel
     {
         private readonly INavigationService _navigationService;
         public string MainHeadline { get; set; }
@@ -24,6 +25,12 @@ namespace minigame_center.ViewModel
             var viewModel = new MenueViewModel();
             MainHeadline = "Hauptmenü";
             _navigationService.NavigateToViewModel(viewModel);
+        }
+
+        public void NavigateToPage(BaseViewModel viewModel)
+        {
+            var view = ViewLocator.GetViewForViewModel(viewModel);
+            _navigationService.NavigateToViewModel(viewModel);    
         }
         
 

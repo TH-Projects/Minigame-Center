@@ -24,7 +24,6 @@ namespace minigame_center.View
         public Menue()
         {
             InitializeComponent();
-            DataContext = new MenueViewModel();
         }
     }
 }

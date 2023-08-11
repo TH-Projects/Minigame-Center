@@ -3,11 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:minigame_center.Components"
+      xmlns:uc="clr-namespace:minigame_center.Components"
+      xmlns:local="clr-namespace:minigame_center.ViewModel"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Menue">
-    
+
+    <Page.DataContext>
+        <local:MenueViewModel/>
+    </Page.DataContext>
     <Grid Margin="20 0 20 0">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -19,32 +23,35 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
-            <local:MenueItem
-                    ButtonContent="Vier Gewinnt"
-                    BackgroundImageSource="../Assets/vierGewinnt.jpg"
-                    Margin="30"
-                />
+            <uc:MenueItem
+                x:Name="vierGewinntItem"
+                DataContext="{Binding VierGewinntMenuItemViewModel}"
+                Margin="30" 
+            />  
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="1">
-            <local:MenueItem
-                    BackgroundImageSource="../Assets/inProgress.jpg"
-                    Margin="30"
-                />
+            <uc:MenueItem
+                x:Name="secondMenueItem"
+                DataContext="{Binding SecondMenuItemViewModel}"    
+                Margin="30"
+             />
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0">
-            <local:MenueItem
-                    BackgroundImageSource="../Assets/inProgress.jpg"
-                    Margin="30"
-                />
+            <uc:MenueItem
+                x:Name="thirdMenueItem"
+                DataContext="{Binding ThirdMenuItemViewModel}" 
+                Margin="30"
+            />
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">
-            <local:MenueItem
-                    BackgroundImageSource="../Assets/inProgress.jpg"
-                    Margin="30"
-                />
+            <uc:MenueItem
+                x:Name="fourthMenueItem"
+                DataContext="{Binding FourthMenuItemViewModel}"
+                Margin="30"
+            />
         </Grid>
     </Grid>
 </Page>

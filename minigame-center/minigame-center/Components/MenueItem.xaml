@@ -8,7 +8,7 @@
              d:DesignHeight="250" d:DesignWidth="400">
     <Grid>
         <Grid Grid.Row="1" Grid.Column="1">
-            <Button >
+            <Button Command="{Binding ButtonCommand}">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding BackgroundImageSource}" Opacity="0.85"/>
                 </Button.Background>

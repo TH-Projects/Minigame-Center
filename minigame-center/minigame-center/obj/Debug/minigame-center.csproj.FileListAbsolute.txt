@@ -2,7 +2,6 @@ C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\bin\Debug\minigam
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\bin\Debug\minigame-center.exe
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\bin\Debug\minigame-center.pdb
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.AssemblyReference.cache
-C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.SuggestedBindingRedirects.cache
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\MainWindow.g.cs
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\App.g.cs
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\minigame-center_MarkupCompile.cache
@@ -65,3 +64,7 @@ C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\
 C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\Components\MenueItem.baml
 C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\Menue.baml
 C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
+C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\Components\MenueItem.g.cs
+C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\Components\MenueItem.baml
+C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\VierGewinnt.g.cs
+C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\VierGewinnt.baml

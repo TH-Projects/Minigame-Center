@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace minigame_center.Components
+namespace minigame_center.View
 {
     /// <summary>
-    /// Interaction logic for MenueItem.xaml
+    /// Interaction logic for VierGewinnt.xaml
     /// </summary>
-    public partial class MenueItem : UserControl
+    public partial class VierGewinnt : Page
     {
-        public MenueItem()
+        public VierGewinnt()
         {
             InitializeComponent();
         }
     }
 }
-
