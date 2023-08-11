@@ -17,23 +17,15 @@ namespace minigame_center.ViewModel
         {
             MainHeadline = "No Headline Loaded";
             _navigationService = navigationService;
-            NavigateToInitialView();
+            NavigateToPage(new MenueViewModel(), "Hauptmenü");
         }
 
-        private void NavigateToInitialView()
-        {
-            var viewModel = new MenueViewModel();
-            MainHeadline = "Hauptmenü";
-            _navigationService.NavigateToViewModel(viewModel);
-        }
-
-        public void NavigateToPage(BaseViewModel viewModel)
+        public void NavigateToPage(BaseViewModel viewModel, string headline)
         {
             var view = ViewLocator.GetViewForViewModel(viewModel);
-            _navigationService.NavigateToViewModel(viewModel);    
+            MainHeadline = headline;
+            OnPropertyChanged(nameof(MainHeadline));
+            _navigationService.NavigateToViewModel(viewModel);
         }
-        
-
-       
     }
 }

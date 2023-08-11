@@ -33,7 +33,7 @@
         <Grid Grid.Row="0" Grid.Column="1">
             <uc:MenueItem
                 x:Name="secondMenueItem"
-                DataContext="{Binding SecondMenuItemViewModel}"    
+                DataContext="{Binding TestUIMenuItemViewModel}"    
                 Margin="30"
              />
         </Grid>

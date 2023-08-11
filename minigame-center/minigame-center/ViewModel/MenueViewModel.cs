@@ -9,48 +9,52 @@ using System.Windows;
 
 namespace minigame_center.ViewModel
 {
-    internal class MenueViewModel : BaseViewModel
+    public class MenueViewModel : BaseViewModel
     {
-        public DelegateCommand NavigateCommand { get; set; }
-
-        public event EventHandler MenueItemClicked;
-
         public MenuItemViewModel VierGewinntMenuItemViewModel { get; }
-        public MenuItemViewModel SecondMenuItemViewModel { get; }
+        public MenuItemViewModel TestUIMenuItemViewModel { get; }
         public MenuItemViewModel ThirdMenuItemViewModel { get; }
         public MenuItemViewModel FourthMenuItemViewModel { get; }
 
-
         public MenueViewModel()
-        {    
-            this.NavigateCommand = new DelegateCommand(
-                        (o) =>  App.MainViewModel.NavigateToPage(new VierGewinntViewModel())
-            ) ;
-
+        {
             VierGewinntMenuItemViewModel = new MenuItemViewModel
             {
                 ButtonContent = "Vier Gewinnt",
-                BackgroundImageSource = "../Assets/vierGewinnt.jpg"
+                BackgroundImageSource = "../Assets/vierGewinnt.jpg",
+                NavDestination = new VierGewinntViewModel(),
+                NavDestinationHeadline = "Vier Gewinnt"
             };
             VierGewinntMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
-            SecondMenuItemViewModel = new MenuItemViewModel
+            TestUIMenuItemViewModel = new MenuItemViewModel
             {
-                ButtonContent = "",
-                BackgroundImageSource = "../Assets/inProgress.jpg"
+                ButtonContent = "TestUI",
+                BackgroundImageSource = "../Assets/placeholder.png",
+                NavDestination = new TestUIViewModel(),
+                NavDestinationHeadline = "TestUI"
             };
+            TestUIMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
             ThirdMenuItemViewModel = new MenuItemViewModel
             {
                 ButtonContent = "",
                 BackgroundImageSource = "../Assets/inProgress.jpg"
             };
+            ThirdMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
             FourthMenuItemViewModel = new MenuItemViewModel
             {
                 ButtonContent = "",
                 BackgroundImageSource = "../Assets/inProgress.jpg"
             };
-            
+            FourthMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
         }
 
-        private void HandleMenuItemClicked(object sender, EventArgs e) => NavigateCommand.Execute(new VierGewinntViewModel());
+        private void HandleMenuItemClicked(object sender, EventArgs e)
+        {
+            var menuItemViewModel = sender as MenuItemViewModel;
+            if (menuItemViewModel != null && menuItemViewModel.NavDestination != null)
+            {
+                App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
+            }
+        }
     }
 }
