@@ -12,18 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using minigame_center.ViewModel;
 
-namespace minigame_center.View
+namespace minigame_center.Components
 {
     /// <summary>
-    /// Interaction logic for Menue.xaml
+    /// Interaction logic for MenueItem.xaml
     /// </summary>
-    public partial class Menue : Page
+    public partial class MenueItem : UserControl
     {
-        public Menue()
+        public MenueItem()
         {
             InitializeComponent();
         }
     }
 }
+

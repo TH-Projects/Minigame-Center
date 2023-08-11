@@ -55,17 +55,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\MenueItemViewModel.cs" />
+    <Compile Include="HelperClasses\DelegateCommand.cs" />
     <Compile Include="HelperClasses\NavigationService.cs" />
     <Compile Include="HelperClasses\ViewLocator.cs" />
     <Compile Include="Interfaces\INavigationService.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MenueViewModel.cs" />
     <Compile Include="ViewModel\TestUIViewModel.cs" />
+    <Compile Include="ViewModel\VierGewinntViewModel.cs" />
     <Compile Include="View\Menue.xaml.cs">
       <DependentUpon>Menue.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TestUI.xaml.cs">
       <DependentUpon>TestUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VierGewinnt.xaml.cs">
+      <DependentUpon>VierGewinnt.xaml</DependentUpon>
     </Compile>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -80,11 +86,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Components\MenueItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="Components\MenueItem.xaml.cs">
+      <DependentUpon>MenueItem.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Page Include="View\Menue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TestUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VierGewinnt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,6 +135,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\inProgress.jpg" />
+    <Resource Include="Assets\placeholder.png" />
+    <Resource Include="Assets\vierGewinnt.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
