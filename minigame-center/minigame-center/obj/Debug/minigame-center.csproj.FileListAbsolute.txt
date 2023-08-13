@@ -84,24 +84,7 @@ C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\Me
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\Menue.g.cs
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.g.cs
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
-C:\Projects\A1\minigame-center\minigame-center\bin\Debug\minigame-center.exe.config
-C:\Projects\A1\minigame-center\minigame-center\bin\Debug\minigame-center.exe
-C:\Projects\A1\minigame-center\minigame-center\bin\Debug\minigame-center.pdb
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.AssemblyReference.cache
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.SuggestedBindingRedirects.cache
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\View\MainWindow.g.cs
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\View\Menue.g.cs
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.g.cs
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\App.g.cs
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center_MarkupCompile.cache
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center_MarkupCompile.lref
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\View\MainWindow.baml
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\View\Menue.baml
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center.g.resources
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame_center.Properties.Resources.resources
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.GenerateResource.cache
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.CoreCompileInputs.cache
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center.exe
-C:\Projects\A1\minigame-center\minigame-center\obj\Debug\minigame-center.pdb
+C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\Menue.g.cs
+C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.g.cs
+C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\Menue.baml
+C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
