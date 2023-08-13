@@ -36,13 +36,11 @@ C:\Git\A1\minigame-center\minigame-center\bin\Debug\minigame-center.exe
 C:\Git\A1\minigame-center\minigame-center\bin\Debug\minigame-center.pdb
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.AssemblyReference.cache
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.SuggestedBindingRedirects.cache
-C:\Git\A1\minigame-center\minigame-center\obj\Debug\Components\ResponsiveLabel.g.cs
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\MainWindow.g.cs
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\App.g.cs
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\minigame-center_MarkupCompile.cache
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\minigame-center_MarkupCompile.lref
-C:\Git\A1\minigame-center\minigame-center\obj\Debug\Components\ResponsiveLabel.baml
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\MainWindow.baml
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\minigame-center.g.resources
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\minigame_center.Properties.Resources.resources
@@ -68,3 +66,7 @@ C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\Compone
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\VierGewinnt.g.cs
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\Components\MenueItem.baml
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\VierGewinnt.baml
+C:\Git\A1\minigame-center\minigame-center\obj\Debug\Components\MenueItem.g.cs
+C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\VierGewinnt.g.cs
+C:\Git\A1\minigame-center\minigame-center\obj\Debug\Components\MenueItem.baml
+C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\VierGewinnt.baml
