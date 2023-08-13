@@ -57,7 +57,6 @@ C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\Menue.baml
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\Menue.g.cs
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.g.cs
 C:\Git\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
-<<<<<<< HEAD
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\bin\Debug\minigame-center.exe.config
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\bin\Debug\minigame-center.exe
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\bin\Debug\minigame-center.pdb
@@ -81,9 +80,11 @@ D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\mini
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.csproj.CoreCompileInputs.cache
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.exe
 D:\Michael Schick\Studium\DHBW\Semester2\Semesterprojekt\A1\minigame-center\minigame-center\obj\Debug\minigame-center.pdb
-=======
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\Menue.baml
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\Menue.g.cs
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.g.cs
 C:\Users\heckmann\Documents\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
->>>>>>> cd5bdf05148c44b88a77f17d2f83a77d2b04c12f
+C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\Menue.g.cs
+C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.g.cs
+C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\Menue.baml
+C:\Users\Timo Heckmann\Documents\GithubLocal\A1\minigame-center\minigame-center\obj\Debug\View\TestUI.baml
