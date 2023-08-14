@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using minigame_center.ViewModel;
+using minigame_center.HelperClasses;
+using System.Security.Cryptography.X509Certificates;
 
 namespace minigame_center.ViewModel
 {
@@ -48,6 +50,7 @@ namespace minigame_center.ViewModel
                 }
             }
         }
+        public DelegateCommand OptionalCommand { get; set; }
         string buttonContent = "Click here";
         public string ButtonContent
         {
@@ -89,6 +92,9 @@ namespace minigame_center.ViewModel
         }
         public TestUIViewModel()
         {
+            this.OptionalCommand = new DelegateCommand(
+               (o) => { throw new NotImplementedException("No command implemented yet"); }
+               );
             firstLabelHeadline = "Success";
             secondLabelHeadline = "Error";
             buttonContent = "Click";
