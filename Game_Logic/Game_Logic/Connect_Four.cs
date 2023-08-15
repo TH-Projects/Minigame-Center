@@ -17,22 +17,24 @@ namespace Game_Logic
 
     internal class Connect_Four
     {
-        public string[,] GameField { get; set; }
-        private string clinetID;
+        public int[,] GameField { get; set; }
+        private int CurrentPlayer;
         private int Field_X;
         private int Field_Y;
 
 
-        public Connect_Four(int Field_X ,  int Field_Y, string clientID)
+        public Connect_Four(int Field_X ,  int Field_Y, int CurrentPlayer)
         {
-            this.clinetID = clientID;
-            GameField = new string[Field_Y, Field_X];
+            this.CurrentPlayer = CurrentPlayer;
+            this.Field_X = Field_X;
+            this.Field_Y = Field_Y;
+            GameField = new int[Field_Y, Field_X];
             
             for (int i = 0; i < Field_Y; i++)
             {
                 for (int j = 0; j < Field_X; j++)
                 {
-                    GameField[i, j] = "empty";
+                    GameField[i, j] = 0;
                 }   
             }
         }
@@ -41,7 +43,7 @@ namespace Game_Logic
         public bool SetStonePossible(int Current_X)
         {
             for (int i = 0; i < Field_Y; i++){ 
-                if (GameField[i, Current_X] == "empty")
+                if (GameField[i, Current_X] == 0)
                 {
                     return true;
                 }
@@ -52,27 +54,29 @@ namespace Game_Logic
         public GameResult SetStone(int Current_X)
         {
             int Current_Y = 0;
-            for(int i = Field_Y -1; i >0; i--)
+            int i = Field_Y -1;
+
+            while (!(GameField[i, Current_X] == 0))
             {
-                if (GameField[i, Current_X] == "empty")
-                {
-                    GameField[i, Current_X] = clinetID;
-                    Current_Y = i;
-                }
+                i--;
             }
+
+            GameField[i, Current_X] = CurrentPlayer;
+            Current_Y = i;
+              
             return CheckIfPlayerWon(Current_X, Current_Y);
         }
 
 
         private GameResult CheckIfPlayerWon(int Current_X, int Current_Y)
         {
-            GameResult gameResult;
+            GameResult gameResult = GameResult.Running;
             bool EmptyFieldExist = false;
             for (int i = 0; i < Field_Y; i++)
             {
                 for (int j = 0; j < Field_X; j++)
                 {
-                    if (GameField[i, j] == "empty")
+                    if (GameField[i, j] == 0)
                     {
                         EmptyFieldExist = true;
                     }
@@ -83,7 +87,7 @@ namespace Game_Logic
 
             for (int i = 0; i < Field_X; i++)
             {
-              if (GameField[Current_Y, i] == clinetID)
+              if (GameField[Current_Y, i] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -96,10 +100,10 @@ namespace Game_Logic
                 }
             }
 
-
+            Count = 0;
             for (int i = 0; i < Field_Y; i++)
             {
-                if (GameField[i, Current_X] == clinetID)
+                if (GameField[i, Current_X] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -113,20 +117,29 @@ namespace Game_Logic
                 }
             }
 
-         
-            int Diagnonal_X = Current_X;
-            int Diagnonal_Y = Current_Y; 
+            int Diagnonal_X;
+            int Diagnonal_Y;
 
-
-
-           while(Diagnonal_X > 0 && Diagnonal_Y > 0)
-                Diagnonal_X -= 1;
-                Diagnonal_Y -= 1;
-            }
-
-            for (int i = 0; i < Diagnonal_Y + i && i < Diagnonal_X + i; i++)
+            if (Current_X > Current_Y)
             {
-                if (GameField[Diagnonal_Y + i, Diagnonal_X + i] == clinetID)
+                Diagnonal_X = Current_X - Current_Y;
+                Diagnonal_Y = 0;
+            }
+            else if (Current_X < Current_Y)
+            {
+                Diagnonal_Y = Current_Y - Current_X;
+                Diagnonal_X = 0;
+            }
+            else
+            {
+                Diagnonal_X = 0;
+                Diagnonal_Y = 0;
+            }
+
+            Count = 0;
+            for (int i = 0; Field_X > Diagnonal_X + i && Field_Y > Diagnonal_Y + i; i++)
+            {
+                if (GameField[Diagnonal_Y + i, Diagnonal_X + i] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -139,6 +152,39 @@ namespace Game_Logic
                     Count = 0;
                 }
             }
+
+            Diagnonal_X = Current_X;
+            Diagnonal_Y = Current_Y;
+
+            while (Diagnonal_X > 0 && Diagnonal_Y < Field_Y-1)
+            {
+                Diagnonal_X--;
+                Diagnonal_Y++;
+            }
+
+            Count = 0;
+            for (int i = 0; Field_X > Diagnonal_X + i && 0 <= Diagnonal_Y - i; i++)
+            {
+                if (GameField[Diagnonal_Y - i, Diagnonal_X + i] == CurrentPlayer)
+                {
+                    Count++;
+                    if (Count == 4)
+                    {
+                        gameResult = GameResult.Won;
+                    }
+                }
+                else
+                {
+                    Count = 0;
+                }
+            }
+
+            if (gameResult == GameResult.Running && !EmptyFieldExist)
+            {
+                gameResult = GameResult.Draw;
+            }
+
+            return gameResult;
         }
     }
 }
