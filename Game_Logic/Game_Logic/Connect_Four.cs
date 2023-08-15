@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Game_Logic
         Running
     }
 
-    internal class Connect_Four
+    public class Connect_Four
     {
         public int[,] GameField { get; set; }
         private int CurrentPlayer;
