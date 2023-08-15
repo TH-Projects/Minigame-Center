@@ -23,7 +23,7 @@ namespace Game_Logic
         private int Field_Y; // Defines the height of the array/field
 
 
-        public Connect_Four(int Field_X ,  int Field_Y, int CurrentPlayer) 
+        public Connect_Four(int Field_X ,  int Field_Y, int CurrentPlayer) //Params: width, height, CurrentPlayer
         {
             this.CurrentPlayer = CurrentPlayer;
             this.Field_X = Field_X;
@@ -51,7 +51,7 @@ namespace Game_Logic
             return false;
         }
 
-        public GameResult SetStone(int Current_X)
+        public GameResult SetStone(int Current_X)   //Param: Choses in which vertical line the stone is placed (begin line 0)
         {
             int Current_Y = 0;
             int i = Field_Y -1;
