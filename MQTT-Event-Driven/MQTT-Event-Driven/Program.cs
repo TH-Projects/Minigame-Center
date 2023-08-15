@@ -34,8 +34,8 @@ namespace MQTT_Event_Driven
             mq.MessageReceived += HandleMessageReceived;
             Thread.Sleep(2000);
             while (true) {
-                await mq.Subscribe("test");
-                await mq.Publish("Deine Mom", "test");
+                await mq.Subscribe("test2");
+                await mq.Publish("Deine Mom", "test2");
                 Thread.Sleep(1000);
             }
         }
