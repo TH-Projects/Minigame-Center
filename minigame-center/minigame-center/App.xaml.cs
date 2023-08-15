@@ -15,14 +15,15 @@ namespace minigame_center
     /// </summary>
     public partial class App : Application
     {
+        public static MainWindowViewModel MainViewModel { get; private set; }
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             var mainWindow = new MainWindow();
             var navigationService = new NavigationService(mainWindow.fr_MainContent);
-            var mainWindowViewModel = new MainWindowViewModel(navigationService);
-            mainWindow.DataContext = mainWindowViewModel;
+            MainViewModel = new MainWindowViewModel(navigationService);
+            mainWindow.DataContext = MainViewModel;
      
             this.MainWindow = mainWindow; // Das MainWindow der App zuweisen
             mainWindow.Show();       

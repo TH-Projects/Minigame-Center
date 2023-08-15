@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,17 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using minigame_center.ViewModel;
 
-namespace minigame_center.View
+namespace minigame_center.Components
 {
     /// <summary>
-    /// Interaction logic for TestUI.xaml
+    /// Interaction logic for MenueItem.xaml
     /// </summary>
-    public partial class TestUI : Page
+    public partial class MenueItem : UserControl
     {
-
-        public TestUI()
+        public MenueItem()
         {
             InitializeComponent();
         }

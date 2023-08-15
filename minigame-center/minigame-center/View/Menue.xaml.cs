@@ -10,14 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using minigame_center.ViewModel;
 
 namespace minigame_center.View
 {
     /// <summary>
     /// Interaction logic for Menue.xaml
     /// </summary>
-    public partial class Menue : Window
+    public partial class Menue : Page
     {
         public Menue()
         {
