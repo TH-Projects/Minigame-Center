@@ -13,10 +13,10 @@ namespace Game_Logic
 
             int[,] matrix = {
             { 0, 2, 1 , 1 , 1},
-            { 1, 1, 2 , 2 , 2},
-            { 2, 2, 1 , 1 , 1},
-            { 1,1 , 1 , 2 , 2},
-            { 2, 2, 1 , 1 , 1},
+            { 2, 1, 2 , 2 , 2},
+            { 1, 2, 1 , 1 , 1},
+            { 1,1 , 1 , 1 , 2},
+            { 1, 2, 1 , 1 , 1},
         };
 
             GameResult gameResult = GameResult.Running;

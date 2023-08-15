@@ -19,11 +19,11 @@ namespace Game_Logic
     {
         public int[,] GameField { get; set; }
         private int CurrentPlayer;
-        private int Field_X;
-        private int Field_Y;
+        private int Field_X; // Defines the width of the array/field
+        private int Field_Y; // Defines the height of the array/field
 
 
-        public Connect_Four(int Field_X ,  int Field_Y, int CurrentPlayer)
+        public Connect_Four(int Field_X ,  int Field_Y, int CurrentPlayer) 
         {
             this.CurrentPlayer = CurrentPlayer;
             this.Field_X = Field_X;
@@ -40,7 +40,7 @@ namespace Game_Logic
         }
 
 
-        public bool SetStonePossible(int Current_X)
+        public bool SetStonePossible(int Current_X) // Look if line isn't full
         {
             for (int i = 0; i < Field_Y; i++){ 
                 if (GameField[i, Current_X] == 0)
@@ -48,7 +48,7 @@ namespace Game_Logic
                     return true;
                 }
             }
-                return false;
+            return false;
         }
 
         public GameResult SetStone(int Current_X)
@@ -70,6 +70,7 @@ namespace Game_Logic
 
         private GameResult CheckIfPlayerWon(int Current_X, int Current_Y)
         {
+            //Test Draw
             GameResult gameResult = GameResult.Running;
             bool EmptyFieldExist = false;
             for (int i = 0; i < Field_Y; i++)
@@ -84,7 +85,7 @@ namespace Game_Logic
             }
             int Count = 0;
 
-
+            // Test Horizontally
             for (int i = 0; i < Field_X; i++)
             {
               if (GameField[Current_Y, i] == CurrentPlayer)
@@ -100,6 +101,7 @@ namespace Game_Logic
                 }
             }
 
+            //Test Vertically
             Count = 0;
             for (int i = 0; i < Field_Y; i++)
             {
@@ -117,23 +119,14 @@ namespace Game_Logic
                 }
             }
 
-            int Diagnonal_X;
-            int Diagnonal_Y;
+            // Test from top left to bottom right
+            int Diagnonal_X = Current_X;
+            int Diagnonal_Y = Current_Y;
 
-            if (Current_X > Current_Y)
+            while (Diagnonal_X > 0 && Diagnonal_Y < 0)
             {
-                Diagnonal_X = Current_X - Current_Y;
-                Diagnonal_Y = 0;
-            }
-            else if (Current_X < Current_Y)
-            {
-                Diagnonal_Y = Current_Y - Current_X;
-                Diagnonal_X = 0;
-            }
-            else
-            {
-                Diagnonal_X = 0;
-                Diagnonal_Y = 0;
+                Diagnonal_X--;
+                Diagnonal_Y--;
             }
 
             Count = 0;
