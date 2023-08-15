@@ -14,12 +14,12 @@ namespace Game_Logic
         {
 
             int[,] matrix = {           // Initial Matrix for test cases
-            { 1, 2, 0, 2, 1, 2, 1 },
-            { 2, 1, 2, 1, 2, 1, 2 },
-            { 1, 2, 1, 2, 1, 2, 1 },
-            { 2, 1, 2, 1, 2, 1, 2 },
-            { 1, 2, 1, 2, 1, 2, 1 },
-            { 2, 1, 2, 1, 2, 1, 2 },
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {2, 1, 0, 1, 2, 0, 0},
+            {2, 2, 1, 2, 2, 0, 0},
+            {2, 1, 2, 1, 2, 0, 0},
+            {2, 2, 2, 2, 2, 0, 0},
             };
 
             GameResult gameResult = GameResult.Running;
@@ -28,10 +28,10 @@ namespace Game_Logic
             Connect_Four connect_Four = new Connect_Four(7, 6, 1);
             connect_Four.GameField = matrix;
 
-            if (connect_Four.SetStonePossible(2))
+            if (connect_Four.SetStonePossible(4))
             {
                 Console.WriteLine("Test");
-                gameResult = connect_Four.SetStone(2);
+                gameResult = connect_Four.SetStone(4);
 
             }
  

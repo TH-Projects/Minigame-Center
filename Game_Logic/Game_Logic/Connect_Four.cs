@@ -120,11 +120,11 @@ namespace Game_Logic
                 }
             }
 
-            // Test from top left to bottom right
+            // Test diagonal falling
             int Diagnonal_X = Current_X;
             int Diagnonal_Y = Current_Y;
 
-            while (Diagnonal_X > 0 && Diagnonal_Y < 0)
+            while (Diagnonal_X > 0 && Diagnonal_Y > 0)
             {
                 Diagnonal_X--;
                 Diagnonal_Y--;
@@ -147,6 +147,8 @@ namespace Game_Logic
                 }
             }
 
+
+            // Test diagonal rising
             Diagnonal_X = Current_X;
             Diagnonal_Y = Current_Y;
 

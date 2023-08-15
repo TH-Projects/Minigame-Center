@@ -95,7 +95,7 @@ namespace Game_Logic
 
 
         [Test]
-        public void SetStone_MoveLeadsToWin()
+        public void SetStone_MoveLeadsToDiagonalRisingWin()
         {
             // Arrange
             int[,] matrix = {
@@ -113,8 +113,75 @@ namespace Game_Logic
             GameResult gameResult = connect_Four_Test.SetStone(3);
 
             //Assert 
-            Assert.That(gameResult, Is.EqualTo(GameResult.Won), "The game result should be won because 4 stones are in a line");
+            Assert.That(gameResult, Is.EqualTo(GameResult.Won), "The game result should be won because 4 stones are in a rising diagonal line");
         }
+
+        [Test]
+        public void SetStone_MoveLeadsToDiagonalFallingWin()
+        {
+            // Arrange
+            int[,] matrix = {
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 1, 0, 0, 0, 0, 0},
+            {2, 2, 1, 0, 0, 0, 0},
+            {2, 1, 2, 1, 0, 0, 0},
+            {2, 2, 1, 2, 0, 0, 0},
+            {2, 2, 2, 2, 2, 0, 0},
+            };
+            Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
+
+            // Act
+            connect_Four_Test.GameField = matrix;
+            GameResult gameResult = connect_Four_Test.SetStone(4);
+
+            //Assert 
+            Assert.That(gameResult, Is.EqualTo(GameResult.Won), "The game result should be won because 4 stones are in a falling diagonal line");
+        }
+
+        [Test]
+        public void SetStone_MoveLeadsToHorizontalWin()
+        {
+            // Arrange
+            int[,] matrix = {
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {2, 2, 2, 0, 0, 0, 0},
+            {1, 1, 1, 0, 0, 0, 0},
+            };
+            Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
+
+            // Act
+            connect_Four_Test.GameField = matrix;
+            GameResult gameResult = connect_Four_Test.SetStone(3);
+
+            //Assert 
+            Assert.That(gameResult, Is.EqualTo(GameResult.Won), "The game result should be won because 4 stones are in a horizontal line");
+        }
+
+        [Test]
+        public void SetStone_MoveLeadsToVertikalWin()
+        {
+            // Arrange
+            int[,] matrix = {
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 2, 1, 0, 0, 0, 0},
+            {0, 2, 1, 0, 0, 0, 0},
+            {0, 2, 1, 0, 0, 0, 0},
+            };
+            Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
+
+            // Act
+            connect_Four_Test.GameField = matrix;
+            GameResult gameResult = connect_Four_Test.SetStone(2);
+
+            //Assert 
+            Assert.That(gameResult, Is.EqualTo(GameResult.Won), "The game result should be won because 4 stones are in a vertikal line");
+        }
+
 
         [Test]
         public void SetStone_MoveLeadsToDraw()
