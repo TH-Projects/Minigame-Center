@@ -31,6 +31,13 @@ namespace MQTT_Event_Driven.MQTTClient
             timestamp = DateTime.Now;
         }
 
+        public void buildGameRunningMsg()
+        {
+            hasOpponent = true;
+            gamestatus = GameStatus.NO_OPPONENT;
+            timestamp = DateTime.Now;
+        }
+
         public string toString()
         {
             return JsonSerializer.Serialize<BasePayload>(this);
