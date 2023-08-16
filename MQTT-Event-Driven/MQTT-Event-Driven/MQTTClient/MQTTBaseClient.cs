@@ -14,21 +14,16 @@ using Newtonsoft.Json;
 
 namespace MQTT_Event_Driven
 {
-    class MessageData
-    {
-        public string senderId { get; set; }
-        public string messageType { get; set; }
-        public string content { get; set; }
-
-    }
-    public class MqttClientService
+    public abstract class MqttBaseClient
     {
         private readonly IMqttClient _mqttClient;
         private readonly Guid clientID;
 
         public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
 
-        public MqttClientService()
+        public int ClientID { get; set; }
+
+        public MqttBaseClient()
         {
             var factory = new MqttFactory();
             _mqttClient = factory.CreateMqttClient();
@@ -39,13 +34,8 @@ namespace MQTT_Event_Driven
                 Console.WriteLine($"Received message on topic {e.ApplicationMessage.Topic}: {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
 
                 // Trigger the event when a message is received
-                await OnMessageReceivedAsync(e);
+                MessageReceived?.Invoke(this, e);
             };
-        }
-
-        private async Task OnMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs e)
-        {
-            MessageReceived?.Invoke(this, e);
         }
 
         public async Task Publish(string message, string topic)

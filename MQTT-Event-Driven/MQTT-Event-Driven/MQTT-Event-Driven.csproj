@@ -129,7 +129,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigManager\ConfigManager.cs" />
-    <Compile Include="MQTTClient\MQTTBasicClient.cs" />
+    <Compile Include="MQTTClient\MQTTBaseClient.cs" />
+    <Compile Include="MQTTClient\MQTTGameClient.cs" />
     <Compile Include="MQTTClient\MQTT_Messages.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
