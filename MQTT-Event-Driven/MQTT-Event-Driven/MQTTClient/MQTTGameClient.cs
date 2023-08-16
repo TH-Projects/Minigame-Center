@@ -35,9 +35,18 @@ namespace MQTT_Event_Driven.MQTTClient
         {
             try
             {
+                int trys = 0;
                 await Connect(ConfigManager.Server, ConfigManager.Port, ConfigManager.User, ConfigManager.Password);
                 await Subscribe(game_topic);
-                Thread.Sleep(1000);
+                
+                while(trys < 5){ 
+                    if(currentMessage != null)
+                    {
+                        // Handles when a message is recieved
+                    }
+                    Thread.Sleep(500);
+                }
+                //Handles when no message is received
                 if (currentMessage == null)
                 {
                     var Payload = new BasePayload();
