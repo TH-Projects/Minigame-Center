@@ -17,11 +17,11 @@ namespace MQTT_Event_Driven
     public abstract class MqttBaseClient
     {
         private readonly IMqttClient _mqttClient;
-        private readonly Guid clientID;
+        protected Guid clientID;
 
         public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
 
-        public int ClientID { get; set; }
+        public Guid ClientID { get;}
 
         public MqttBaseClient()
         {
@@ -31,7 +31,7 @@ namespace MQTT_Event_Driven
 
             _mqttClient.ApplicationMessageReceivedAsync += async ( e) =>
             {
-                Console.WriteLine($"Received message on topic {e.ApplicationMessage.Topic}: {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
+                Console.WriteLine($"Received message on topic on Main {e.ApplicationMessage.Topic} from ClientID {e.ClientId} : {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
 
                 // Trigger the event when a message is received
                 MessageReceived?.Invoke(this, e);
@@ -45,7 +45,7 @@ namespace MQTT_Event_Driven
                 var applicationMessage = new MqttApplicationMessageBuilder()
                     .WithTopic(topic)
                     .WithPayload(message)
-                    //.WithRetainFlag()     // Retain Flag belässt Nachricht im Topic
+                    .WithRetainFlag(true)     // Retain Flag belässt Nachricht im Topic
                     .Build();
 
                 MqttClientPublishResult publishResult = await _mqttClient.PublishAsync(applicationMessage);
@@ -86,6 +86,7 @@ namespace MQTT_Event_Driven
                 .WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V500)
                 .WithTcpServer(broker, port)
                 .WithCredentials(username, password)
+                .WithClientId(clientID.ToString())
                 .WithTls(
                 o =>
                 {

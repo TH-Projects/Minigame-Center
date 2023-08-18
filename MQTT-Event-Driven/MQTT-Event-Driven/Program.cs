@@ -17,7 +17,7 @@ namespace MQTT_Event_Driven
         static void Main(string[] args)
         {
             Init();
-            
+
             while (true) { }
         }
 
@@ -27,17 +27,11 @@ namespace MQTT_Event_Driven
             Console.WriteLine($"Received message on topic on Main {e.ApplicationMessage.Topic} from ClientID {e.ClientId} : {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
             // Add your custom logic to handle the received message
         }
-
+        
         static async void Init()
         {
             ConfigManager.BuildConfig();
             await mq.Setup();
-            mq.MessageReceived += HandleMessageReceived;
-            Thread.Sleep(2000);
-            while (true) {
-                //await mq.Publish("Deine Mom", "test");
-                Thread.Sleep(1000);
-            }
         }
     }
 }

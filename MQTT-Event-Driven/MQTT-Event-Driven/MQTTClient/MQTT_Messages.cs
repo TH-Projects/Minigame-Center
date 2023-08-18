@@ -7,37 +7,63 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Text.Json;
 using MQTTnet;
+using System.Diagnostics.Tracing;
 
 namespace MQTT_Event_Driven.MQTTClient
 {
     public enum GameStatus
     {
+        NO_RESPONSE,
         NO_OPPONENT,
         RUNNING,
         FINISHED
     }
     public class BasePayload
     {
-        public bool hasOpponent { get; set; }
-        public string gamefield { get; set; }
+        public int[][] gamefield { get; set; }
         public GameStatus gamestatus { get; set; }
+
+        public Guid sender{ get; set; }
         public Guid winner { get; set; }
         public DateTime timestamp { get; set; }
 
-        public void buildBasicMsg()
+        public void buildNoOpponentMsg(Guid sender)
         {
-            hasOpponent = false;
+            this.sender = sender;
             gamestatus = GameStatus.NO_OPPONENT;
             timestamp = DateTime.Now;
         }
 
-        public void buildGameRunningMsg()
+        public void buildGameRunningMsg(Guid sender)
         {
-            hasOpponent = true;
-            gamestatus = GameStatus.NO_OPPONENT;
+            this.sender = sender;
+            gamefield = null;
+            gamestatus = GameStatus.RUNNING;
             timestamp = DateTime.Now;
         }
 
+        public void buildGameRunningMsg(Guid sender, int[][] gamefield)
+        {
+            this.sender = sender;
+            this.gamefield = gamefield;
+            gamestatus = GameStatus.RUNNING;
+            timestamp = DateTime.Now;
+        }
+
+        public void buildGameFinishedMsg(Guid sender)
+        {
+            this.sender = sender;
+            gamestatus = GameStatus.FINISHED;
+            timestamp = DateTime.Now;
+        }
+
+        public void buildGameFinishedMsg(Guid sender, Guid winner)
+        {
+            this.sender = sender;
+            gamestatus = GameStatus.FINISHED;
+            this.winner = winner;
+            timestamp = DateTime.Now;
+        }
         public string toString()
         {
             return JsonSerializer.Serialize<BasePayload>(this);
