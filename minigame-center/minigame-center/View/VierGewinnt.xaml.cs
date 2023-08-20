@@ -1,6 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System.Windows;
 
 namespace minigame_center.View
 {
@@ -28,7 +29,20 @@ namespace minigame_center.View
 
             GeneratedGrid.Children.Add(gameGrid);
 
-            for (int row = 0; row < rows; row++)
+            for (int col = 0; col < columns; col++)
+            {
+                Button dropButton = new Button();
+                dropButton.Content = "*";
+                dropButton.Width = 80;
+                dropButton.Height = 30;
+                dropButton.Margin = new System.Windows.Thickness(5);
+                dropButton.Click += (sender, e) => DropButton_Click(sender, e, col); // Handle button click
+                gameGrid.Children.Add(dropButton);
+                Grid.SetRow(dropButton, 0);
+                Grid.SetColumn(dropButton, col);
+            }
+
+            for (int row = 1; row < rows; row++)
             {
                 for (int col = 0; col < columns; col++)
                 {
@@ -36,12 +50,17 @@ namespace minigame_center.View
                     blackCircle.Fill = Brushes.DarkBlue;
                     blackCircle.Width = 80;
                     blackCircle.Height = 80;
-                    blackCircle.Margin = new System.Windows.Thickness(5); // Hier wurde der Margin-Wert angepasst
+                    blackCircle.Margin = new System.Windows.Thickness(5);
                     gameGrid.Children.Add(blackCircle);
                     Grid.SetRow(blackCircle, row);
                     Grid.SetColumn(blackCircle, col);
                 }
             }
+        }
+
+        private void DropButton_Click(object sender, RoutedEventArgs e, int column)
+        {
+
         }
     }
 }
