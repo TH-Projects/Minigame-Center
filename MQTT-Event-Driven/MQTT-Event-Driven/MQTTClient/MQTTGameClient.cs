@@ -11,6 +11,10 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 
 
+//using Game_Logic;
+//game logic namespace not yet merged into this branch
+//GameResut and ConnectFour classes not yet accessible to the GameClient
+
 namespace MQTT_Event_Driven.MQTTClient
 {
 
@@ -29,6 +33,50 @@ namespace MQTT_Event_Driven.MQTTClient
         static Guid senderID;
 
         private static OnGamePayloadRecieved GamePayloadHandler;
+
+        //this method needs to be refactored into its own class.
+        //and be somehow passed to this class via the constructor
+        //this might have to be done in the Gui.
+        async void GamePayloadHandlingPrototype(BasePayload inputMessage)
+        {
+            //at this point it is verified that gamestatus == running
+            //and that the message comes from the opponent
+            GameResult gameResult = GameResult.Running;
+
+            //this function supports multiple games
+            if (game_topic == "4gewinnt")    
+            {
+                //prompt for player input
+                //need to figure out how
+                int selectedColumn = 4;
+
+                //process that input  (namespace not yet accessible)
+                Connect_Four connect_Four = new Connect_Four(7, 6, 1);//how to determine 1 or 2
+                connect_Four.GameField = inputMessage.gamefield;
+
+                if (connect_Four.SetStonePossible(selectedColumn))
+                {
+                    gameResult = connect_Four.SetStone(selectedColumn);
+                }
+
+                //publish a new message
+                BasePayload newMessage = inputMessage;
+
+                switch (gameResult)
+                {
+                    case GameResult.Won:
+                        newMessage.buildGameFinishedMsg(this.senderID, this.senderID);
+                        break;
+                    case GameResult.Draw:
+                        newMessage.buildGameFinishedMsg(this.senderID);
+                        break;
+                    case GameResult.Running:
+                        newMessage.buildGameRunningMsg(this.senderID,connect_Four.GameField);
+                        break;
+                }
+                await this.SendPayload(newMessage);
+            }
+        }
 
         /// <summary>
         /// Handels all incommiung messages
