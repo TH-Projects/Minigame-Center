@@ -13,13 +13,13 @@ namespace Game_Logic
         static void Main(string[] args)
         {
 
-            int[,] matrix = {           // Initial Matrix for test cases
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {2, 1, 0, 1, 2, 0, 0},
-            {2, 2, 1, 2, 2, 0, 0},
-            {2, 1, 2, 1, 2, 0, 0},
-            {2, 2, 2, 2, 2, 0, 0},
+            int[][] matrix ={           // Initial Matrix for test cases
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{2, 1, 0, 1, 2, 0, 0},
+            new int[]{2, 2, 1, 2, 2, 0, 0},
+            new int[]{2, 1, 2, 1, 2, 0, 0},
+            new int[]{2, 2, 2, 2, 2, 0, 0},
             };
 
             GameResult gameResult = GameResult.Running;
@@ -41,7 +41,7 @@ namespace Game_Logic
                 Console.WriteLine();
                 for (int j = 0; j < 7; j++)
                 {
-                    Console.Write(connect_Four.GameField[i, j]);
+                    Console.Write(connect_Four.GameField[i][j]);
                 }
             }
 

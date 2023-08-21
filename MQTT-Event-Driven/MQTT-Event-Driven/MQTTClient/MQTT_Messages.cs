@@ -20,7 +20,7 @@ namespace MQTT_Event_Driven.MQTTClient
     }
     public class BasePayload
     {
-        public int[,] gamefield { get; set; }
+        public int[][] gamefield { get; set; }
         public GameStatus gamestatus { get; set; }
 
         public Guid sender{ get; set; }
@@ -42,7 +42,7 @@ namespace MQTT_Event_Driven.MQTTClient
             timestamp = DateTime.Now;
         }
 
-        public void buildGameRunningMsg(Guid sender, int[,] gamefield)
+        public void buildGameRunningMsg(Guid sender, int[][] gamefield)
         {
             this.sender = sender;
             this.gamefield = gamefield;
