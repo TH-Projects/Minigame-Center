@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using MQTTnet.Server;
 
 
 namespace MQTT_PublicBroker_Connection
@@ -67,6 +68,7 @@ namespace MQTT_PublicBroker_Connection
 
             Subscribe(mqttClient, topic, uuidString);
             string userInput;
+
             do
             {
                 //Console.WriteLine("Gib nun deine Nachricht ein: ");
@@ -74,9 +76,14 @@ namespace MQTT_PublicBroker_Connection
                 messageData.messageType = "JSON-Test";
                 messageData.content = Console.ReadLine();
 
+                if (messageData.content == "unsubscribe") Unsubscribe(mqttClient, topic);    
+
+
                 messageJSON = JsonConvert.SerializeObject(messageData);
 
                 Publish(mqttClient, messageJSON, topic);
+
+                                         
             } while (true);
 
             Console.ReadLine(); // Wait for user input to keep the application running.
@@ -137,6 +144,20 @@ namespace MQTT_PublicBroker_Connection
             {
                 Console.WriteLine($"Fehler: {ex.Message}");
             }
+        }
+
+        public static async Task Unsubscribe(IMqttClient mqttClient, string topic)
+        {
+            try
+            {
+                Console.WriteLine($"Unsubscribe from topic: {topic}");
+                await mqttClient.UnsubscribeAsync(topic);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler: {ex.Message}");
+            }
+
         }
 
         public static async Task Connect(IMqttClient mqttClient, MqttClientOptions options)
