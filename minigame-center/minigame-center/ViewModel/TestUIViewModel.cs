@@ -102,7 +102,7 @@ namespace minigame_center.ViewModel
             }
 
             // Configuration settings for test reasons hardcoded
-            string Topic = "TestUI2";
+            string Topic = "TestUI3";
             int brokerPort = 8883;
             string brokerAddress = "25aee1926b284dfeb459111a517f7201.s2.eu.hivemq.cloud";
             var username = "minigame_inf22_dhbw";
