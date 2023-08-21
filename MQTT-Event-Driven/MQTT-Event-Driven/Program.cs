@@ -13,7 +13,7 @@ namespace MQTT_Event_Driven
 {
     internal class Program
     {
-        static MQTTGameClient mq = new MQTTGameClient("4gew");
+        static MQTTGameClient mq = new MQTTGameClient("4gew", MQTTGameClient.GamePayloadHandlingPrototype);
         static void Main(string[] args)
         {
             Init();

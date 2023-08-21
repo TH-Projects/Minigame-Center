@@ -11,7 +11,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 
 
-//using Game_Logic;
+using Game_Logic;
 //game logic namespace not yet merged into this branch
 //GameResut and ConnectFour classes not yet accessible to the GameClient
 
@@ -37,7 +37,7 @@ namespace MQTT_Event_Driven.MQTTClient
         //this method needs to be refactored into its own class.
         //and be somehow passed to this class via the constructor
         //this might have to be done in the Gui.
-        async void GamePayloadHandlingPrototype(BasePayload inputMessage)
+        static public async void GamePayloadHandlingPrototype(BasePayload inputMessage)
         {
             //at this point it is verified that gamestatus == running
             //and that the message comes from the opponent
@@ -65,16 +65,16 @@ namespace MQTT_Event_Driven.MQTTClient
                 switch (gameResult)
                 {
                     case GameResult.Won:
-                        newMessage.buildGameFinishedMsg(this.senderID, this.senderID);
+                        newMessage.buildGameFinishedMsg(senderID, senderID);
                         break;
                     case GameResult.Draw:
-                        newMessage.buildGameFinishedMsg(this.senderID);
+                        newMessage.buildGameFinishedMsg(   senderID);
                         break;
                     case GameResult.Running:
-                        newMessage.buildGameRunningMsg(this.senderID,connect_Four.GameField);
+                        newMessage.buildGameRunningMsg(senderID,connect_Four.GameField);
                         break;
                 }
-                await this.SendPayload(newMessage);
+                await SendPayload(newMessage);
             }
         }
 
