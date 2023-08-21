@@ -29,12 +29,14 @@ namespace minigame_center.View
 
             GeneratedGrid.Children.Add(gameGrid);
 
+            const double circleSize = 20; // Feste Größe der Kreise
+
             for (int col = 0; col < columns; col++)
             {
                 Button dropButton = new Button();
                 dropButton.Content = "*";
-                dropButton.Width = 80;
-                dropButton.Height = 30;
+                dropButton.Width = circleSize;
+                dropButton.Height = 40;
                 dropButton.Margin = new System.Windows.Thickness(5);
                 dropButton.Click += (sender, e) => DropButton_Click(sender, e, col); // Handle button click
                 gameGrid.Children.Add(dropButton);
@@ -48,8 +50,8 @@ namespace minigame_center.View
                 {
                     Ellipse blackCircle = new Ellipse();
                     blackCircle.Fill = Brushes.DarkBlue;
-                    blackCircle.Width = 80;
-                    blackCircle.Height = 80;
+                    blackCircle.Width = circleSize;
+                    blackCircle.Height = circleSize;
                     blackCircle.Margin = new System.Windows.Thickness(5);
                     gameGrid.Children.Add(blackCircle);
                     Grid.SetRow(blackCircle, row);
