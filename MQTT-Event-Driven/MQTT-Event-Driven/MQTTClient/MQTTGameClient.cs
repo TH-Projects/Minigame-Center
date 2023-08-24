@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 
 using Game_Logic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace MQTT_Event_Driven.MQTTClient
 {
@@ -23,59 +24,18 @@ namespace MQTT_Event_Driven.MQTTClient
 
         public static GameStatus game_state = GameStatus.NO_RESPONSE;
 
-        public const string game_topic = "4gewinnt";
+        public static string game_topic = "4gewinnt";
 
         static BasePayload currentMessage;
 
-        static public Guid oponnent {get; set;}
+        static public Guid oponnent { get; set; }
 
         static Guid senderID;
 
+        public static Guid SenderID {get;}
+
         private static OnGamePayloadRecieved GamePayloadHandler;
-        static public async void GamePayloadHandlingPrototype(BasePayload inputMessage)
-        {
-            Console.Out.WriteLineAsync("game payload handling function was called!");
-            //at this point it is verified that gamestatus == running
-            //and that the message comes from the opponent
-            GameResult gameResult = GameResult.Running;
-
-            //this function supports multiple games
-            if (game_topic == "4gewinnt")    
-            {
-                //prompt for player input
-                //need to figure out how
-                int selectedColumn = 4;
-
-                //process that input
-                Connect_Four connect_Four = new Connect_Four(7, 6, 1);//how to determine Player 1 or 2                 
-                connect_Four.GameField = inputMessage.gamefield;
-
-                if (connect_Four.SetStonePossible(selectedColumn))
-                {
-                    gameResult = connect_Four.SetStone(selectedColumn);
-                }
-
-                //publish a new message
-                BasePayload newMessage = inputMessage;
-
-                switch (gameResult)
-                {
-                    case GameResult.Won:
-                        newMessage.buildGameFinishedMsg(senderID, senderID);
-                        break;
-                    case GameResult.Draw:
-                        newMessage.buildGameFinishedMsg(senderID);
-                        break;
-                    case GameResult.Running:
-                        newMessage.buildGameRunningMsg(senderID,connect_Four.GameField);
-                        break;
-                }
-                //need to send new payload
-                
-
-                
-            }
-        }
+       
 
         /// <summary>
         /// Handels all incommiung messages
@@ -87,11 +47,12 @@ namespace MQTT_Event_Driven.MQTTClient
             string received_payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
             if (IsValidJson(received_payload)) { 
                 currentMessage = JsonSerializer.Deserialize<BasePayload>(received_payload);
-                senderID = Guid.Parse(e.ClientId);
+
+                senderID = currentMessage.sender;
 
                 if (game_state == GameStatus.RUNNING)
                 {
-                    if(e.ClientId == oponnent.ToString()) { 
+                    if(oponnent == senderID) { 
                         GamePayloadHandler(currentMessage);
                     }
                 }
@@ -117,6 +78,7 @@ namespace MQTT_Event_Driven.MQTTClient
         {
             MessageReceived += HandleMessageReceived;
             GamePayloadHandler = handler;
+            MQTTGameClient.game_topic = game;
         }
 
         /// <summary>
@@ -130,59 +92,32 @@ namespace MQTT_Event_Driven.MQTTClient
             {
                 Console.WriteLine("Setting up game connection");
                 Console.WriteLine($"ClientID: {clientID.ToString()}");
-                int trys = 0;
+
                 await Connect(ConfigManager.Server, ConfigManager.Port, ConfigManager.User, ConfigManager.Password);
                 await Subscribe(game_topic);
 
-                while (trys < 5){ 
-                    if(currentMessage != null && currentMessage is BasePayload)
-                    {
-                        if (currentMessage.gamestatus == GameStatus.RUNNING)
-                        {
-                            game_state = GameStatus.RUNNING;
-                            await Disconnect();
-                            throw new InvalidOperationException("Game in Running State");
-                        }
-                        else if(currentMessage.gamestatus == GameStatus.NO_OPPONENT)
-                        {
-                            oponnent = senderID;
-                            Console.WriteLine($"Game has no Oponnent currently. Updating Ratainmessage. Oponnent {oponnent.ToString()}");
-                            game_state = GameStatus.RUNNING;
-                            var payload = new BasePayload();
-
-                             int[][] initialMatrix ={           // Initial Matrix for test cases
-                                new int[] { 0, 0, 0, 0, 0, 0, 0 },
-                                new int[] { 0, 0, 0, 0, 0, 0, 0 },
-                                new int[] { 0, 0, 0, 0, 0, 0, 0 },
-                                new int[] { 0, 0, 0, 0, 0, 0, 0 },
-                                new int[] { 0, 0, 0, 0, 0, 0, 0 },
-                                new int[] { 0, 0, 0, 0, 0, 0, 0},
-                                };
-                            payload.buildGameRunningMsg(clientID,initialMatrix);//y ,x 
-                            await SendPayload(payload);
-
-
-                            break;
-                        }else if (currentMessage.gamestatus == GameStatus.FINISHED)
-                        {
-                            Console.WriteLine("Game has finished. Updating Ratainmessage.");
-                            game_state = GameStatus.NO_OPPONENT;
-                            var payload = new BasePayload();
-                            payload.buildNoOpponentMsg(clientID);
-                            await SendPayload(payload);
-                            break;
-                        }
-                    }
-                    Thread.Sleep(500);
-                    trys++;
-                }
+                await establishOponnent(5);
 
                 if(game_state == GameStatus.NO_RESPONSE) {
                     //Handles when no message is received
+                    await Console.Out.WriteLineAsync("Waiting for connection");
                     var Payload = new BasePayload();
                     Payload.buildNoOpponentMsg(clientID);
                     await SendPayload(Payload);
+                    await establishOponnent(100);
+
+                    if (game_state != GameStatus.RUNNING)
+                    {
+                        throw new ExternalException("No oponnent found");
+                    }
+                    else
+                    {
+                        await Console.Out.WriteLineAsync($"Handshake completed | Player 1: {clientID} | Player 2: {oponnent}");
+                    }
                 }
+
+                
+                
             }
 
             catch (Exception ex)
@@ -191,6 +126,61 @@ namespace MQTT_Event_Driven.MQTTClient
             }
         }
 
+        private async Task establishOponnent(int maxtrys)
+        {
+            int trys = 0;
+            while (trys < maxtrys)
+            {
+                if (currentMessage != null && currentMessage is BasePayload)
+                {
+                    if (currentMessage.gamestatus == GameStatus.RUNNING)
+                    {
+                        game_state = GameStatus.RUNNING;
+                        await Disconnect();
+                        await Console.Out.WriteLineAsync($"Game already running. Disconnecting!");
+                        throw new InvalidOperationException("Game in Running State");
+                    }
+                    else if (currentMessage.gamestatus == GameStatus.NO_OPPONENT)
+                    {
+                        if (senderID != clientID)
+                        {
+                            oponnent = senderID;
+                            await Console.Out.WriteLineAsync($"Game has no Oponnent currently. Updating Ratainmessage. Oponnent {oponnent.ToString()}");
+                            game_state = GameStatus.WAITING;
+                            var payload = new BasePayload();
+                            payload.buildWaitingMessage(clientID);//y ,x 
+                            await SendPayload(payload);
+                            return;
+                        }
+                    }
+                    else if(currentMessage.gamestatus == GameStatus.WAITING)
+                    {
+                        if (senderID != clientID)
+                        {
+                            oponnent = senderID;
+                            await Console.Out.WriteLineAsync($"Approving No Opponent Message. Oponnent {oponnent.ToString()}");
+                            game_state = GameStatus.RUNNING;
+                            var payload = new BasePayload();
+                            payload.buildGameRunningMsg(clientID);//y ,x 
+                            await SendPayload(payload);
+                            return;
+                        }
+                    }
+                    else if (currentMessage.gamestatus == GameStatus.FINISHED)
+                    {
+                        await Console.Out.WriteLineAsync("Game has finished. Updating Ratainmessage.");
+                        game_state = GameStatus.NO_OPPONENT;
+                        var payload = new BasePayload();
+                        payload.buildNoOpponentMsg(clientID);
+                        await SendPayload(payload);
+                        await establishOponnent(100);
+                        return;
+                    }
+                }
+                Thread.Sleep(500);
+                trys++;
+            }
+        }
         /// <summary>
         /// Sends a deserialised BasePayload to the topic defined above.
         /// </summary>

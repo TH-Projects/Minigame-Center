@@ -18,36 +18,68 @@ namespace Game_Logic
 
     public class Connect_Four
     {
-        public int[][] GameField { get; set; }
+        public int[,] GameField { get; set; }
         private int CurrentPlayer;
         private int Field_X; // Defines the width of the array/field
         private int Field_Y; // Defines the height of the array/field
 
 
-        public Connect_Four(int Field_X ,  int Field_Y, int CurrentPlayer) //Params: width, height, CurrentPlayer
+        public Connect_Four(int Field_X, int Field_Y, int CurrentPlayer) //Params: width, height, CurrentPlayer
         {
             this.CurrentPlayer = CurrentPlayer;
             this.Field_X = Field_X;
             this.Field_Y = Field_Y;
-            GameField = new int[Field_Y][];
+            GameField = new int[Field_Y, Field_X];
 
             for (int i = 0; i < Field_Y; i++)
             {
-                GameField[i] = new int[Field_X];
                 for (int j = 0; j < Field_X; j++)
                 {
-                     GameField[i][j] = 0;
+                    GameField[i, j] = 0;
+                }
+            }
+        }
+        public void setGamefieldFromArray(int[][] gamefield)
+        {
+            int rowCount = gamefield.Length;
 
+            int colCount = 0;
+            for (int i = 0; i < rowCount; i++)
+            {
+                int currentRowLength = gamefield[i].Length;
+                if (currentRowLength > colCount)
+                {
+                    colCount = currentRowLength;
                 }
             }
 
+            // Do something with rowCount and colCount, if needed
         }
 
+        public int[][] getGameFieldAsArray()
+        {
+            int rowCount = GameField.GetLength(0);
+            int colCount = GameField.GetLength(1);
+
+            int[][] jaggedArray = new int[rowCount][];
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                jaggedArray[i] = new int[colCount];
+                for (int j = 0; j < colCount; j++)
+                {
+                    jaggedArray[i][j] = GameField[i, j];
+                }
+            }
+
+            return jaggedArray;
+        }
 
         public bool SetStonePossible(int Current_X) // Look if line isn't full
         {
-            for (int i = 0; i < Field_Y; i++){ 
-                if (GameField[i][ Current_X] == 0)
+            for (int i = 0; i < Field_Y; i++)
+            {
+                if (GameField[i, Current_X] == 0)
                 {
                     return true;
                 }
@@ -58,16 +90,16 @@ namespace Game_Logic
         public GameResult SetStone(int Current_X)   //Param: Choses in which vertical line the stone is placed (begin line 0)
         {
             int Current_Y = 0;
-            int i = Field_Y -1;
+            int i = Field_Y - 1;
 
-            while (!(GameField[i][ Current_X] == 0))
+            while (!(GameField[i, Current_X] == 0))
             {
                 i--;
             }
 
-            GameField[i][ Current_X] = CurrentPlayer;
+            GameField[i, Current_X] = CurrentPlayer;
             Current_Y = i;
-              
+
             return CheckIfPlayerWon(Current_X, Current_Y);
         }
 
@@ -81,7 +113,7 @@ namespace Game_Logic
             {
                 for (int j = 0; j < Field_X; j++)
                 {
-                    if (GameField[i][ j] == 0)
+                    if (GameField[i, j] == 0)
                     {
                         EmptyFieldExist = true;
                     }
@@ -92,14 +124,15 @@ namespace Game_Logic
             // Test Horizontally
             for (int i = 0; i < Field_X; i++)
             {
-              if (GameField[Current_Y][i] == CurrentPlayer)
+                if (GameField[Current_Y, i] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
                     {
                         gameResult = GameResult.Won;
                     }
-                }else
+                }
+                else
                 {
                     Count = 0;
                 }
@@ -109,7 +142,7 @@ namespace Game_Logic
             Count = 0;
             for (int i = 0; i < Field_Y; i++)
             {
-                if (GameField[i][ Current_X] == CurrentPlayer)
+                if (GameField[i, Current_X] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -136,7 +169,7 @@ namespace Game_Logic
             Count = 0;
             for (int i = 0; Field_X > Diagnonal_X + i && Field_Y > Diagnonal_Y + i; i++)
             {
-                if (GameField[Diagnonal_Y + i][ Diagnonal_X + i] == CurrentPlayer)
+                if (GameField[Diagnonal_Y + i, Diagnonal_X + i] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -155,7 +188,7 @@ namespace Game_Logic
             Diagnonal_X = Current_X;
             Diagnonal_Y = Current_Y;
 
-            while (Diagnonal_X > 0 && Diagnonal_Y < Field_Y-1)
+            while (Diagnonal_X > 0 && Diagnonal_Y < Field_Y - 1)
             {
                 Diagnonal_X--;
                 Diagnonal_Y++;
@@ -164,7 +197,7 @@ namespace Game_Logic
             Count = 0;
             for (int i = 0; Field_X > Diagnonal_X + i && 0 <= Diagnonal_Y - i; i++)
             {
-                if (GameField[Diagnonal_Y - i][ Diagnonal_X + i] == CurrentPlayer)
+                if (GameField[Diagnonal_Y - i, Diagnonal_X + i] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -187,6 +220,3 @@ namespace Game_Logic
         }
     }
 }
-
-
-
