@@ -13,7 +13,7 @@ using MQTTnet.Server;
 using Newtonsoft.Json;
 
 
-namespace MQTT_Event_Driven
+namespace minigame_center.Model.MQTTClient
 {
     public class MqttBaseClient
     {

@@ -1,5 +1,4 @@
-﻿using MQTT_Event_Driven.MQTTClient;
-using MQTTnet.Client;
+﻿using MQTTnet.Client;
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -7,10 +6,10 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using minigame_center.HelperClasses;
+using minigame_center.Model.Payload;
 
-
-
-namespace MQTT_Event_Driven.MQTTClient
+namespace minigame_center.Model.MQTTClient
 {
     public delegate void OnGamePayloadRecieved(BasePayload payload);
 

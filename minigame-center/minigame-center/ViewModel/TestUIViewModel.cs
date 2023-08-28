@@ -1,6 +1,6 @@
 ﻿using minigame_center.HelperClasses;
-using MQTT_Event_Driven;
-using MQTT_Event_Driven.MQTTClient;
+using minigame_center.Model.MQTTClient;
+using minigame_center.Model.Payload;
 using Newtonsoft.Json;
 using System;
 using System.Text;
@@ -154,7 +154,7 @@ namespace minigame_center.ViewModel
                    }
                    else
                    {
-                       currentMessage.buildGameFinishedMsg(uuidLocal, uuidLocal);
+                       currentMessage.buildGameFinishedMsg(uuidLocal);
                    }
 
                    localMessageCount++;

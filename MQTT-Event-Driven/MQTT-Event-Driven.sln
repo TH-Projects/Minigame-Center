@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MQTT-Event-Driven", "MQTT-E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game_Logic", "..\Game_Logic\Game_Logic\Game_Logic.csproj", "{1DF5BF35-3403-4CBA-A8AF-BB8518C38327}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "minigame-center", "..\..\minigame-center\minigame-center\minigame-center.csproj", "{EB86F539-3231-4404-8A26-5B0618828B68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "minigame-center", "..\minigame-center\minigame-center\minigame-center.csproj", "{EB86F539-3231-4404-8A26-5B0618828B68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

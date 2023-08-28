@@ -2,6 +2,7 @@
 using System.Windows.Shapes;
 using System.Windows.Media;
 using System.Windows;
+using System;
 
 namespace minigame_center.View
 {
@@ -62,7 +63,7 @@ namespace minigame_center.View
 
         private void DropButton_Click(object sender, RoutedEventArgs e, int column)
         {
-
+            Console.WriteLine(e.ToString());
         }
     }
 }
