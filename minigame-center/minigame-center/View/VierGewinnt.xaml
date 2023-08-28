@@ -14,5 +14,6 @@
         <Grid x:Name="GeneratedGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <!-- Hier werden die schwarzen Kreise generiert -->
             </Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="53,363,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

@@ -53,8 +53,12 @@ namespace minigame_center.ViewModel
             var menuItemViewModel = sender as MenuItemViewModel;
             if (menuItemViewModel != null && menuItemViewModel.NavDestination != null)
             {
+
+                Task.Run(() => VierGewinntViewModel._mq.Setup());
+
                 App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
             }
+            
         }
     }
 }

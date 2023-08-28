@@ -90,6 +90,7 @@ namespace MQTT_Event_Driven.MQTTClient
                 Console.WriteLine($"ClientID: {clientID.ToString()}");
 
                 await Connect(ConfigManager.Server, ConfigManager.Port, ConfigManager.User, ConfigManager.Password);
+                Thread.Sleep(2000);
                 await Subscribe(game_topic);
 
                 await establishOponnent(5);

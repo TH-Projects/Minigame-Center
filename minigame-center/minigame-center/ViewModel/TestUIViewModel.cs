@@ -100,72 +100,72 @@ namespace minigame_center.ViewModel
 
                 }
             }
+            /*
+                        // Configuration settings for test reasons hardcoded
+                        string Topic = "TestUI3";
+                        int brokerPort = 8883;
+                        string brokerAddress = "25aee1926b284dfeb459111a517f7201.s2.eu.hivemq.cloud";
+                        var username = "minigame_inf22_dhbw";
+                        var password = "Or4Q9IkA0IPLBWpbupwr";
 
-            // Configuration settings for test reasons hardcoded
-            string Topic = "TestUI3";
-            int brokerPort = 8883;
-            string brokerAddress = "25aee1926b284dfeb459111a517f7201.s2.eu.hivemq.cloud";
-            var username = "minigame_inf22_dhbw";
-            var password = "Or4Q9IkA0IPLBWpbupwr";
+                        MqttBaseClient mqttBaseClient = new MqttBaseClient();
+                        mqttBaseClient.Connect(brokerAddress, brokerPort, username, password);
+                        Thread.Sleep(2000);
 
-            MqttBaseClient mqttBaseClient = new MqttBaseClient();
-            mqttBaseClient.Connect(brokerAddress, brokerPort, username, password);
-            Thread.Sleep(2000);
+                        var currentMessage = new BasePayload();
 
-            var currentMessage = new BasePayload();
+                        BigBoxOne = "";
+                        BigBoxTwo = "";
 
-            BigBoxOne = "";
-            BigBoxTwo = "";
+                        mqttBaseClient.Subscribe(Topic);
 
-            mqttBaseClient.Subscribe(Topic);
+                        mqttBaseClient.MessageReceived += (sender, e) => {
+                            BigBoxOne = "";
+                            BigBoxTwo = "";
 
-            mqttBaseClient.MessageReceived += (sender, e) => {
-                BigBoxOne = "";
-                BigBoxTwo = "";
+                            string receivedString = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+                            dynamic stringDataAsPayload = JsonConvert.DeserializeObject(receivedString);
 
-                string receivedString = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-                dynamic stringDataAsPayload = JsonConvert.DeserializeObject(receivedString);
-
-                if (stringDataAsPayload.sender == uuidLocal)
-                {    // Your message
-                    BigBoxOne += $"JSON PAYLOAD STRING {receivedString}\n" +
-                    $"\nJSON PAYLOAD CONVERTED from your {localMessageCount}th Message: \n{{ \n Gamefield: {stringDataAsPayload.gamefield} " +
-                    $"\n Game Status: {stringDataAsPayload.gamestatus} \n Sender: {stringDataAsPayload.sender}" +
-                    $"\n Winner: {stringDataAsPayload.winner} \n Timestamp: {stringDataAsPayload.timestamp} \n}}";
-                }
-                else // other messages
-                {
-                    BigBoxTwo += $"JSON PAYLOAD STRING {receivedString}\n" +
-                    $"\nJSON PAYLOAD CONVERTED: \n{{ \n Gamefield: {stringDataAsPayload.gamefield} " +
-                    $"\n Game Status: {stringDataAsPayload.gamestatus} \n Sender: {stringDataAsPayload.sender}" +
-                    $"\n Winner: {stringDataAsPayload.winner} \n Timestamp: {stringDataAsPayload.timestamp} \n}}";
-                }
-            };
+                            if (stringDataAsPayload.sender == uuidLocal)
+                            {    // Your message
+                                BigBoxOne += $"JSON PAYLOAD STRING {receivedString}\n" +
+                                $"\nJSON PAYLOAD CONVERTED from your {localMessageCount}th Message: \n{{ \n Gamefield: {stringDataAsPayload.gamefield} " +
+                                $"\n Game Status: {stringDataAsPayload.gamestatus} \n Sender: {stringDataAsPayload.sender}" +
+                                $"\n Winner: {stringDataAsPayload.winner} \n Timestamp: {stringDataAsPayload.timestamp} \n}}";
+                            }
+                            else // other messages
+                            {
+                                BigBoxTwo += $"JSON PAYLOAD STRING {receivedString}\n" +
+                                $"\nJSON PAYLOAD CONVERTED: \n{{ \n Gamefield: {stringDataAsPayload.gamefield} " +
+                                $"\n Game Status: {stringDataAsPayload.gamestatus} \n Sender: {stringDataAsPayload.sender}" +
+                                $"\n Winner: {stringDataAsPayload.winner} \n Timestamp: {stringDataAsPayload.timestamp} \n}}";
+                            }
+                        };
 
 
-            this.OptionalCommand = new DelegateCommand(
-               async (o) =>
-               {
-                   if (localMessageCount == 0) currentMessage.buildNoOpponentMsg(uuidLocal);
-                   else if (localMessageCount == 1)
-                   {
-                       currentMessage.buildGameRunningMsg(uuidLocal, GameField);
-                       //currentMessage.buildGameRunningMsg(uuid);
-                   }
-                   else
-                   {
-                       currentMessage.buildGameFinishedMsg(uuidLocal);
-                   }
+                        this.OptionalCommand = new DelegateCommand(
+                           async (o) =>
+                           {
+                               if (localMessageCount == 0) currentMessage.buildNoOpponentMsg(uuidLocal);
+                               else if (localMessageCount == 1)
+                               {
+                                   currentMessage.buildGameRunningMsg(uuidLocal, GameField);
+                                   //currentMessage.buildGameRunningMsg(uuid);
+                               }
+                               else
+                               {
+                                   currentMessage.buildGameFinishedMsg(uuidLocal);
+                               }
 
-                   localMessageCount++;
+                               localMessageCount++;
 
-                   var payloadString = currentMessage.toString();
-                   await mqttBaseClient.Publish(payloadString, Topic);
-               });
-            firstLabelHeadline = "Message you have sent";
-            secondLabelHeadline = "Message you received";
-            buttonContent = "Click";
-
+                               var payloadString = currentMessage.toString();
+                               await mqttBaseClient.Publish(payloadString, Topic);
+                           });
+                        firstLabelHeadline = "Message you have sent";
+                        secondLabelHeadline = "Message you received";
+                        buttonContent = "Click";
+            */
         }
 
         private void MqttBaseClient_MessageReceived(object sender, MQTTnet.Client.MqttApplicationMessageReceivedEventArgs e)
