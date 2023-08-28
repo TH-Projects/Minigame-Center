@@ -1,19 +1,11 @@
-﻿using MQTTnet;
-using MQTTnet.Client;
+﻿using MQTTnet.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
+using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-
-
-using Game_Logic;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MQTT_Event_Driven.MQTTClient
 {
@@ -32,10 +24,10 @@ namespace MQTT_Event_Driven.MQTTClient
 
         static Guid senderID;
 
-        public static Guid SenderID {get;}
+        public static Guid SenderID { get; }
 
         private static OnGamePayloadRecieved GamePayloadHandler;
-       
+
 
         /// <summary>
         /// Handels all incommiung messages
@@ -45,14 +37,16 @@ namespace MQTT_Event_Driven.MQTTClient
         protected static void HandleMessageReceived(object sender, MqttApplicationMessageReceivedEventArgs e)
         {
             string received_payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-            if (IsValidJson(received_payload)) { 
+            if (IsValidJson(received_payload))
+            {
                 currentMessage = JsonSerializer.Deserialize<BasePayload>(received_payload);
 
                 senderID = currentMessage.sender;
 
                 if (game_state == GameStatus.RUNNING)
                 {
-                    if(oponnent == senderID) { 
+                    if (oponnent == senderID)
+                    {
                         GamePayloadHandler(currentMessage);
                     }
                 }
@@ -98,7 +92,8 @@ namespace MQTT_Event_Driven.MQTTClient
 
                 await establishOponnent(5);
 
-                if(game_state == GameStatus.NO_RESPONSE) {
+                if (game_state == GameStatus.NO_RESPONSE)
+                {
                     //Handles when no message is received
                     await Console.Out.WriteLineAsync("Waiting for connection");
                     var Payload = new BasePayload();
@@ -116,8 +111,8 @@ namespace MQTT_Event_Driven.MQTTClient
                     }
                 }
 
-                
-                
+
+
             }
 
             catch (Exception ex)
@@ -153,7 +148,7 @@ namespace MQTT_Event_Driven.MQTTClient
                             return;
                         }
                     }
-                    else if(currentMessage.gamestatus == GameStatus.WAITING)
+                    else if (currentMessage.gamestatus == GameStatus.WAITING)
                     {
                         if (senderID != clientID)
                         {

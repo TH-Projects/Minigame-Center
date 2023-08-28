@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Text.Json;
-using MQTTnet;
-using System.Diagnostics.Tracing;
 
 namespace MQTT_Event_Driven.MQTTClient
 {
@@ -24,7 +16,7 @@ namespace MQTT_Event_Driven.MQTTClient
         public int[][] gamefield { get; set; }
         public GameStatus gamestatus { get; set; }
 
-        public Guid sender{ get; set; }
+        public Guid sender { get; set; }
         public Guid winner { get; set; }
         public DateTime timestamp { get; set; }
 

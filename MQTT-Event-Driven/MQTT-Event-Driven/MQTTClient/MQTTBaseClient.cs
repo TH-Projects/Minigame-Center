@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MQTTnet;
+using MQTTnet.Client;
+using MQTTnet.Server;
+using System;
 using System.Security.Authentication;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using MQTTnet;
-using MQTTnet.Client;
-using MQTTnet.Protocol;
-using MQTTnet.Server;
-using Newtonsoft.Json;
 
 namespace MQTT_Event_Driven
 {
@@ -21,7 +16,7 @@ namespace MQTT_Event_Driven
 
         public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
 
-        public Guid ClientID { get;}
+        public Guid ClientID { get; }
 
         public MqttBaseClient()
         {
@@ -29,7 +24,7 @@ namespace MQTT_Event_Driven
             _mqttClient = factory.CreateMqttClient();
             clientID = Guid.NewGuid();
 
-            _mqttClient.ApplicationMessageReceivedAsync += async ( e) =>
+            _mqttClient.ApplicationMessageReceivedAsync += async (e) =>
             {
                 Console.WriteLine($"Received message on topic on Main {e.ApplicationMessage.Topic} from ClientID {e.ClientId} : {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
 
@@ -70,7 +65,7 @@ namespace MQTT_Event_Driven
             try
             {
                 await _mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic(topic).Build());
-               
+
             }
 
             catch (Exception ex)

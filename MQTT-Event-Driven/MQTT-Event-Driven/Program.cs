@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-using System.Data.SqlTypes;
-using System.Threading;
+﻿using MQTT_Event_Driven.MQTTClient;
 using MQTTnet.Client;
-using MQTT_Event_Driven.MQTTClient;
+using System;
+using System.Text;
 using Game_Logic;
 
 namespace MQTT_Event_Driven
@@ -73,7 +67,7 @@ namespace MQTT_Event_Driven
             Console.WriteLine($"Received message on topic on Main {e.ApplicationMessage.Topic} from ClientID {e.ClientId} : {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
             // Add your custom logic to handle the received message
         }
-        
+
         static async void Init()
         {
             ConfigManager.BuildConfig();

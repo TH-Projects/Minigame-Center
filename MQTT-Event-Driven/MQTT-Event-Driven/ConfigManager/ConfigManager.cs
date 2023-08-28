@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Configuration;
 using System.IO;
-using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
 
 namespace MQTT_Event_Driven
 {
@@ -18,8 +11,8 @@ namespace MQTT_Event_Driven
         static public string User;
         static public string Password;
         static public int Port;
-        
-        
+
+
         public static void BuildConfig()
         {
             var builder = new ConfigurationBuilder();
@@ -33,6 +26,6 @@ namespace MQTT_Event_Driven
             User = config["MQTT-Broker:User"];
         }
 
-        
+
     }
 }
