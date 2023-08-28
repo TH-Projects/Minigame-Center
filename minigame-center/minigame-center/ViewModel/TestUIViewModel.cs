@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using minigame_center.HelperClasses;
+using MQTT_Event_Driven;
+using MQTT_Event_Driven.MQTTClient;
+using Newtonsoft.Json;
+using System;
 using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using minigame_center.ViewModel;
-using minigame_center.HelperClasses;
-using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 
 namespace minigame_center.ViewModel
 {
     internal class TestUIViewModel : BaseViewModel
     {
-
 
         string firstLabelHeadline = "Error";
         public string FirstLabelHeadline
@@ -70,7 +57,7 @@ namespace minigame_center.ViewModel
             get => bigBoxOne;
             set
             {
-                if(BigBoxOne != value)
+                if (BigBoxOne != value)
                 {
                     bigBoxOne = value;
                     OnPropertyChanged(nameof(BigBoxOne));
@@ -83,23 +70,107 @@ namespace minigame_center.ViewModel
             get => bigBoxTwo;
             set
             {
-                if(BigBoxTwo != value)
+                if (BigBoxTwo != value)
                 {
                     bigBoxTwo = value;
                     OnPropertyChanged(nameof(BigBoxTwo));
                 }
             }
         }
-        public TestUIViewModel()
+
+        public int[][] GameField { get; set; }
+
+        public TestUIViewModel()    //Constructor
         {
+            Guid uuidLocal = Guid.NewGuid();
+            string uuidString = uuidLocal.ToString();
+
+
+            int localMessageCount = 0;
+
+
+            GameField = new int[2][];
+
+            for (int i = 0; i<2; i++)
+            {
+                GameField[i] = new int[2];
+                for (int j = 0; j<2; j++)
+                {
+                     GameField[i][j] = 0;
+
+                }
+            }
+
+            // Configuration settings for test reasons hardcoded
+            string Topic = "TestUI3";
+            int brokerPort = 8883;
+            string brokerAddress = "25aee1926b284dfeb459111a517f7201.s2.eu.hivemq.cloud";
+            var username = "minigame_inf22_dhbw";
+            var password = "Or4Q9IkA0IPLBWpbupwr";
+
+            MqttBaseClient mqttBaseClient = new MqttBaseClient();
+            mqttBaseClient.Connect(brokerAddress, brokerPort, username, password);
+            Thread.Sleep(2000);
+
+            var currentMessage = new BasePayload();
+
+            BigBoxOne = "";
+            BigBoxTwo = "";
+
+            mqttBaseClient.Subscribe(Topic);
+
+            mqttBaseClient.MessageReceived += (sender, e) => {
+                BigBoxOne = "";
+                BigBoxTwo = "";
+
+                string receivedString = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
+                dynamic stringDataAsPayload = JsonConvert.DeserializeObject(receivedString);
+
+                if (stringDataAsPayload.sender == uuidLocal)
+                {    // Your message
+                    BigBoxOne += $"JSON PAYLOAD STRING {receivedString}\n" +
+                    $"\nJSON PAYLOAD CONVERTED from your {localMessageCount}th Message: \n{{ \n Gamefield: {stringDataAsPayload.gamefield} " +
+                    $"\n Game Status: {stringDataAsPayload.gamestatus} \n Sender: {stringDataAsPayload.sender}" +
+                    $"\n Winner: {stringDataAsPayload.winner} \n Timestamp: {stringDataAsPayload.timestamp} \n}}";
+                }
+                else // other messages
+                {
+                    BigBoxTwo += $"JSON PAYLOAD STRING {receivedString}\n" +
+                    $"\nJSON PAYLOAD CONVERTED: \n{{ \n Gamefield: {stringDataAsPayload.gamefield} " +
+                    $"\n Game Status: {stringDataAsPayload.gamestatus} \n Sender: {stringDataAsPayload.sender}" +
+                    $"\n Winner: {stringDataAsPayload.winner} \n Timestamp: {stringDataAsPayload.timestamp} \n}}";
+                }
+            };
+
+
             this.OptionalCommand = new DelegateCommand(
-               (o) => { throw new NotImplementedException("No command implemented yet"); }
-               );
-            firstLabelHeadline = "Success";
-            secondLabelHeadline = "Error";
+               async (o) =>
+               {
+                   if (localMessageCount == 0) currentMessage.buildNoOpponentMsg(uuidLocal);
+                   else if (localMessageCount == 1)
+                   {
+                       currentMessage.buildGameRunningMsg(uuidLocal, GameField);
+                       //currentMessage.buildGameRunningMsg(uuid);
+                   }
+                   else
+                   {
+                       currentMessage.buildGameFinishedMsg(uuidLocal, uuidLocal);
+                   }
+
+                   localMessageCount++;
+
+                   var payloadString = currentMessage.toString();
+                   await mqttBaseClient.Publish(payloadString, Topic);
+               });
+            firstLabelHeadline = "Message you have sent";
+            secondLabelHeadline = "Message you received";
             buttonContent = "Click";
-            bigBoxOne = "bla";
-            bigBoxTwo = "bli";
+
+        }
+
+        private void MqttBaseClient_MessageReceived(object sender, MQTTnet.Client.MqttApplicationMessageReceivedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

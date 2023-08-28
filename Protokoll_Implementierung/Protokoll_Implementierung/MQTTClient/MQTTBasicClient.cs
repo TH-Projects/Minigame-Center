@@ -24,7 +24,7 @@ namespace MQTT_Event_Driven
     public class MqttClientService
     {
         private readonly IMqttClient _mqttClient;
-        private readonly Guid clientID;
+        public Guid clientID { get; }
 
         public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
 
@@ -87,6 +87,20 @@ namespace MQTT_Event_Driven
             {
                 Console.WriteLine($"Fehler: {ex.Message}");
             }
+        }
+
+        public async Task Unsubscribe(string topic)
+        {
+            try
+            {
+                Console.WriteLine($"Unsubscribe from topic: {topic}");
+                await _mqttClient.UnsubscribeAsync(topic);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Fehler: {ex.Message}");
+            }
+
         }
 
         public async Task Connect(string broker, int port, string username, string password)

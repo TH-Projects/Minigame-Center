@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="427px" preserveAspectRatio="none" style="width:507px;height:427px;background:#FFFFFF;" version="1.1" viewBox="0 0 507 427" width="507px" zoomAndPan="magnify"><defs/><g><!--MD5=[d3b4c0e0545b3555b4b6e8ce64371cf0]
+class MQTTBaseClient--><g id="elem_MQTTBaseClient"><rect codeLine="3" fill="#F1F1F1" height="192.8877" id="MQTTBaseClient" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="347" x="7" y="228"/><ellipse cx="121.75" cy="244" fill="#A9DCDF" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M126.9531,248.5 L124.5156,248.5 L123.75,245.7656 L119.9688,245.7656 L119.2031,248.5 L116.75,248.5 L120.4219,237.2969 L123.2813,237.2969 L126.9531,248.5 Z M121.8594,238.8125 Q121.7813,239.1563 121.6094,239.8594 Q121.4375,240.5469 120.4844,243.9219 L123.2344,243.9219 Q122.2656,240.5 122.0938,239.8281 Q121.9219,239.1563 121.8594,238.8125 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing" textLength="109" x="142.25" y="249.0825">MQTTBaseClient</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="353" y1="260" y2="260"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="15" y="270.5493"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="118" x="27" y="277.1318">client: MQTTClient</text><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="15" y="286.6479"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="27" y="293.2305">clientID: Guid</text><line style="stroke:#181818;stroke-width:1.0;" x1="8" x2="353" y1="300.1973" y2="300.1973"/><ellipse cx="18" cy="313.7466" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="184" x="27" y="317.3291">OnMessageReceivedAsync()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61" x="255" y="317.3291">{abstract}</text><ellipse cx="18" cy="329.8452" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="27" y="333.4277">OnQuitPayloadReceived()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="61" x="287" y="333.4277">{abstract}</text><ellipse cx="18" cy="345.9438" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="27" y="349.5264">Publish(message, topic)</text><ellipse cx="18" cy="362.0425" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="142" x="27" y="365.625">Subscribe(string topic)</text><ellipse cx="18" cy="378.1411" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="158" x="27" y="381.7236">Unsubscribe(string topic)</text><ellipse cx="18" cy="394.2397" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="278" x="27" y="397.8223">Connect(broker, port, username, password)</text><ellipse cx="18" cy="410.3384" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="27" y="413.9209">Disconnect()</text></g><!--MD5=[771f47ead2950c6751a245bb7fee56cc]
+class MQTTGameClient--><g id="elem_MQTTGameClient"><rect codeLine="19" fill="#F1F1F1" height="160.6904" id="MQTTGameClient" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="370" x="127.5" y="7"/><ellipse cx="250.25" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M247.9063,22.8438 Q247.9063,24.7188 248.4844,25.7344 Q249.0625,26.7344 250.2188,26.7344 Q251.5625,26.7344 252.2188,24.7188 L254.4844,25.1406 Q253.375,28.6719 250.2031,28.6719 Q247.8594,28.6719 246.6406,27.1875 Q245.4219,25.7031 245.4219,22.8438 Q245.4219,17.125 250.125,17.125 Q251.6719,17.125 252.7031,17.9375 Q253.75,18.75 254.25,20.3594 L251.9844,20.9063 Q251.75,20.0313 251.2656,19.5469 Q250.7813,19.0469 250.1563,19.0469 Q247.9063,19.0469 247.9063,22.8438 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116" x="270.75" y="28.0825">MQTTGameClient</text><line style="stroke:#181818;stroke-width:0.5;" x1="128.5" x2="496.5" y1="39" y2="39"/><rect fill="none" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="135.5" y="49.5493"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114" x="147.5" y="56.1318">opponent-id: Guid</text><line style="stroke:#181818;stroke-width:1.0;" x1="128.5" x2="496.5" y1="63.0986" y2="63.0986"/><rect fill="#F24D5C" height="6" style="stroke:#C82930;stroke-width:1.0;" width="6" x="135.5" y="73.6479"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="184" x="147.5" y="80.2305">OnMessageReceivedAsync()</text><ellipse cx="138.5" cy="92.7466" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="174" x="147.5" y="96.3291">OnLoginPayloadReceived()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="375.5" y="96.3291">{DELEGATE}</text><ellipse cx="138.5" cy="108.8452" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="178" x="147.5" y="112.4277">OnGamePayloadReceived()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="407.5" y="112.4277">{DELEGATE}</text><ellipse cx="138.5" cy="124.9438" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="165" x="147.5" y="128.5264">OnQuitPayloadReceived()</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="407.5" y="128.5264">{DELEGATE}</text><ellipse cx="138.5" cy="141.0425" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="228" x="147.5" y="144.625">PublishLoginPayload(LoginPayload)</text><ellipse cx="138.5" cy="157.1411" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="236" x="147.5" y="160.7236">PublishGamePayload(GamePayload)</text></g><!--MD5=[48fd9ba0f431717e30ffacaf4852bc92]
+class GameStatus--><g id="elem_GameStatus"><rect codeLine="30" fill="#F1F1F1" height="112.3945" id="GameStatus" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="111" x="389" y="268.5"/><ellipse cx="404" cy="284.5" fill="#EB937F" rx="11" ry="11" style="stroke:#181818;stroke-width:1.0;"/><path d="M399.6406,290 L399.6406,278.7969 L407.6719,278.7969 L407.6719,280.6875 L402.0938,280.6875 L402.0938,283.3906 L407.1719,283.3906 L407.1719,285.2813 L402.0938,285.2813 L402.0938,288.1094 L408.0156,288.1094 L408.0156,290 L399.6406,290 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="418" y="289.5825">GameStatus</text><line style="stroke:#181818;stroke-width:0.5;" x1="390" x2="499" y1="300.5" y2="300.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="395" y="317.6318">Lobby,</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="58" x="395" y="333.7305">Ongoing,</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49" x="395" y="349.8291">Winner,</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="395" y="365.9277">Looser,</text><line style="stroke:#181818;stroke-width:0.5;" x1="390" x2="499" y1="372.8945" y2="372.8945"/></g><!--MD5=[d64a06f306abca0116a0a6d8673ee339]
+link MQTTGameClient to MQTTBaseClient--><g id="link_MQTTGameClient_MQTTBaseClient"><path codeLine="16" d="M267.81,168.06 C260.24,181.54 252.25,195.77 244.3,209.92 " fill="none" id="MQTTGameClient-to-MQTTBaseClient" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="none" points="250.18,213.74,234.28,227.75,237.98,206.88,250.18,213.74" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[201bbbf8a9a063588cc56f123fdc5362]
+link MQTTGameClient to GameStatus--><g id="link_MQTTGameClient_GameStatus"><path codeLine="17" d="M357.19,168.06 C374.8,199.41 394.67,234.79 411,263.87 " fill="none" id="MQTTGameClient-to-GameStatus" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="413.59,268.48,412.6777,258.6735,411.1448,264.1187,405.6996,262.5858,413.59,268.48" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[529e0c43fb92c26c6aa389a4390e41ce]
+@startuml
+!define ABSTRACT &#123;abstract&#125;
+!define DELEGATE &#123;DELEGATE&#125;
+abstract class MQTTBaseClient {
+    - client: MQTTClient
+    - clientID: Guid
+    - - -
+    + OnMessageReceivedAsync() \t\t ABSTRACT
+    + OnQuitPayloadReceived()         \t\t ABSTRACT
+    + Publish(message, topic)
+    + Subscribe(string topic)
+    + Unsubscribe(string topic)
+    + Connect(broker, port, username, password)
+    + Disconnect()
+}
+
+MQTTGameClient - -|> MQTTBaseClient
+MQTTGameClient ..> GameStatus
+
+class MQTTGameClient {
+    - opponent-id: Guid
+    - - -
+    - OnMessageReceivedAsync()
+    + OnLoginPayloadReceived()    \t\t DELEGATE
+    + OnGamePayloadReceived()         \t\t DELEGATE
+    + OnQuitPayloadReceived()         \t\t DELEGATE
+    + PublishLoginPayload(LoginPayload)
+    + PublishGamePayload(GamePayload)
+}
+
+enum GameStatus {
+    Lobby,
+    Ongoing,
+    Winner,
+    Looser,
+}
+
+@enduml
+
+@startuml
+abstract class MQTTBaseClient {
+    - client: MQTTClient
+    - clientID: Guid
+    - - -
+    + OnMessageReceivedAsync() \t\t &#123;abstract&#125;
+    + OnQuitPayloadReceived()         \t\t &#123;abstract&#125;
+    + Publish(message, topic)
+    + Subscribe(string topic)
+    + Unsubscribe(string topic)
+    + Connect(broker, port, username, password)
+    + Disconnect()
+}
+
+MQTTGameClient - -|> MQTTBaseClient
+MQTTGameClient ..> GameStatus
+
+class MQTTGameClient {
+    - opponent-id: Guid
+    - - -
+    - OnMessageReceivedAsync()
+    + OnLoginPayloadReceived()    \t\t &#123;DELEGATE&#125;
+    + OnGamePayloadReceived()         \t\t &#123;DELEGATE&#125;
+    + OnQuitPayloadReceived()         \t\t &#123;DELEGATE&#125;
+    + PublishLoginPayload(LoginPayload)
+    + PublishGamePayload(GamePayload)
+}
+
+enum GameStatus {
+    Lobby,
+    Ongoing,
+    Winner,
+    Looser,
+}
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

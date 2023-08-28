@@ -1,8 +1,0 @@
-{
-  "MQTT-Broker": {
-    "Server": "",
-    "Port": ,
-    "User": "",
-    "Password": ""
-  }
-}
