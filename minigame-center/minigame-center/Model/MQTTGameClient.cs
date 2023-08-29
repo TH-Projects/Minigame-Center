@@ -19,7 +19,8 @@ namespace minigame_center.Model.MQTTClient
 
         public static string game_topic = "4gewinnt";
 
-        static BasePayload currentMessage;
+        public static BasePayload currentMessage;
+        public static BasePayload CurrentMessage {get;}
 
         static public Guid oponnent { get; set; }
 
@@ -27,7 +28,7 @@ namespace minigame_center.Model.MQTTClient
 
         public static Guid SenderID { get; }
 
-        public int player_number { get; set; }
+        public static int player_number { get; set; }
 
         private static  OnGamePayloadRecieved GamePayloadHandler;
 

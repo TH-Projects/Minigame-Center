@@ -18,11 +18,11 @@ namespace minigame_center.Model.MQTTClient
     public class MqttBaseClient
     {
         private readonly IMqttClient _mqttClient;
-        protected Guid clientID;
+        public static  Guid clientID;
 
         public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
 
-        public Guid ClientID { get;}
+        public static Guid ClientID { get;}
 
         public MqttBaseClient()
         {

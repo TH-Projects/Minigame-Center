@@ -54,7 +54,7 @@ namespace minigame_center.ViewModel
             if (menuItemViewModel != null && menuItemViewModel.NavDestination != null)
             {
 
-                Task.Run(() => VierGewinntViewModel._mq.Setup());
+                Task.Run(() => VierGewinntViewModel.mq.Setup());
 
                 App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
             }
