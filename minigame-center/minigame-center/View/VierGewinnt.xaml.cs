@@ -1,15 +1,16 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
-using System.Windows;
 
 namespace minigame_center.View
 {
     public partial class VierGewinnt : Page
     {
-        private Ellipse[,] circlesArray; // 2D Array, um die Ellipsen zu speichern
-        private const double circleSize = 20; // Feste Größe der Kreise
-        private Grid gameGrid; // Instanzvariable für das Spielraster
+        private Ellipse[,] circlesArray;
+        private const double circleSize = 20;
+        private Grid gameGrid;
 
         public VierGewinnt()
         {
@@ -33,23 +34,22 @@ namespace minigame_center.View
 
             GeneratedGrid.Children.Add(gameGrid);
 
-            // Buttons erzeugen
             for (int col = 0; col < columns; col++)
             {
                 Button dropButton = new Button();
                 dropButton.Content = "*";
                 dropButton.Width = circleSize;
                 dropButton.Height = 40;
-                dropButton.Margin = new System.Windows.Thickness(5);
-                dropButton.Click += (sender, e) => DropButton_Click(sender, e, col); // Handle button click
+                dropButton.Margin = new Thickness(5);
+                dropButton.Tag = col; // Speichere den Index der Spalte im Tag
+                dropButton.Click += DropButton_Click; // Handle button click
                 gameGrid.Children.Add(dropButton);
                 Grid.SetRow(dropButton, 0);
                 Grid.SetColumn(dropButton, col);
             }
 
-            circlesArray = new Ellipse[rows, columns]; // Initialisierung des Arrays
+            circlesArray = new Ellipse[rows, columns];
 
-            // Kreise erzeugen
             for (int row = 1; row < rows; row++)
             {
                 for (int col = 0; col < columns; col++)
@@ -58,38 +58,26 @@ namespace minigame_center.View
                     blackCircle.Fill = Brushes.DarkBlue;
                     blackCircle.Width = circleSize;
                     blackCircle.Height = circleSize;
-                    blackCircle.Margin = new System.Windows.Thickness(5);
+                    blackCircle.Margin = new Thickness(5);
                     gameGrid.Children.Add(blackCircle);
                     Grid.SetRow(blackCircle, row);
                     Grid.SetColumn(blackCircle, col);
 
-                    circlesArray[row, col] = blackCircle; // Speichern der Ellipse im Array
+                    circlesArray[row, col] = blackCircle;
                 }
             }
-
-            // Beispielhafte Funktionsaufrufe zum Einfärben von Feldern
-            // ColorCircle(1, 2, Brushes.Red);
-            // ColorCircle(2, 3, Brushes.Green);
-            // ColorCircle(3, 4, Brushes.Blue);
         }
 
-        private void DropButton_Click(object sender, RoutedEventArgs e, int column)
+        private void DropButton_Click(object sender, RoutedEventArgs e)
         {
+            Button button = sender as Button;
+            int column = (int)button.Tag; //@michi hier die Spalte
+
             int rowIndex = FindLowestEmptyRow(column);
             if (rowIndex >= 0)
             {
-                Ellipse yellowCircle = new Ellipse();
-                yellowCircle.Fill = Brushes.Yellow;
-                yellowCircle.Width = circleSize;
-                yellowCircle.Height = circleSize;
-                yellowCircle.Margin = new System.Windows.Thickness(5);
-                gameGrid.Children.Add(yellowCircle);
-                Grid.SetRow(yellowCircle, rowIndex);
-                Grid.SetColumn(yellowCircle, column);
-
-                circlesArray[rowIndex, column] = yellowCircle; // Aktualisieren des Arrays
-
-                // Weitere Aktionen durchführen, z.B. Überprüfung auf Gewinnbedingungen
+                ColorCircle(rowIndex, column, Brushes.Yellow);
+                CheckForWin(rowIndex, column);
             }
         }
 
@@ -102,7 +90,7 @@ namespace minigame_center.View
                     return row;
                 }
             }
-            return -1; // Keine leere Zeile gefunden
+            return -1;
         }
 
         private void ColorCircle(int row, int col, Brush color)
@@ -114,6 +102,11 @@ namespace minigame_center.View
                     circlesArray[row, col].Fill = color;
                 }
             }
+        }
+
+        private void CheckForWin(int row, int col)
+        {
+            // Beispielsweise für die Logik anker @michi
         }
     }
 }
