@@ -27,6 +27,8 @@ namespace minigame_center.Model.MQTTClient
 
         public static Guid SenderID { get; }
 
+        public int player_number { get; set; }
+
         private static  OnGamePayloadRecieved GamePayloadHandler;
 
 
@@ -88,7 +90,9 @@ namespace minigame_center.Model.MQTTClient
                 Console.WriteLine("Setting up game connection");
                 Console.WriteLine($"ClientID: {clientID.ToString()}");
 
-                await Connect(ConfigManager.Server, ConfigManager.Port, ConfigManager.User, ConfigManager.Password);
+                
+                await Connect("25aee1926b284dfeb459111a517f7201.s2.eu.hivemq.cloud", 8883, "minigame_inf22_dhbw", "Or4Q9IkA0IPLBWpbupwr");
+                Thread.Sleep(2000);
                 await Subscribe(game_topic);
 
                 await establishOponnent(5);
@@ -97,6 +101,7 @@ namespace minigame_center.Model.MQTTClient
                 {
                     //Handles when no message is received
                     await Console.Out.WriteLineAsync("Waiting for connection");
+                    player_number = 1;
                     var Payload = new BasePayload();
                     Payload.buildNoOpponentMsg(clientID);
                     await SendPayload(Payload);
@@ -109,6 +114,7 @@ namespace minigame_center.Model.MQTTClient
                     else
                     {
                         await Console.Out.WriteLineAsync($"Handshake completed | Player 1: {clientID} | Player 2: {oponnent}");
+                        await Console.Out.WriteLineAsync($"This Client is: {player_number} - {clientID}");
                     }
                 }
 
@@ -140,6 +146,7 @@ namespace minigame_center.Model.MQTTClient
                     {
                         if (senderID != clientID)
                         {
+                            player_number = 2;
                             oponnent = senderID;
                             await Console.Out.WriteLineAsync($"Game has no Oponnent currently. Updating Ratainmessage. Oponnent {oponnent.ToString()}");
                             game_state = GameStatus.WAITING;

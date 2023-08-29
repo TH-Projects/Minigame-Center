@@ -141,6 +141,7 @@
     </ApplicationDefinition>
     <Compile Include="Components\MenueItemViewModel.cs" />
     <Compile Include="HelperClasses\ConfigManager.cs" />
+    <Compile Include="HelperClasses\Connect_Four.cs" />
     <Compile Include="HelperClasses\DelegateCommand.cs" />
     <Compile Include="HelperClasses\NavigationService.cs" />
     <Compile Include="HelperClasses\ViewLocator.cs" />
