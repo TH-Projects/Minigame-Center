@@ -43,7 +43,7 @@ namespace minigame_center.View
                 dropButton.Width = circleSize;
                 dropButton.Height = 40;
                 dropButton.Margin = new System.Windows.Thickness(5);
-                dropButton.Click += (sender, e) => VierGewinntViewModel.DropButton_Click(sender, e, col); // Handle button click
+                dropButton.Click += (sender, e) => DropButton_Click(sender, e, col); // Handle button click
                 gameGrid.Children.Add(dropButton);
                 Grid.SetRow(dropButton, 0);
                 Grid.SetColumn(dropButton, col);

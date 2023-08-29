@@ -140,9 +140,9 @@ namespace minigame_center.Model.MQTTClient
                     if (currentMessage.gamestatus == GameStatus.RUNNING)
                     {
                         game_state = GameStatus.RUNNING;
-                        await Disconnect();
+                        /*await Disconnect();
                         await Console.Out.WriteLineAsync($"Game already running. Disconnecting!");
-                        throw new InvalidOperationException("Game in Running State");
+                        throw new InvalidOperationException("Game in Running State");*/
                     }
                     else if (currentMessage.gamestatus == GameStatus.NO_OPPONENT)
                     {

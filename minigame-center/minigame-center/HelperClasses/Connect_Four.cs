@@ -6,7 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace minigame_center.HelperClasses
+namespace minigame_center.HelperClasses 
 {
 
     public enum GameResult
