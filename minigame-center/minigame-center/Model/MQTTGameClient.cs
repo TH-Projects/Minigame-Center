@@ -114,9 +114,11 @@ namespace minigame_center.Model.MQTTClient
                     else
                     {
                         await Console.Out.WriteLineAsync($"Handshake completed | Player 1: {clientID} | Player 2: {oponnent}");
-                        await Console.Out.WriteLineAsync($"This Client is: {player_number} - {clientID}");
                     }
                 }
+
+                await Console.Out.WriteLineAsync($"This Client is: {player_number} - {clientID}");
+
 
 
 
