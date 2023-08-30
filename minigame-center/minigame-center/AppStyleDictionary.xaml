@@ -13,6 +13,8 @@
     <SolidColorBrush x:Key="BackgroundColorBrush" Color="{StaticResource BackgroundColor}" />
     <SolidColorBrush x:Key="ForegroundColorBrush" Color="{StaticResource ForegroundColor}" />
     <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" />
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource BackgroundColor}"/>
+    <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="{StaticResource ForegroundColor}"/>
 
     <!-- Dark Label Style-->
     <Style x:Key="DarkLabelStyle" TargetType="Label">
@@ -55,7 +57,6 @@
         </Style.Triggers>
     </Style>
 
-
-
+    
 
 </ResourceDictionary>
