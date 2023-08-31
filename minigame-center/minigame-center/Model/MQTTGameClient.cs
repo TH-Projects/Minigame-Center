@@ -50,12 +50,7 @@ namespace minigame_center.Model.MQTTClient
 
                 if (game_state == GameStatus.RUNNING)
                 {                 
-                    VierGewinntViewModel.UpdateGUI();
-                    
-                    if (oponnent == senderID)
-                    {
-                        GamePayloadHandler(currentMessage);
-                    }
+                    GamePayloadHandler(currentMessage);
                 }
 
 

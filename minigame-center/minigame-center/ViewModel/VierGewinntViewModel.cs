@@ -33,6 +33,7 @@ namespace minigame_center.ViewModel
 
         private void PayloadHandler(BasePayload payload)
         {
+            UpdateGUI();
         }
 
         
