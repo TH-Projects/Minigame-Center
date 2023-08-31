@@ -37,9 +37,11 @@ namespace minigame_center.ViewModel
             UpdateGUI();
             if(payload.winner != Guid.Empty)
             {
-                if (payload.winner != MQTTGameClient.ClientID)
+                if (payload.winner != MQTTGameClient.clientID)
                 {
-                    App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "You Lose");
+                    App.Current.Dispatcher.Invoke(() => {
+                        App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "");
+                    });
                 }
             }
         }

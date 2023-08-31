@@ -22,7 +22,6 @@ namespace minigame_center.Model.MQTTClient
 
         public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
 
-        public static Guid ClientID { get; }
 
         public MqttBaseClient()
         {
