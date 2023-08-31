@@ -48,17 +48,16 @@ namespace minigame_center.ViewModel
             FourthMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
         }
 
+
         private void HandleMenuItemClicked(object sender, EventArgs e)
         {
             var menuItemViewModel = sender as MenuItemViewModel;
-            if (menuItemViewModel != null && menuItemViewModel.NavDestination != null)
-            {
 
-                Task.Run(() => VierGewinntViewModel.mq.Setup());
-
-                App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
-            }
+            App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
+            //Task.Run(() => VierGewinntViewModel.mq.Setup());
+            Task.Run(() => VierGewinntViewModel.mq.Setup());
             
+
         }
     }
 }

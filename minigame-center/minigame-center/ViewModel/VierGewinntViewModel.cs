@@ -1,211 +1,193 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
+using System.Data.Common;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
-using minigame_center.Model.MQTTClient;
-using minigame_center.Model.Payload;
-using minigame_center.HelperClasses;
-using System.Net.Http.Headers;
+using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using minigame_center.View;
-
+using System.Windows.Shapes;
+using minigame_center.HelperClasses;
 using minigame_center.Model.MQTTClient;
 using minigame_center.Model.Payload;
-
+using minigame_center.View;
 
 namespace minigame_center.ViewModel
 {
     public class VierGewinntViewModel : BaseViewModel
     {
+        public static Ellipse[,] circlesArray;
+        private Grid gameGrid;
 
-        static public MQTTGameClient mq = new MQTTGameClient("4gewinnt", PayloadHandler);
+        public static bool bInitializedGameLogic = false;
+       
 
+
+        private Grid _viewGeneratedGrid;
+        public Grid ViewGeneratedGrid
+        {
+            get { return _viewGeneratedGrid; }
+            set
+            {
+                _viewGeneratedGrid = value;
+                OnPropertyChanged(nameof(ViewGeneratedGrid));
+            }
+        }
+
+        public static MQTTGameClient mq;
+
+        private void PayloadHandler(BasePayload payload)
+        {
+        }
+
+        
 
         public VierGewinntViewModel()
         {
+            
+            
+            mq = new MQTTGameClient("4gewinnt", PayloadHandler);
+            Connect_Four.initialiazeField();
+            Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
+            Connect_Four.Field_X = 7;
+            Connect_Four.Field_Y = 5;
+            
+
+            OnNavigatedTo();
 
 
         }
 
-        private static void PayloadHandler(BasePayload payload)
+        public void OnNavigatedTo()
         {
-            throw new NotImplementedException();
+            GenerateGrid(6, 7);
         }
 
-
-        public void GameControls()
+        public void GenerateGrid(int rows, int columns)
         {
+            gameGrid = new Grid();
 
-        }
-
-        /*
-namespace GameController
-
-{
-
-    class GameController
-
-
-    static public async BasePayload calculateResponse(BasePayload inputMessage)
-
-    {
-
-        Console.Out.WriteLineAsync("game payload handling function was called!");
-
-        //at this point it is verified that gamestatus == running
-
-        //and that the message comes from the opponent
-
-        GameResult gameResult = GameResult.Running;
-
-        lastMessage = inputMessage;
-
- 
-
- 
-
-        //this function supports multiple games
-
-        if (inputMessage.game_topic == "4gewinnt")
-
-        {
-
-            //prompt for player input
-
-            //need to figure out how
-
-            int selectedColumn = 4;
-
- 
-
-            //process that input
-
-            Connect_Four connect_Four = new Connect_Four(7, 6, 1);//how to determine Player 1 or 2                 
-
-            connect_Four.setGamefieldFromArray(inputMessage.gamefield);
-
- 
-
-            if (connect_Four.SetStonePossible(selectedColumn))
-
+            for (int i = 0; i < rows; i++)
             {
-
-                gameResult = connect_Four.SetStone(selectedColumn);
-
+                gameGrid.RowDefinitions.Add(new RowDefinition());
             }
 
- 
-
-            //publish a new message
-
-            BasePayload newMessage = inputMessage;
-
- 
-
-            switch (gameResult)
-
+            for (int j = 0; j < columns; j++)
             {
-
-                case GameResult.Won:
-
-                    newMessage.buildGameFinishedMsg(ClientID);
-
-                    break;
-
-                case GameResult.Draw:
-
-                    newMessage.buildGameFinishedMsg(ClientID);
-
-                    break;
-
-                case GameResult.Running:
-
-                    newMessage.buildGameRunningMsg(ClientID, connect_Four.getGameFieldAsArray());
-
-                    break;
-
+                gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
-            //return the new message to be sent
+            gameGrid.Background = new SolidColorBrush(Colors.Blue);
+            ViewGeneratedGrid = gameGrid;
 
-            return newMessage;
+            for (int col = 0; col < columns; col++)
+            {
+                Button dropButton = new Button();
+                dropButton.Content = "*";
+                dropButton.VerticalAlignment = VerticalAlignment.Stretch;
+                dropButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+                dropButton.Height = 40;
+                dropButton.Margin = new Thickness(5);
+                dropButton.Tag = col;
+                dropButton.Click += (sender, e) => DropButton_Click(dropButton.Tag);
+                gameGrid.Children.Add(dropButton);
+                Grid.SetRow(dropButton, 0);
+                Grid.SetColumn(dropButton, col);
+            }
 
- 
+            circlesArray = new Ellipse[rows, columns];
 
+            for (int row = 1; row < rows; row++)
+            {
+                for (int col = 0; col < columns; col++)
+                {
+                    Ellipse blackCircle = new Ellipse();
+                    blackCircle.Fill = Brushes.DarkBlue;
+                    blackCircle.VerticalAlignment = VerticalAlignment.Stretch;
+                    blackCircle.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    blackCircle.Margin = new Thickness(15, 10, 15, 10);
+                    gameGrid.Children.Add(blackCircle);
+                    Grid.SetRow(blackCircle, row);
+                    Grid.SetColumn(blackCircle, col);
+
+                    circlesArray[row, col] = blackCircle;
+                }
+            }
         }
 
-    }
-}
 
-}*/
-
-
-
-        //public static void DropButton_Click(object sender, RoutedEventArgs e, int column)
-        public static void DropButton_Click(object sender, RoutedEventArgs e, int column)
+        public static void UpdateGUI()
         {
-            Console.WriteLine("Click button was called");
-            column = 1;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (MQTTGameClient.currentMessage.gamefield != null)
+                {
+                    Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
+
+                    int[][] GameField = Connect_Four.getGameFieldAsArray();
+                    for (int i = 0; i < 5; i++)
+                    {
+                        for (int j = 0; j < 7; j++)
+                        {
+                            if (GameField[i][j] == 0) circlesArray[i + 1, j].Fill = Brushes.DarkBlue;
+                            else if (GameField[i][j] == 1) circlesArray[i + 1, j].Fill = Brushes.Red;
+                            else if (GameField[i][j] == 2) circlesArray[i + 1, j].Fill = Brushes.Green; // Änderung von 1 auf 2
+                        }
+                    }
+                }
+                
+            });
+        }
+
+
+
+        private void DropButton_Click(object circle)
+        {
+            int column = (int)circle;
+
             GameResult gameResult = GameResult.Running;
             //check if last message was from opponent
-            if (MQTTGameClient.CurrentMessage != null && MQTTGameClient.game_state == GameStatus.RUNNING && MQTTGameClient.CurrentMessage.sender == MQTTGameClient.oponnent)
+            
+
+            if (MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.currentMessage.sender != MQTTGameClient.clientID)
             {
                 Console.WriteLine("i reached the IF statement");
-                //process selected column via game logic
-                Connect_Four connect_Four = new Connect_Four(7, 6, MQTTGameClient.player_number);
-                connect_Four.setGamefieldFromArray(MQTTGameClient.CurrentMessage.gamefield);
 
-                if (connect_Four.SetStonePossible(column))
+                Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
+                Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
+
+                if (Connect_Four.SetStonePossible(column))
                 {
-                    gameResult = connect_Four.SetStone(column);
+                    Console.WriteLine($"!!!!!!!!!!PLAYER GameClient {MQTTGameClient.player_number} \nPlayer GAMELOGIC {Connect_Four.CurrentPlayer}");
+                    gameResult = Connect_Four.SetStone(column);
                 }
 
-
+                
+                
 
                 //publish a new message
 
-                BasePayload newMessage = MQTTGameClient.CurrentMessage;
-                
-                    switch (gameResult)
-                    {
-                        case GameResult.Won:
-                            newMessage.buildGameFinishedMsg(MqttBaseClient.ClientID);
-                            break;
-                        case GameResult.Draw:
-                            newMessage.buildGameFinishedMsg(MqttBaseClient.ClientID);
-                            break;
-                        case GameResult.Running:
-                            newMessage.buildGameRunningMsg(MqttBaseClient.ClientID, connect_Four.getGameFieldAsArray());
-                            break;
-                    }
-           
+                BasePayload newMessage = MQTTGameClient.currentMessage;
 
-
-
-                for (int i = 0; i < 6; i++)
+                switch (gameResult)
                 {
-                    for (int j = 0; j < 7; j++)
-                    {
-                        if (connect_Four.GameField[i, j] == 0) VierGewinnt.circlesArray[i, j].Fill = Brushes.Gray;
-                        else if (connect_Four.GameField[i, j] == 1) VierGewinnt.circlesArray[i, j].Fill = Brushes.Red;
-                        else if (connect_Four.GameField[i, j] == 1) VierGewinnt.circlesArray[i, j].Fill = Brushes.Green;
-                    }
+                    case GameResult.Won:
+                        newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                        break;
+                    case GameResult.Draw:
+                        newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                        break;
+                    case GameResult.Running:
+                        newMessage.buildGameRunningMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                        break;
                 }
 
 
-                //send new payload
                 mq.SendPayload(newMessage);
+                //UpdateGUI();
 
-                /*game_logic.SetStone(column);
-                Console.WriteLine(column);
-                var payload = new BasePayload();
-                payload.buildGameRunningMsg(_mq.ClientID, game_logic.getGameFieldAsArray());
-                _mq.SendPayload(payload);*/
             }
         }
+
     }
 }
+

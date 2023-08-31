@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace minigame_center.HelperClasses 
+namespace minigame_center.HelperClasses
 {
-
     public enum GameResult
     {
         Won,
@@ -18,48 +11,60 @@ namespace minigame_center.HelperClasses
 
     public class Connect_Four
     {
-        public int[,] GameField { get; set; }
-        private int CurrentPlayer;
-        private int Field_X; // Defines the width of the array/field
-        private int Field_Y; // Defines the height of the array/field
+        public static int[,] gameField;
+        public static int CurrentPlayer;
+        public static int Field_X; // Defines the width of the array/field
+        public static int Field_Y; // Defines the height of the array/field
 
 
-        public Connect_Four(int Field_X, int Field_Y, int CurrentPlayer) //Params: width, height, CurrentPlayer
+        public static void initialiazeField()
         {
-            this.CurrentPlayer = CurrentPlayer;
-            this.Field_X = Field_X;
-            this.Field_Y = Field_Y;
-            GameField = new int[Field_Y, Field_X];
+            gameField = new int[Field_Y, Field_X];
 
             for (int i = 0; i < Field_Y; i++)
             {
                 for (int j = 0; j < Field_X; j++)
                 {
-                    GameField[i, j] = 0;
+                    gameField[i, j] = 0;
                 }
             }
         }
-        public void setGamefieldFromArray(int[][] gamefield)
-        {
-            int rowCount = gamefield.Length;
 
-            int colCount = 0;
-            for (int i = 0; i < rowCount; i++)
+        //TEST FUNCTION 
+        private static void Test()
+        {
+            Console.WriteLine("INTERN:");
+            for (int i = 0; i < Field_Y; i++)
             {
-                int currentRowLength = gamefield[i].Length;
-                if (currentRowLength > colCount)
+                for (int j = 0; j < Field_X; j++)
                 {
-                    colCount = currentRowLength;
+                    Console.Write($"{gameField[i, j]} ");
+                }
+                Console.WriteLine(); // Neue Zeile nach jeder Zeile des Arrays
+            }
+            ///END TEST
+        }
+
+        public static void setGamefieldFromArray(int[][] pGamefield)
+        {
+            for (int i = 0; i < Field_Y; i++)
+            {
+                for (int j = 0; j < Field_X; j++)
+                {
+                    gameField[i, j] = pGamefield[i][j];
                 }
             }
 
-            // Do something with rowCount and colCount, if needed
+            //Console.WriteLine("ARRAY TO FIELD");
+
+            //Test();
+
         }
 
-        public int[][] getGameFieldAsArray()
+        public static int[][] getGameFieldAsArray()
         {
-            int rowCount = GameField.GetLength(0);
-            int colCount = GameField.GetLength(1);
+            int rowCount = gameField.GetLength(0);
+            int colCount = gameField.GetLength(1);
 
             int[][] jaggedArray = new int[rowCount][];
 
@@ -68,18 +73,18 @@ namespace minigame_center.HelperClasses
                 jaggedArray[i] = new int[colCount];
                 for (int j = 0; j < colCount; j++)
                 {
-                    jaggedArray[i][j] = GameField[i, j];
+                    jaggedArray[i][j] = gameField[i, j];
                 }
             }
 
             return jaggedArray;
         }
 
-        public bool SetStonePossible(int Current_X) // Look if line isn't full
+        public static bool SetStonePossible(int Current_X)
         {
             for (int i = 0; i < Field_Y; i++)
             {
-                if (GameField[i, Current_X] == 0)
+                if (gameField[i, Current_X] == 0)
                 {
                     return true;
                 }
@@ -87,44 +92,47 @@ namespace minigame_center.HelperClasses
             return false;
         }
 
-        public GameResult SetStone(int Current_X)   //Param: Choses in which vertical line the stone is placed (begin line 0)
+        public static GameResult SetStone(int Current_X)
         {
             int Current_Y = 0;
             int i = Field_Y - 1;
 
-            while (!(GameField[i, Current_X] == 0))
+            while (!(gameField[i, Current_X] == 0))
             {
                 i--;
             }
 
-            GameField[i, Current_X] = CurrentPlayer;
+            gameField[i, Current_X] = CurrentPlayer;
             Current_Y = i;
+
+            //Console.WriteLine("FROM SET STONE");
+            //Test();
 
             return CheckIfPlayerWon(Current_X, Current_Y);
         }
 
-
-        private GameResult CheckIfPlayerWon(int Current_X, int Current_Y)
+        private static GameResult CheckIfPlayerWon(int Current_X, int Current_Y)
         {
-            //Test Draw
             GameResult gameResult = GameResult.Running;
             bool EmptyFieldExist = false;
+
             for (int i = 0; i < Field_Y; i++)
             {
                 for (int j = 0; j < Field_X; j++)
                 {
-                    if (GameField[i, j] == 0)
+                    if (gameField[i, j] == 0)
                     {
                         EmptyFieldExist = true;
                     }
                 }
             }
+
             int Count = 0;
 
             // Test Horizontally
             for (int i = 0; i < Field_X; i++)
             {
-                if (GameField[Current_Y, i] == CurrentPlayer)
+                if (gameField[Current_Y, i] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -138,11 +146,11 @@ namespace minigame_center.HelperClasses
                 }
             }
 
-            //Test Vertically
+            // Test Vertically
             Count = 0;
             for (int i = 0; i < Field_Y; i++)
             {
-                if (GameField[i, Current_X] == CurrentPlayer)
+                if (gameField[i, Current_X] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -169,7 +177,7 @@ namespace minigame_center.HelperClasses
             Count = 0;
             for (int i = 0; Field_X > Diagnonal_X + i && Field_Y > Diagnonal_Y + i; i++)
             {
-                if (GameField[Diagnonal_Y + i, Diagnonal_X + i] == CurrentPlayer)
+                if (gameField[Diagnonal_Y + i, Diagnonal_X + i] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)
@@ -182,7 +190,6 @@ namespace minigame_center.HelperClasses
                     Count = 0;
                 }
             }
-
 
             // Test diagonal rising
             Diagnonal_X = Current_X;
@@ -197,7 +204,7 @@ namespace minigame_center.HelperClasses
             Count = 0;
             for (int i = 0; Field_X > Diagnonal_X + i && 0 <= Diagnonal_Y - i; i++)
             {
-                if (GameField[Diagnonal_Y - i, Diagnonal_X + i] == CurrentPlayer)
+                if (gameField[Diagnonal_Y - i, Diagnonal_X + i] == CurrentPlayer)
                 {
                     Count++;
                     if (Count == 4)

@@ -57,9 +57,10 @@ namespace minigame_center.Model.Payload
             timestamp = DateTime.Now;
         }
 
-        public void buildGameFinishedMsg(Guid sender)
+        public void buildGameFinishedMsg(Guid sender, int[][] gamefield)
         {
             this.sender = sender;
+            this.gamefield = gamefield;
             gamestatus = GameStatus.FINISHED;
             this.winner = sender;
             timestamp = DateTime.Now;
