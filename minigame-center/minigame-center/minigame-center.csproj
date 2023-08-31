@@ -97,11 +97,15 @@
     <Compile Include="Model\MQTTBaseClientUI.cs" />
     <Compile Include="Model\MQTT_Messages.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\DrawMessageViewModel.cs" />
     <Compile Include="ViewModel\LoseMessageViewModel.cs" />
     <Compile Include="ViewModel\MenueViewModel.cs" />
     <Compile Include="ViewModel\TestUIViewModel.cs" />
     <Compile Include="ViewModel\VierGewinntViewModel.cs" />
     <Compile Include="ViewModel\WinMessageViewModel.cs" />
+    <Compile Include="View\DrawMessage.xaml.cs">
+      <DependentUpon>DrawMessage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LoseMessage.xaml.cs">
       <DependentUpon>LoseMessage.xaml</DependentUpon>
     </Compile>
@@ -117,6 +121,10 @@
     <Compile Include="View\WinMessage.xaml.cs">
       <DependentUpon>WinMessage.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\DrawMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LoseMessage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
