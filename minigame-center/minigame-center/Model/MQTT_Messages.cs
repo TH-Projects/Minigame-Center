@@ -7,7 +7,6 @@ namespace minigame_center.Model.Payload
     {
         NO_RESPONSE,
         NO_OPPONENT,
-        WAITING,
         RUNNING,
         FINISHED
     }
@@ -26,13 +25,7 @@ namespace minigame_center.Model.Payload
             gamestatus = GameStatus.NO_OPPONENT;
             timestamp = DateTime.Now;
         }
-        public void buildWaitingMessage(Guid sender)
-        {
-            this.sender = sender;
-            gamestatus = GameStatus.WAITING;
-            timestamp = DateTime.Now;
-        }
-
+        
         public void buildGameRunningMsg(Guid sender)
         {
             this.sender = sender;

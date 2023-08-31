@@ -30,21 +30,7 @@ namespace minigame_center.HelperClasses
             }
         }
 
-        //TEST FUNCTION 
-        private static void Test()
-        {
-            Console.WriteLine("INTERN:");
-            for (int i = 0; i < Field_Y; i++)
-            {
-                for (int j = 0; j < Field_X; j++)
-                {
-                    Console.Write($"{gameField[i, j]} ");
-                }
-                Console.WriteLine(); // Neue Zeile nach jeder Zeile des Arrays
-            }
-            ///END TEST
-        }
-
+        
         public static void setGamefieldFromArray(int[][] pGamefield)
         {
             for (int i = 0; i < Field_Y; i++)
@@ -54,11 +40,6 @@ namespace minigame_center.HelperClasses
                     gameField[i, j] = pGamefield[i][j];
                 }
             }
-
-            //Console.WriteLine("ARRAY TO FIELD");
-
-            //Test();
-
         }
 
         public static int[][] getGameFieldAsArray()
@@ -105,8 +86,6 @@ namespace minigame_center.HelperClasses
             gameField[i, Current_X] = CurrentPlayer;
             Current_Y = i;
 
-            //Console.WriteLine("FROM SET STONE");
-            //Test();
 
             return CheckIfPlayerWon(Current_X, Current_Y);
         }

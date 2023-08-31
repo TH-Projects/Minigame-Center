@@ -18,10 +18,6 @@ namespace minigame_center.ViewModel
         public static Ellipse[,] circlesArray;
         private Grid gameGrid;
 
-        public static bool bInitializedGameLogic = false;
-       
-
-
         private Grid _viewGeneratedGrid;
         public Grid ViewGeneratedGrid
         {
@@ -42,9 +38,7 @@ namespace minigame_center.ViewModel
         
 
         public VierGewinntViewModel()
-        {
-            
-            
+        {              
             mq = new MQTTGameClient("4gewinnt", PayloadHandler);
             Connect_Four.initialiazeField();
             Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
@@ -53,8 +47,6 @@ namespace minigame_center.ViewModel
             
 
             OnNavigatedTo();
-
-
         }
 
         public void OnNavigatedTo()
@@ -145,19 +137,15 @@ namespace minigame_center.ViewModel
             int column = (int)circle;
 
             GameResult gameResult = GameResult.Running;
-            //check if last message was from opponent
-            
 
+            //This if statement checks if the game is still in RUNNING state and if the current message isn't from yourself
             if (MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.currentMessage.sender != MQTTGameClient.clientID)
             {
-                Console.WriteLine("i reached the IF statement");
-
                 Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
                 Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
 
                 if (Connect_Four.SetStonePossible(column))
                 {
-                    Console.WriteLine($"!!!!!!!!!!PLAYER GameClient {MQTTGameClient.player_number} \nPlayer GAMELOGIC {Connect_Four.CurrentPlayer}");
                     gameResult = Connect_Four.SetStone(column);
                 }
 
@@ -165,7 +153,6 @@ namespace minigame_center.ViewModel
                 
 
                 //publish a new message
-
                 BasePayload newMessage = MQTTGameClient.currentMessage;
 
                 switch (gameResult)
@@ -183,8 +170,6 @@ namespace minigame_center.ViewModel
 
 
                 mq.SendPayload(newMessage);
-                //UpdateGUI();
-
             }
         }
 

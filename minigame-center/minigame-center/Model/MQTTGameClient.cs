@@ -26,9 +26,7 @@ namespace minigame_center.Model.MQTTClient
         static public Guid oponnent { get; set; }
 
         static Guid senderID;
-
-        public static Guid SenderID { get; }
-
+        
         public static int player_number { get; set; }
 
         private static OnGamePayloadRecieved GamePayloadHandler;
@@ -44,9 +42,8 @@ namespace minigame_center.Model.MQTTClient
 
                 senderID = currentMessage.sender;
 
-                if(game_state == GameStatus.NO_OPPONENT && currentMessage.sender != clientID)
+                if(game_state == GameStatus.NO_OPPONENT && currentMessage.sender != clientID) //Player number 1 gets the response from number 2 and sets himself to Status RUNNING
                 {
-                    Console.WriteLine("State wurde auf RUNNING gesetzt");
                     game_state = GameStatus.RUNNING;
                     
                 }
@@ -94,17 +91,8 @@ namespace minigame_center.Model.MQTTClient
                 await Subscribe(game_topic);
                 Thread.Sleep(2000);
 
-
-                //MqttBaseClient._mqttClient.ApplicationMessageReceivedAsync += async (e) =>
-                //{
-                //    string received_payload = Encoding.UTF8.GetString(e.ApplicationMessage.Payload);
-                //    if (IsValidJson(received_payload))
-                //    {
-                //        currentMessage = JsonSerializer.Deserialize<BasePayload>(received_payload);
-                //    }
-                //};
-
-                if (game_state == GameStatus.NO_RESPONSE && (currentMessage==null || currentMessage.gamestatus!=GameStatus.NO_OPPONENT))
+                //HANDSHAKE
+                if (game_state == GameStatus.NO_RESPONSE && (currentMessage==null || currentMessage.gamestatus!=GameStatus.NO_OPPONENT)) //Player number 1 first message
                 {
                     player_number = 1;
                     var Payload = new BasePayload();
@@ -112,8 +100,8 @@ namespace minigame_center.Model.MQTTClient
                     Payload.buildNoOpponentMsg(clientID);
                     await SendPayload(Payload);
                 }
-                else if(currentMessage.gamestatus == GameStatus.NO_OPPONENT && currentMessage.sender != clientID)
-                {
+                else if(currentMessage.gamestatus == GameStatus.NO_OPPONENT && currentMessage.sender != clientID)  //Player number 2 response to first message 
+                {                                                                                                   //Sets Status RUNNING isn't able to make a turn because of the if statement in the viewmodel
                     player_number = 2;
                     oponnent = senderID;
                     await Console.Out.WriteLineAsync($"Game has no Oponnent currently. Updating Ratainmessage. Oponnent {oponnent.ToString()}");
@@ -125,12 +113,7 @@ namespace minigame_center.Model.MQTTClient
 
                 }
 
-
-                await Console.Out.WriteLineAsync($"This Client is: {player_number} - {clientID}");
-
-
-
-
+                await Console.Out.WriteLineAsync($"This Client is: {player_number} - With Client ID: {clientID}");
             }
 
             catch (Exception ex)
@@ -138,12 +121,9 @@ namespace minigame_center.Model.MQTTClient
                 Console.WriteLine($"Fehler: {ex.Message}");
             }
         }
-
-        
        
         public async Task SendPayload(BasePayload payload)
         {
-
             await Publish(payload.toString(), game_topic);
         }
     }
