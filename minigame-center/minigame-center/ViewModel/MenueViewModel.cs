@@ -54,7 +54,8 @@ namespace minigame_center.ViewModel
             var menuItemViewModel = sender as MenuItemViewModel;
 
             App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
-            //Task.Run(() => VierGewinntViewModel.mq.Setup());
+
+            //Initialisiert den Handshake zum anderen Spieler
             Task.Run(() => VierGewinntViewModel.mq.Setup());
             
 

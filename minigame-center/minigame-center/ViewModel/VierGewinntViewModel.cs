@@ -10,6 +10,7 @@ using minigame_center.HelperClasses;
 using minigame_center.Model.MQTTClient;
 using minigame_center.Model.Payload;
 using minigame_center.View;
+using minigame_center.ViewModel;
 
 namespace minigame_center.ViewModel
 {
@@ -34,6 +35,13 @@ namespace minigame_center.ViewModel
         private void PayloadHandler(BasePayload payload)
         {
             UpdateGUI();
+            if(payload.winner != Guid.Empty)
+            {
+                if (payload.winner != MQTTGameClient.ClientID)
+                {
+                    App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "You Lose");
+                }
+            }
         }
 
         
@@ -155,14 +163,15 @@ namespace minigame_center.ViewModel
 
                 //publish a new message
                 BasePayload newMessage = MQTTGameClient.currentMessage;
-
                 switch (gameResult)
                 {
                     case GameResult.Won:
                         newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                        App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Du gewinnst");
                         break;
                     case GameResult.Draw:
                         newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                        App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Du verlierst");
                         break;
                     case GameResult.Running:
                         newMessage.buildGameRunningMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
