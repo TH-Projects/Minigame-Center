@@ -38,7 +38,7 @@ namespace minigame_center.ViewModel
             {
                 ButtonContent = "",
                 BackgroundImageSource = "../Assets/inProgress.jpg",
-               
+                
             };
             ThirdMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
             FourthMenuItemViewModel = new MenuItemViewModel
