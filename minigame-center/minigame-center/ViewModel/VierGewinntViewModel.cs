@@ -158,30 +158,29 @@ namespace minigame_center.ViewModel
                 if (Connect_Four.SetStonePossible(column))
                 {
                     gameResult = Connect_Four.SetStone(column);
+                    //publish a new message
+                    BasePayload newMessage = MQTTGameClient.currentMessage;
+                    switch (gameResult)
+                    {
+                        case GameResult.Won:
+                            newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                            App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Du gewinnst");
+                            break;
+                        case GameResult.Draw:
+                            newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                            App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Du verlierst");
+                            break;
+                        case GameResult.Running:
+                            newMessage.buildGameRunningMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                            break;
+                    }
+                    mq.SendPayload(newMessage);
                 }
 
                 
                 
 
-                //publish a new message
-                BasePayload newMessage = MQTTGameClient.currentMessage;
-                switch (gameResult)
-                {
-                    case GameResult.Won:
-                        newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
-                        App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Du gewinnst");
-                        break;
-                    case GameResult.Draw:
-                        newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
-                        App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Du verlierst");
-                        break;
-                    case GameResult.Running:
-                        newMessage.buildGameRunningMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
-                        break;
-                }
 
-
-                mq.SendPayload(newMessage);
             }
         }
 
