@@ -11,8 +11,9 @@
         <local:VierGewinntViewModel/>
     </Page.DataContext>
     <Grid>
-        <Grid x:Name="GeneratedGrid" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <!-- Hier werden die schwarzen Kreise generiert -->
-            </Grid>
+        <Grid x:Name="GeneratedGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Label Content="das it da"></Label>
+            <ContentPresenter Content="{Binding ViewGeneratedGrid}" />
+        </Grid>
     </Grid>
 </Page>

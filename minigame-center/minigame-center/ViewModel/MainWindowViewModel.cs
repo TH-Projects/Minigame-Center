@@ -25,6 +25,9 @@ namespace minigame_center.ViewModel
             var view = ViewLocator.GetViewForViewModel(viewModel);
             MainHeadline = headline;
             OnPropertyChanged(nameof(MainHeadline));
+
+
+
             _navigationService.NavigateToViewModel(viewModel);
         }
     }

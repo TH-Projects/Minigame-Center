@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MQTTnet;
+using MQTTnet.Client;
+using MQTTnet.Server;
+using System;
 using System.Security.Authentication;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
-using MQTTnet;
-using MQTTnet.Client;
-using MQTTnet.Protocol;
-using MQTTnet.Server;
-using Newtonsoft.Json;
 
-
-namespace minigame_center.Model.MQTTClient
+namespace MQTT_Event_Driven
 {
-    public class MqttBaseClient
+    public abstract class MqttBaseClient
     {
         private readonly IMqttClient _mqttClient;
-        public static Guid clientID;
+        protected Guid clientID;
 
         public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
 
+        public Guid ClientID { get; }
 
         public MqttBaseClient()
         {

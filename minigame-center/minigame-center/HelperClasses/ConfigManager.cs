@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace MQTT_Event_Driven
+namespace minigame_center.HelperClasses
 {
     public static class ConfigManager
     {

@@ -37,24 +37,28 @@ namespace minigame_center.ViewModel
             ThirdMenuItemViewModel = new MenuItemViewModel
             {
                 ButtonContent = "",
-                BackgroundImageSource = "../Assets/inProgress.jpg"
+                BackgroundImageSource = "../Assets/inProgress.jpg",
             };
-            ThirdMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
+            //ThirdMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
             FourthMenuItemViewModel = new MenuItemViewModel
             {
                 ButtonContent = "",
                 BackgroundImageSource = "../Assets/inProgress.jpg"
             };
-            FourthMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
+            //FourthMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
         }
+
 
         private void HandleMenuItemClicked(object sender, EventArgs e)
         {
             var menuItemViewModel = sender as MenuItemViewModel;
-            if (menuItemViewModel != null && menuItemViewModel.NavDestination != null)
-            {
-                App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
-            }
+
+            App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
+
+            //Initialisiert den Handshake zum anderen Spieler
+            Task.Run(() => VierGewinntViewModel.mq.Setup());
+            
+
         }
     }
 }
