@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:minigame_center"
              >
     <Application.Resources>
-         
+        <BitmapImage x:Key="AppIcon" UriSource="Assets/apple-icon-60x60.ico"/>
     </Application.Resources>
 </Application>

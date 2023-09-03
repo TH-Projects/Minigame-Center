@@ -10,6 +10,13 @@
     <Page.DataContext>
         <local:TestUIViewModel />
     </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../AppStyleDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -32,6 +39,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalContentAlignment="Bottom"
                     HorizontalContentAlignment="Center"
+                    Style="{StaticResource DarkLabelStyle}"
                     />
                 </Viewbox>
             </Grid>
@@ -44,7 +52,8 @@
                     VerticalAlignment="Stretch"
                     HorizontalAlignment="Stretch"
                     VerticalContentAlignment="Bottom"
-                    HorizontalContentAlignment="Center"
+                    HorizontalContentAlignment="Center"    
+                    Style="{StaticResource DarkLabelStyle}"
                     />
                 </Viewbox>
             </Grid>
@@ -63,8 +72,9 @@
                     Content="{Binding BigBoxOne}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    BorderBrush="Black"
-                    BorderThickness="2px"
+                    BorderBrush="White"
+                    BorderThickness="2"
+                    Style="{StaticResource DarkLabelStyle}"
                 />
             </Grid>
 
@@ -74,8 +84,9 @@
                     Content="{Binding BigBoxTwo}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    BorderBrush="Black"
+                    BorderBrush="White"
                     BorderThickness="2px"
+                    Style="{StaticResource DarkLabelStyle}"
                 />
             </Grid>
         </Grid>
@@ -88,9 +99,19 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="1">
-                <Button Margin="20" Command="{Binding OptionalCommand}">
+                <Button 
+                    Margin="20" 
+                    Command="{Binding OptionalCommand}"
+                    Style="{StaticResource DarkButtonStyle}"
+                    Background="White"
+                    >
                     <Viewbox Margin="5">
-                        <Label Content="{Binding ButtonContent}"/>
+                        <Label 
+                            Content="{Binding ButtonContent}"
+                            Background="Transparent"
+                            Foreground="#1E1E1E"
+                            Style="{StaticResource DarkLabelStyle}"
+                            />
                     </Viewbox>
                 </Button>
             </Grid>
