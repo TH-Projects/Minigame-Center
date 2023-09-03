@@ -26,23 +26,29 @@
             <uc:MenueItem
                 x:Name="vierGewinntItem"
                 DataContext="{Binding VierGewinntMenuItemViewModel}"
-                Margin="30" 
+                MaxHeight="300"
+                MaxWidth="500"      
+                Margin="50"
             />  
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="1">
             <uc:MenueItem
                 x:Name="secondMenueItem"
-                DataContext="{Binding TestUIMenuItemViewModel}"    
-                Margin="30"
+                DataContext="{Binding TestUIMenuItemViewModel}"
+                MaxHeight="300"
+                MaxWidth="500"
+                Margin="50"
              />
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0">
             <uc:MenueItem
                 x:Name="thirdMenueItem"
-                DataContext="{Binding ThirdMenuItemViewModel}" 
-                Margin="30"
+                DataContext="{Binding ThirdMenuItemViewModel}"
+                MaxHeight="300"
+                MaxWidth="500"
+                Margin="50"
             />
         </Grid>
 
@@ -50,7 +56,9 @@
             <uc:MenueItem
                 x:Name="fourthMenueItem"
                 DataContext="{Binding FourthMenuItemViewModel}"
-                Margin="30"
+                MaxHeight="300"
+                MaxWidth="500"
+                Margin="40"
             />
         </Grid>
     </Grid>

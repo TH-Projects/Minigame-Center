@@ -186,6 +186,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AppStyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -259,6 +263,9 @@
     <Resource Include="Assets\inProgress.jpg" />
     <Resource Include="Assets\placeholder.png" />
     <Resource Include="Assets\vierGewinnt.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\apple-icon-60x60.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
