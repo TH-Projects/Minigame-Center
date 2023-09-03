@@ -11,7 +11,7 @@ namespace minigame_center.View
     {
         public VierGewinnt()
         {
-			InitializeComponent();			
-		}  
-	}
+            InitializeComponent();
+        }
+    }
 }
