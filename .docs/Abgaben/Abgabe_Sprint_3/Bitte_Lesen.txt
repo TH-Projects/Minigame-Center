@@ -1,0 +1,7 @@
+Sehr geehrte Frau Berninger,
+bitte zunächst das Screenvideo beachten. Die Funktionalität ist getestet und sollte im Best-Case bei Ihnen analog funktionieren.
+Sollte es wiedererwartens nicht möglich sein ein Spiel mit zwei Fenstern zu starten kann ein Fehler im MQTT Ablauf vorliegen. 
+Dh. Spiele hängen in der Warteschleife wenn bspw. ein Spiel einfach abgebrochen wurde.
+Die Robustheit der Applikation ist unser Hauptziel im nächsten Sprint, allerdings ist das Spiel zum aktuellen Zeitpunkt getestet lauffähig.
+Viele Grüße
+Team Mercedes-Benz Tech Innovation & Nokia

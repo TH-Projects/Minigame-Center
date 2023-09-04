@@ -6,22 +6,31 @@
              xmlns:local="clr-namespace:minigame_center.Components"
              mc:Ignorable="d" 
              d:DesignHeight="250" d:DesignWidth="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../AppStyleDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid Grid.Row="1" Grid.Column="1">
-            <Button Command="{Binding ButtonCommand}">
+            <Button 
+                Command="{Binding ButtonCommand}" 
+                Style="{StaticResource DarkButtonStyle}"
+                >
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding BackgroundImageSource}" Opacity="0.85"/>
                 </Button.Background>
                 <Button.Content>
                     <Viewbox MaxHeight="100">
-                        <TextBlock Text="{Binding ButtonContent}" Foreground="White" FontWeight="Bold"/>
+                        <TextBlock 
+                            Text="{Binding ButtonContent}"
+                            Background="Transparent"
+                            Style="{StaticResource DarkTextBlockStyle}"
+                            />
                     </Viewbox>
                 </Button.Content>
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="50"/>
-                    </Style>
-                </Button.Resources>
             </Button>
         </Grid>
     </Grid>

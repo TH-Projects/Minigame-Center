@@ -155,6 +155,7 @@
     <Compile Include="ViewModel\MenueViewModel.cs" />
     <Compile Include="ViewModel\TestUIViewModel.cs" />
     <Compile Include="ViewModel\VierGewinntViewModel.cs" />
+    <Compile Include="ViewModel\LoadingscreenViewModel.cs" />
     <Compile Include="ViewModel\WinMessageViewModel.cs" />
     <Compile Include="View\DrawMessage.xaml.cs">
       <DependentUpon>DrawMessage.xaml</DependentUpon>
@@ -171,6 +172,9 @@
     <Compile Include="View\VierGewinnt.xaml.cs">
       <DependentUpon>VierGewinnt.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Loadingscreen.xaml.cs">
+      <DependentUpon>Loadingscreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WinMessage.xaml.cs">
       <DependentUpon>WinMessage.xaml</DependentUpon>
     </Compile>
@@ -179,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoseMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AppStyleDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,6 +222,10 @@
     <Page Include="View\VierGewinnt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Loadingscreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\WinMessage.xaml">
       <SubType>Designer</SubType>
@@ -251,6 +263,9 @@
     <Resource Include="Assets\inProgress.jpg" />
     <Resource Include="Assets\placeholder.png" />
     <Resource Include="Assets\vierGewinnt.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\apple-icon-60x60.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

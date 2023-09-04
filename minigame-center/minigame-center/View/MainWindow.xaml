@@ -6,11 +6,21 @@
         xmlns:local="clr-namespace:minigame_center.ViewModel"
         mc:Ignorable="d"
         WindowState="Maximized"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Minigame-Center" Height="450" Width="800"
+        Icon="{StaticResource AppIcon}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../AppStyleDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource BackgroundColorBrush}" Margin="0,0,0,7">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="6*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -23,19 +33,21 @@
             <Grid Grid.Column="1">
                 <Viewbox>
                     <Label
-                        x:Name="lbl_headline" 
-                        Content="{Binding MainHeadline}"
-                        VerticalAlignment="Stretch"
-                        HorizontalAlignment="Stretch"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center"
-                        Margin="5"
-                    />
+                x:Name="lbl_headline" 
+                Content="{Binding MainHeadline}"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center"
+                Style="{StaticResource DarkLabelStyle}"
+            />
                 </Viewbox>
             </Grid>
+
+            <Border Grid.ColumnSpan="3" Grid.Row="1" BorderThickness="0,0,0,5" BorderBrush="White" Margin="50,0,50,10"/>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="5*"></ColumnDefinition>
@@ -43,10 +55,8 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="1">
-                <Frame x:Name="fr_MainContent" NavigationUIVisibility="Hidden"/>
+                <Frame x:Name="fr_MainContent" NavigationUIVisibility="Hidden" Margin="0,0,0,22"/>
             </Grid>
-            
         </Grid>
-        
     </Grid>
 </Window>
