@@ -50,13 +50,12 @@ namespace minigame_center.ViewModel
 			
 
 		// Im GenerateGrid-Code (statt der bisherigen Setze-Operation)
-			gameGrid.Background = new SolidColorBrush(Colors.Blue);
 			ViewGeneratedGrid = gameGrid;
 
 			for (int col = 0; col < columns; col++)
 			{
 				Button dropButton = new Button();
-				dropButton.Content = "*";
+				dropButton.Content = "Stein setzen";
 				//dropButton.Width = circleSize;
 				dropButton.VerticalAlignment = VerticalAlignment.Stretch;
 				dropButton.HorizontalAlignment = HorizontalAlignment.Stretch;
