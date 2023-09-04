@@ -13,16 +13,15 @@ using MQTTnet.Server;
 using Newtonsoft.Json;
 
 
-namespace MQTT_Event_Driven
+namespace minigame_center.Model.MQTTClient
 {
     public class MqttBaseClient
     {
         private readonly IMqttClient _mqttClient;
-        protected Guid clientID;
+        public static Guid clientID;
 
         public event EventHandler<MqttApplicationMessageReceivedEventArgs> MessageReceived;
 
-        public Guid ClientID { get;}
 
         public MqttBaseClient()
         {
@@ -30,7 +29,7 @@ namespace MQTT_Event_Driven
             _mqttClient = factory.CreateMqttClient();
             clientID = Guid.NewGuid();
 
-            _mqttClient.ApplicationMessageReceivedAsync += async ( e) =>
+            _mqttClient.ApplicationMessageReceivedAsync += async (e) =>
             {
                 Console.WriteLine($"Received message on topic on Main {e.ApplicationMessage.Topic} from ClientID {e.ClientId} : {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
 
@@ -71,7 +70,7 @@ namespace MQTT_Event_Driven
             try
             {
                 await _mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic(topic).Build());
-               
+
             }
 
             catch (Exception ex)

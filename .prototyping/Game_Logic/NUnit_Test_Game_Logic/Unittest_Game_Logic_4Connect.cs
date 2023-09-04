@@ -9,14 +9,15 @@ namespace Game_Logic
         public void SetStonePossible_ChosenLineIsNotFull()
         {
             // Arrange
-            int[,] matrix = {
-            { 1, 0, 0, 1, 0, 0, 0},
-            { 2, 0, 0, 2, 0, 0, 0},
-            { 2, 0, 0, 1, 0, 0, 0},
-            { 1, 2, 1, 2, 0, 0, 0},
-            { 1, 1, 1, 2, 0, 0, 0},
-            { 1, 2, 2, 2, 1, 0, 0},
+            int[][] matrix ={           // Initial Matrix for test cases
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{2, 1, 0, 1, 2, 0, 0},
+            new int[]{2, 2, 1, 2, 2, 0, 0},
+            new int[]{2, 1, 2, 1, 2, 0, 0},
+            new int[]{2, 2, 2, 2, 2, 0, 0},
             };
+
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 
             // Act
@@ -31,13 +32,13 @@ namespace Game_Logic
         public void SetStonePossible_ChosenLineIsFull()
         {
             // Arrange
-            int[,] matrix = {
-            { 0, 0, 2, 0, 0, 0, 0},
-            { 0, 0, 1, 0, 0, 0, 0},
-            { 2, 0, 2, 0, 0, 0, 0},
-            { 1, 2, 1, 2, 0, 0, 0},
-            { 1, 1, 1, 2, 0, 0, 0},
-            { 1, 2, 2, 2, 1, 0, 0},
+            int[][] matrix ={           
+            new int[]{ 0, 0, 2, 0, 0, 0, 0},
+            new int[]{ 0, 0, 1, 0, 0, 0, 0},
+            new int[]{ 2, 0, 2, 0, 0, 0, 0},
+            new int[]{ 1, 2, 1, 2, 0, 0, 0},
+            new int[]{ 1, 1, 1, 2, 0, 0, 0},
+            new int[]{ 1, 2, 2, 2, 1, 0, 0},
             };
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 
@@ -53,13 +54,13 @@ namespace Game_Logic
         public void SetStonePossible_CompleteFieldIsFull()
         {
             // Arrange
-            int[,] matrix = {
-            { 1, 2, 1, 2, 1, 2, 1},
-            { 2, 1, 2, 1, 2, 1, 2},
-            { 1, 2, 1, 2, 1, 2, 1},
-            { 2, 1, 2, 1, 2, 1, 2},
-            { 1, 2, 1, 2, 1, 2, 1},
-            { 2, 1, 2, 1, 2, 1, 2},
+            int[][] matrix ={          
+            new int[]{ 1, 2, 1, 2, 1, 2, 1},
+            new int[]{ 2, 1, 2, 1, 2, 1, 2},
+            new int[]{ 1, 2, 1, 2, 1, 2, 1},
+            new int[]{ 2, 1, 2, 1, 2, 1, 2},
+            new int[]{ 1, 2, 1, 2, 1, 2, 1},
+            new int[]{ 2, 1, 2, 1, 2, 1, 2},
             };
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 
@@ -75,13 +76,13 @@ namespace Game_Logic
         public void SetStone_MoveLeadsToRunning()
         {
             // Arrange
-            int[,] matrix = {
-            { 0, 0, 0, 0, 0, 0, 0},
-            { 0, 0, 0, 0, 0, 0, 0},
-            { 0, 0, 0, 0, 0, 0, 0},
-            { 0, 0, 0, 0, 0, 0, 0},
-            { 0, 0, 0, 0, 0, 0, 0},
-            { 0, 0, 0, 0, 0, 0, 0},
+            int[][] matrix ={           
+            new int[]{ 0, 0, 0, 0, 0, 0, 0},
+            new int[]{ 0, 0, 0, 0, 0, 0, 0},
+            new int[]{ 0, 0, 0, 0, 0, 0, 0},
+            new int[]{ 0, 0, 0, 0, 0, 0, 0},
+            new int[]{ 0, 0, 0, 0, 0, 0, 0},
+            new int[]{ 0, 0, 0, 0, 0, 0, 0},
             };
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 
@@ -98,13 +99,13 @@ namespace Game_Logic
         public void SetStone_MoveLeadsToDiagonalRisingWin()
         {
             // Arrange
-            int[,] matrix = {
-            { 1, 2, 1, 0, 1, 2, 1},
-            { 2, 1, 2, 0, 2, 1, 2},
-            { 1, 2, 1, 2, 1, 2, 1},
-            { 2, 1, 2, 1, 2, 1, 2},
-            { 1, 2, 1, 2, 1, 2, 1},
-            { 2, 1, 2, 1, 2, 1, 2},
+            int[][] matrix ={          
+            new int[]{ 1, 2, 1, 0, 1, 2, 1},
+            new int[]{ 2, 1, 2, 0, 2, 1, 2},
+            new int[]{ 1, 2, 1, 2, 1, 2, 1},
+            new int[]{ 2, 1, 2, 1, 2, 1, 2},
+            new int[]{ 1, 2, 1, 2, 1, 2, 1},
+            new int[]{ 2, 1, 2, 1, 2, 1, 2},
             };
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 
@@ -120,13 +121,13 @@ namespace Game_Logic
         public void SetStone_MoveLeadsToDiagonalFallingWin()
         {
             // Arrange
-            int[,] matrix = {
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 1, 0, 0, 0, 0, 0},
-            {2, 2, 1, 0, 0, 0, 0},
-            {2, 1, 2, 1, 0, 0, 0},
-            {2, 2, 1, 2, 0, 0, 0},
-            {2, 2, 2, 2, 2, 0, 0},
+            int[][] matrix ={           
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 1, 0, 0, 0, 0, 0},
+            new int[]{2, 2, 1, 0, 0, 0, 0},
+            new int[]{2, 1, 2, 1, 0, 0, 0},
+            new int[]{2, 2, 1, 2, 0, 0, 0},
+            new int[]{2, 2, 2, 2, 2, 0, 0},
             };
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 
@@ -142,13 +143,13 @@ namespace Game_Logic
         public void SetStone_MoveLeadsToHorizontalWin()
         {
             // Arrange
-            int[,] matrix = {
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {2, 2, 2, 0, 0, 0, 0},
-            {1, 1, 1, 0, 0, 0, 0},
+            int[][] matrix ={           
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{2, 2, 2, 0, 0, 0, 0},
+            new int[]{1, 1, 1, 0, 0, 0, 0},
             };
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 
@@ -164,13 +165,13 @@ namespace Game_Logic
         public void SetStone_MoveLeadsToVertikalWin()
         {
             // Arrange
-            int[,] matrix = {
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 2, 1, 0, 0, 0, 0},
-            {0, 2, 1, 0, 0, 0, 0},
-            {0, 2, 1, 0, 0, 0, 0},
+            int[][] matrix ={       
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 2, 1, 0, 0, 0, 0},
+            new int[]{0, 2, 1, 0, 0, 0, 0},
+            new int[]{0, 2, 1, 0, 0, 0, 0},
             };
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 
@@ -187,13 +188,13 @@ namespace Game_Logic
         public void SetStone_MoveLeadsToDraw()
         {
             // Arrange
-            int[,] matrix = {
-            { 2, 1, 0, 2, 2, 1, 1 },
-            { 1, 2, 1, 1, 1, 2, 2 },
-            { 2, 1, 2, 2, 2, 1, 1 },
-            { 1, 2, 2, 1, 2, 2, 2 },
-            { 1, 1, 1, 2, 1, 1, 1 },
-            { 2, 2, 1, 2, 1, 2, 2 },
+            int[][] matrix ={       
+            new int[]{ 2, 1, 0, 2, 2, 1, 1 },
+            new int[]{ 1, 2, 1, 1, 1, 2, 2 },
+            new int[]{ 2, 1, 2, 2, 2, 1, 1 },
+            new int[]{ 1, 2, 2, 1, 2, 2, 2 },
+            new int[]{ 1, 1, 1, 2, 1, 1, 1 },
+            new int[]{ 2, 2, 1, 2, 1, 2, 2 },
             };
             Connect_Four connect_Four_Test = new Connect_Four(7, 6, 1);
 

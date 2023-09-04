@@ -1,24 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+using System.Text.Json;
 
 namespace MQTT_Event_Driven.MQTTClient
 {
-    public class FistConnectionMessage
+    public enum GameStatus
     {
-        public string uuid { get; set; }
-        public string username { get; set; }
-        public DateTime Timestamp { get; set; }
+        NO_RESPONSE,
+        NO_OPPONENT,
+        WAITING,
+        RUNNING,
+        FINISHED
+    }
+    public class BasePayload
+    {
+        public int[][] gamefield { get; set; }
+        public GameStatus gamestatus { get; set; }
+
+        public Guid sender { get; set; }
+        public Guid winner { get; set; }
+        public DateTime timestamp { get; set; }
+
+        public void buildNoOpponentMsg(Guid sender)
+        {
+            this.sender = sender;
+            gamestatus = GameStatus.NO_OPPONENT;
+            timestamp = DateTime.Now;
+        }
+        public void buildWaitingMessage(Guid sender)
+        {
+            this.sender = sender;
+            gamestatus = GameStatus.WAITING;
+            timestamp = DateTime.Now;
+        }
+
+        public void buildGameRunningMsg(Guid sender)
+        {
+            this.sender = sender;
+            int[][] field = {           // Initial Matrix for test cases
+                new int[] { 0, 0, 0, 0, 0, 0, 0 },
+                new int[] { 0, 0, 0, 0, 0, 0, 0 },
+                new int[] { 0, 0, 0, 0, 0, 0, 0 },
+                new int[] { 0, 0, 0, 0, 0, 0, 0 },
+                new int[] { 0, 0, 0, 0, 0, 0, 0 },
+                new int[] { 0, 0, 0, 0, 0, 0, 0},
+            };
+            gamefield = field;
+            gamestatus = GameStatus.RUNNING;
+            timestamp = DateTime.Now;
+        }
+
+        public void buildGameRunningMsg(Guid sender, int[][] gamefield)
+        {
+            this.sender = sender;
+            this.gamefield = gamefield;
+            gamestatus = GameStatus.RUNNING;
+            timestamp = DateTime.Now;
+        }
+
+        public void buildGameFinishedMsg(Guid sender)
+        {
+            this.sender = sender;
+            gamestatus = GameStatus.FINISHED;
+            this.winner = sender;
+            timestamp = DateTime.Now;
+        }
+        public string toString()
+        {
+            return JsonSerializer.Serialize<BasePayload>(this);
+        }
     }
 
-    public class VierGewinntMessage
-    {
-        public string uuid { get; set; }
-        public string  x_position { get; set; }
-        public DateTime Timestamp { get; set; }
-    }
 }

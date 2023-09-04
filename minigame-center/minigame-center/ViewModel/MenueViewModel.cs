@@ -48,13 +48,17 @@ namespace minigame_center.ViewModel
             //FourthMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
         }
 
+
         private void HandleMenuItemClicked(object sender, EventArgs e)
         {
             var menuItemViewModel = sender as MenuItemViewModel;
-            if (menuItemViewModel != null && menuItemViewModel.NavDestination != null)
-            {
-                App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
-            }
+
+            App.MainViewModel.NavigateToPage(menuItemViewModel.NavDestination, menuItemViewModel.NavDestinationHeadline);
+
+            //Initialisiert den Handshake zum anderen Spieler
+            Task.Run(() => VierGewinntViewModel.Setup(menuItemViewModel));
+            
+
         }
     }
 }

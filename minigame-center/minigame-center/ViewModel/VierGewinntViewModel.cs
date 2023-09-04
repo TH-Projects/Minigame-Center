@@ -1,131 +1,203 @@
-﻿using System.Windows;
+﻿using System;
+using System.Data.Common;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using minigame_center.ViewModel; // Stelle sicher, dass der korrekte Namespace verwendet wird
+using minigame_center.HelperClasses;
+using minigame_center.Model.MQTTClient;
+using minigame_center.Model.Payload;
+using minigame_center.View;
+using minigame_center.ViewModel;
 
 namespace minigame_center.ViewModel
 {
-	public class VierGewinntViewModel : BaseViewModel
-	{
-		private Ellipse[,] circlesArray;
-		//private const double circleSize = 20;
-		private Grid gameGrid;
+    public class VierGewinntViewModel : BaseViewModel
+    {
+        public static Ellipse[,] circlesArray;
+        private Grid gameGrid;
 
-		private Grid _viewGeneratedGrid;
-		public Grid ViewGeneratedGrid
-		{
-			get { return _viewGeneratedGrid; }
-			set
-			{
-				_viewGeneratedGrid = value;
-				OnPropertyChanged(nameof(ViewGeneratedGrid));
-			}
-		}
+        private Grid _viewGeneratedGrid;
+        public Grid ViewGeneratedGrid
+        {
+            get { return _viewGeneratedGrid; }
+            set
+            {
+                _viewGeneratedGrid = value;
+                OnPropertyChanged(nameof(ViewGeneratedGrid));
+            }
+        }
 
-		public VierGewinntViewModel()
-		{
-			OnNavigatedTo();
-		}
+        private static GameResult gameResult = GameResult.Running;
 
-		public void OnNavigatedTo()
-		{
-			GenerateGrid(6, 7);
-		}
+        public static MQTTGameClient mq;
 
-		public void GenerateGrid(int rows, int columns)
-		{
-			gameGrid = new Grid();
+        private void PayloadHandler(BasePayload payload)
+        {
+            UpdateGUI();
+        }
 
-			for (int i = 0; i < rows; i++)
-			{
-				gameGrid.RowDefinitions.Add(new RowDefinition());
-			}
+        public VierGewinntViewModel()
+        {              
+            mq = new MQTTGameClient("4gewinnt", PayloadHandler);
+            Connect_Four.initialiazeField();
+            Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
+            Connect_Four.Field_X = 7;
+            Connect_Four.Field_Y = 5;
+            
 
-			for (int j = 0; j < columns; j++)
-			{
-				gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
-			}
+            OnNavigatedTo();
+        }
 
-			
+        public static async void Setup(MenuItemViewModel model)
+        {
+            //Application.Current.Dispatcher.Invoke(() => App.MainViewModel.NavigateToPage(new LoadingscreenViewModel(), ""));
+            await mq.Setup();
+            //Application.Current.Dispatcher.Invoke(() => App.MainViewModel.NavigateToPage(model.NavDestination, ""));
+        }
 
-		// Im GenerateGrid-Code (statt der bisherigen Setze-Operation)
-			ViewGeneratedGrid = gameGrid;
+        public void OnNavigatedTo()
+        {
+            GenerateGrid(6, 7);
+        }
 
-			for (int col = 0; col < columns; col++)
-			{
-				Button dropButton = new Button();
-				dropButton.Content = "Stein setzen";
-				//dropButton.Width = circleSize;
-				dropButton.VerticalAlignment = VerticalAlignment.Stretch;
-				dropButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-				dropButton.Height = 40;
-				dropButton.Margin = new Thickness(5);
-				dropButton.Tag = col; // Speichere den Index der Spalte im Tag
-				//dropButton.Command = new RelayCommand(DropButton_Click); // Handle button click
-				gameGrid.Children.Add(dropButton);
-				Grid.SetRow(dropButton, 0);
-				Grid.SetColumn(dropButton, col);
-			}
+        public void GenerateGrid(int rows, int columns)
+        {
+            gameGrid = new Grid();
 
-			circlesArray = new Ellipse[rows, columns];
+            for (int i = 0; i < rows; i++)
+            {
+                gameGrid.RowDefinitions.Add(new RowDefinition());
+            }
 
-			for (int row = 1; row < rows; row++)
-			{
-				for (int col = 0; col < columns; col++)
-				{
-					Ellipse blackCircle = new Ellipse();
-					blackCircle.Fill = Brushes.DarkBlue;
-					blackCircle.VerticalAlignment = VerticalAlignment.Stretch;
-					blackCircle.HorizontalAlignment = HorizontalAlignment.Stretch;
-					blackCircle.Margin = new Thickness(15,10,15,10);
-					gameGrid.Children.Add(blackCircle);
-					Grid.SetRow(blackCircle, row);
-					Grid.SetColumn(blackCircle, col);
+            for (int j = 0; j < columns; j++)
+            {
+                gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
 
-					circlesArray[row, col] = blackCircle;
-				}
-			}
-		}
+            gameGrid.Background = new SolidColorBrush(Colors.Blue);
+            ViewGeneratedGrid = gameGrid;
 
-		private void DropButton_Click(object parameter)
-		{
-			int column = (int)parameter; // Hier die Spalte
+            for (int col = 0; col < columns; col++)
+            {
+                Button dropButton = new Button();
+                dropButton.Content = "*";
+                dropButton.VerticalAlignment = VerticalAlignment.Stretch;
+                dropButton.HorizontalAlignment = HorizontalAlignment.Stretch;
+                dropButton.Height = 40;
+                dropButton.Margin = new Thickness(5);
+                dropButton.Tag = col;
+                dropButton.Click += (sender, e) => DropButton_Click(dropButton.Tag);
+                gameGrid.Children.Add(dropButton);
+                Grid.SetRow(dropButton, 0);
+                Grid.SetColumn(dropButton, col);
+            }
 
-			int rowIndex = FindLowestEmptyRow(column);
-			if (rowIndex >= 0)
-			{
-				ColorCircle(rowIndex, column, Brushes.Yellow);
-				CheckForWin(rowIndex, column);
-			}
-		}
+            circlesArray = new Ellipse[rows, columns];
 
-		private int FindLowestEmptyRow(int column)
-		{
-			for (int row = circlesArray.GetLength(0) - 1; row >= 0; row--)
-			{
-				if (circlesArray[row, column] == null)
-				{
-					return row;
-				}
-			}
-			return -1;
-		}
+            for (int row = 1; row < rows; row++)
+            {
+                for (int col = 0; col < columns; col++)
+                {
+                    Ellipse blackCircle = new Ellipse();
+                    blackCircle.Fill = Brushes.DarkBlue;
+                    blackCircle.VerticalAlignment = VerticalAlignment.Stretch;
+                    blackCircle.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    blackCircle.Margin = new Thickness(15, 10, 15, 10);
+                    gameGrid.Children.Add(blackCircle);
+                    Grid.SetRow(blackCircle, row);
+                    Grid.SetColumn(blackCircle, col);
 
-		private void ColorCircle(int row, int col, Brush color)
-		{
-			if (row >= 1 && row < circlesArray.GetLength(0) && col >= 0 && col < circlesArray.GetLength(1))
-			{
-				if (circlesArray[row, col] != null)
-				{
-					circlesArray[row, col].Fill = color;
-				}
-			}
-		}
+                    circlesArray[row, col] = blackCircle;
+                }
+            }
+        }
 
-		private void CheckForWin(int row, int col)
-		{
-			// Füge hier deine Gewinnlogik hinzu
-		}
-	}
+
+        public static void UpdateGUI()
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                switch (gameResult)
+                {
+                    case GameResult.Won:
+                        App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "");
+                        break;
+                    case GameResult.Draw:
+                        App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "");
+                        break;
+                    case GameResult.Running:
+                        if (MQTTGameClient.currentMessage.gamefield != null)
+                        {
+                            if(
+                                (MQTTGameClient.currentMessage.winner != MQTTGameClient.clientID) && 
+                                (MQTTGameClient.currentMessage.winner != Guid.Empty)
+                            ){
+                                App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "");
+                            }
+                            else if(
+                                (MQTTGameClient.currentMessage.gamestatus == GameStatus.FINISHED) && 
+                                (MQTTGameClient.currentMessage.winner == Guid.Empty)
+                            ){
+                                App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "");
+                            }
+                            else { 
+                                Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
+
+                                int[][] GameField = Connect_Four.getGameFieldAsArray();
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    for (int j = 0; j < 7; j++)
+                                    {
+                                        if (GameField[i][j] == 0) circlesArray[i + 1, j].Fill = Brushes.DarkBlue;
+                                        else if (GameField[i][j] == 1) circlesArray[i + 1, j].Fill = Brushes.Red;
+                                        else if (GameField[i][j] == 2) circlesArray[i + 1, j].Fill = Brushes.Green; // Änderung von 1 auf 2
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                }
+                
+                
+            });
+        }
+
+
+
+        private void DropButton_Click(object circle)
+        {
+            int column = (int)circle;
+            //This if statement checks if the game is still in RUNNING state and if the current message isn't from yourself
+            if (MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.currentMessage.sender != MQTTGameClient.clientID)
+            {
+                Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
+                Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
+
+                if (Connect_Four.SetStonePossible(column))
+                {
+                    gameResult = Connect_Four.SetStone(column);
+                    //publish a new message
+                    BasePayload newMessage = MQTTGameClient.currentMessage;
+                    switch (gameResult)
+                    {
+                        case GameResult.Won:
+                            newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                            break;
+                        case GameResult.Draw:
+                            newMessage.buildGameDrawMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                            break;
+                        case GameResult.Running:
+                            newMessage.buildGameRunningMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                            break;
+                    }
+                    mq.SendPayload(newMessage);
+                }
+            }
+        }
+
+    }
 }
+

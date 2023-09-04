@@ -34,7 +34,7 @@ namespace Game_Logic
                 gameResult = connect_Four.SetStone(4);
 
             }
- 
+
 
             for (int i = 0; i < 6; i++)
             {
