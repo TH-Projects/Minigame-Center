@@ -39,8 +39,6 @@ namespace minigame_center.ViewModel
             UpdateGUI();
         }
 
-        
-
         public VierGewinntViewModel()
         {              
             mq = new MQTTGameClient("4gewinnt", PayloadHandler);
@@ -51,6 +49,13 @@ namespace minigame_center.ViewModel
             
 
             OnNavigatedTo();
+        }
+
+        public static async void Setup(MenuItemViewModel model)
+        {
+            //Application.Current.Dispatcher.Invoke(() => App.MainViewModel.NavigateToPage(new LoadingscreenViewModel(), ""));
+            await mq.Setup();
+            //Application.Current.Dispatcher.Invoke(() => App.MainViewModel.NavigateToPage(model.NavDestination, ""));
         }
 
         public void OnNavigatedTo()
