@@ -58,6 +58,14 @@ namespace minigame_center.Model.Payload
             this.winner = sender;
             timestamp = DateTime.Now;
         }
+        public void buildGameDrawMsg(Guid sender, int[][] gamefield)
+        {
+            this.sender = sender;
+            this.gamefield = gamefield;
+            gamestatus = GameStatus.FINISHED;
+            this.winner = Guid.Empty;
+            timestamp = DateTime.Now;
+        }
         public string toString()
         {
             return JsonSerializer.Serialize<BasePayload>(this);

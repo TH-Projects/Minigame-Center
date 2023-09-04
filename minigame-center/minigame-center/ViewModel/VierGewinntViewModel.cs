@@ -30,23 +30,14 @@ namespace minigame_center.ViewModel
             }
         }
 
+        private static GameResult gameResult = GameResult.Running;
+
         public static MQTTGameClient mq;
 
         private void PayloadHandler(BasePayload payload)
         {
             UpdateGUI();
-            if(payload.winner != Guid.Empty)
-            {
-                if (payload.winner != MQTTGameClient.clientID)
-                {
-                    App.Current.Dispatcher.Invoke(() => {
-                        App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "");
-                    });
-                }
-            }
         }
-
-        
 
         public VierGewinntViewModel()
         {              
@@ -58,6 +49,13 @@ namespace minigame_center.ViewModel
             
 
             OnNavigatedTo();
+        }
+
+        public static async void Setup(MenuItemViewModel model)
+        {
+            //Application.Current.Dispatcher.Invoke(() => App.MainViewModel.NavigateToPage(new LoadingscreenViewModel(), ""));
+            await mq.Setup();
+            //Application.Current.Dispatcher.Invoke(() => App.MainViewModel.NavigateToPage(model.NavDestination, ""));
         }
 
         public void OnNavigatedTo()
@@ -122,21 +120,47 @@ namespace minigame_center.ViewModel
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                if (MQTTGameClient.currentMessage.gamefield != null)
+                switch (gameResult)
                 {
-                    Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
-
-                    int[][] GameField = Connect_Four.getGameFieldAsArray();
-                    for (int i = 0; i < 5; i++)
-                    {
-                        for (int j = 0; j < 7; j++)
+                    case GameResult.Won:
+                        App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "");
+                        break;
+                    case GameResult.Draw:
+                        App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "");
+                        break;
+                    case GameResult.Running:
+                        if (MQTTGameClient.currentMessage.gamefield != null)
                         {
-                            if (GameField[i][j] == 0) circlesArray[i + 1, j].Fill = Brushes.DarkBlue;
-                            else if (GameField[i][j] == 1) circlesArray[i + 1, j].Fill = Brushes.Red;
-                            else if (GameField[i][j] == 2) circlesArray[i + 1, j].Fill = Brushes.Green; // Änderung von 1 auf 2
+                            if(
+                                (MQTTGameClient.currentMessage.winner != MQTTGameClient.clientID) && 
+                                (MQTTGameClient.currentMessage.winner != Guid.Empty)
+                            ){
+                                App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "");
+                            }
+                            else if(
+                                (MQTTGameClient.currentMessage.gamestatus == GameStatus.FINISHED) && 
+                                (MQTTGameClient.currentMessage.winner == Guid.Empty)
+                            ){
+                                App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "");
+                            }
+                            else { 
+                                Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
+
+                                int[][] GameField = Connect_Four.getGameFieldAsArray();
+                                for (int i = 0; i < 5; i++)
+                                {
+                                    for (int j = 0; j < 7; j++)
+                                    {
+                                        if (GameField[i][j] == 0) circlesArray[i + 1, j].Fill = Brushes.DarkBlue;
+                                        else if (GameField[i][j] == 1) circlesArray[i + 1, j].Fill = Brushes.Red;
+                                        else if (GameField[i][j] == 2) circlesArray[i + 1, j].Fill = Brushes.Green; // Änderung von 1 auf 2
+                                    }
+                                }
+                            }
                         }
-                    }
+                        break;
                 }
+                
                 
             });
         }
@@ -146,9 +170,6 @@ namespace minigame_center.ViewModel
         private void DropButton_Click(object circle)
         {
             int column = (int)circle;
-
-            GameResult gameResult = GameResult.Running;
-
             //This if statement checks if the game is still in RUNNING state and if the current message isn't from yourself
             if (MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.currentMessage.sender != MQTTGameClient.clientID)
             {
@@ -164,11 +185,9 @@ namespace minigame_center.ViewModel
                     {
                         case GameResult.Won:
                             newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
-                            App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Du gewinnst");
                             break;
                         case GameResult.Draw:
-                            newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
-                            App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Du verlierst");
+                            newMessage.buildGameDrawMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
                             break;
                         case GameResult.Running:
                             newMessage.buildGameRunningMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
@@ -176,11 +195,6 @@ namespace minigame_center.ViewModel
                     }
                     mq.SendPayload(newMessage);
                 }
-
-                
-                
-
-
             }
         }
 
