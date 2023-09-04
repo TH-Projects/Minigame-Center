@@ -77,7 +77,6 @@ namespace minigame_center.ViewModel
                 gameGrid.ColumnDefinitions.Add(new ColumnDefinition());
             }
 
-            gameGrid.Background = new SolidColorBrush(Colors.Blue);
             ViewGeneratedGrid = gameGrid;
 
             for (int col = 0; col < columns; col++)

@@ -12,7 +12,6 @@
     </Page.DataContext>
     <Grid>
         <Grid x:Name="GeneratedGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Label Content="das it da"></Label>
             <ContentPresenter Content="{Binding ViewGeneratedGrid}" />
         </Grid>
     </Grid>
