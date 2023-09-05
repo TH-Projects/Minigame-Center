@@ -18,6 +18,8 @@ namespace minigame_center.ViewModel
     {
         public  string PlayerLabel { get; set; }
         public  string MoveLabel { get; set; }
+
+        private bool isVisible = false;
         
         public static Ellipse[,] circlesArray;
         private Grid gameGrid;
@@ -39,37 +41,38 @@ namespace minigame_center.ViewModel
 
         private void PayloadHandler(BasePayload payload)
         {
-            if (MQTTGameClient.player_number == 1)
-            {
-                PlayerLabel = "Spieler 1 (Rot)";
-             
-            }
-            else
-            {
-                PlayerLabel = "Spieler 2 (Grün)";
-              
-            }
-            OnPropertyChanged(nameof(PlayerLabel));
-            if (payload.sender != MQTTGameClient.clientID)
-            {
-                MoveLabel = "Du bist am Zug!";
-            }else
-            {
-                MoveLabel = "Gegner am Zug!";
-            }
-            OnPropertyChanged(nameof(MoveLabel));
-            UpdateGUI();
+                if (MQTTGameClient.player_number == 1)
+                {
+                    PlayerLabel = "Spieler 1 (Rot)";
+
+                }
+                else
+                {
+                    PlayerLabel = "Spieler 2 (Grün)";
+
+                }
+                OnPropertyChanged(nameof(PlayerLabel));
+                if (payload.sender != MQTTGameClient.clientID)
+                {
+                    MoveLabel = "Du bist am Zug!";
+                }
+                else
+                {
+                    MoveLabel = "Gegner am Zug!";
+                }
+                OnPropertyChanged(nameof(MoveLabel));
+                UpdateGUI();
         }
 
         public VierGewinntViewModel()
         {              
-            mq = new MQTTGameClient("4ge4winn3t", PayloadHandler);
+            mq = new MQTTGameClient("4ge4winssn3t", PayloadHandler);
             Connect_Four.initialiazeField();
             Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
             Connect_Four.Field_X = 7;
             Connect_Four.Field_Y = 5;
             
-            PlayerLabel = "";
+            PlayerLabel = "Suche Speiler...";
             MoveLabel = "";
             OnNavigatedTo();
         }
