@@ -8,12 +8,21 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoseMessage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../AppStyleDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Viewbox MaxHeight="140">
             <Label
                 Content="Du hast verloren!"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
+                Style="{StaticResource DarkLabelStyle}"
             />  
         </Viewbox>
     </Grid>
