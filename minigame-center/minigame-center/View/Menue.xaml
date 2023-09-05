@@ -58,7 +58,7 @@
                 DataContext="{Binding FourthMenuItemViewModel}"
                 MaxHeight="300"
                 MaxWidth="500"
-                Margin="40"
+                Margin="50"
             />
         </Grid>
     </Grid>

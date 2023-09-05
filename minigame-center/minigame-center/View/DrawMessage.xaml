@@ -8,12 +8,21 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DrawMessage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../AppStyleDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Viewbox MaxHeight="140">
             <Label
                 Content="Unentschieden!"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
+                Style="{StaticResource DarkLabelStyle}"
             />
         </Viewbox>
     </Grid>
