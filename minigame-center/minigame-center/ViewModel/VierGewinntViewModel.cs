@@ -92,7 +92,7 @@ namespace minigame_center.ViewModel
             {
                 // Wenn der oponnent gesetzt wurde wird beim schließen der Applikation eine Nachricht abgesendet in der der
                 // der Gegner als gewinner definiert wird
-                if (MQTTGameClient.oponnent != Guid.Empty)
+                if (MQTTGameClient.oponnent != Guid.Empty && MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING)
                 {
                     BasePayload payload = new BasePayload();
                     payload.buildGameFinishedMsg(MQTTGameClient.clientID, MQTTGameClient.oponnent, Connect_Four.getGameFieldAsArray());
