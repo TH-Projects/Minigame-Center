@@ -84,10 +84,12 @@ namespace minigame_center.ViewModel
 
         static void OnProcessExit(object sender, EventArgs e)  // This function is called automatically when the application is terminated.
         {
-
-            //Console.WriteLine("ufräumarbeiten können hier durchgeführt werden.");
-            mq.Publish(null, "4gewinnt");
+            if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0))
+            {
+                mq.Publish(null, "4gewinnt");
+            }
         }
+
 
         public static async void Setup()
         {

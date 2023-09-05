@@ -13,57 +13,39 @@ using minigame_center.ViewModel;
 
 namespace minigame_center.Model.MQTTClient
 {
-    /// <summary>
     /// Diese Klasse handelt Aktionen, die ausgeführt werden sollen wenn ein Gegenspieler schon definiert wurde.
     /// So könnte das Update der UI in dieses Verlagert werden.
-    /// </summary>
     /// <param name="payload"></param>
     public delegate void OnGamePayloadRecieved(BasePayload payload);
 
     public class MQTTGameClient : MqttBaseClient
     {
-        /// <summary>
         /// Speichert den Spieleverlauf des Spiels
-        /// </summary>
         public static GameStatus game_state = GameStatus.NO_RESPONSE;
 
-        /// <summary>
         /// Speichert den Namen des Topics über dem die Nachrichten ausgetauscht werden
-        /// </summary>
         public static string game_topic;
 
-        /// <summary>
         /// Speichert die letzte Nachricht gesetzt über die HandleMessageReceived Funktion
-        /// </summary>
         public static BasePayload currentMessage { get; set; }
 
-        /// <summary>
         /// Speichert die UUID des Gegners und wird über den Handshake in der Setupfunktion
         /// gesetzt
-        /// </summary>
         static public Guid oponnent { get; set; }
 
 
-        /// <summary>
         /// Speichert die UUID des Senders der letzten Nachricht und wird in der HandleMessageReceived Funktion gesetzt
-        /// </summary>
         static Guid senderID;
-        
-        /// <summary>
+
         /// Speichert um welchen Spieler es sich handelt bei zwei Spielen ist der erste, der in das GameTopic zuerst geschrieben hat
         /// Der zweite ist, der Client, der auf die Nachricht des ersten Spielers reagiert hat.
-        /// </summary>
-        public static int player_number { get; set; }
+        public static int player_number = 0;
 
-        /// <summary>
         /// Speichert die Referenze zum GamePayload Handler und wird in  HandleMessageReceived ausgeführt
-        /// </summary>
         private static OnGamePayloadRecieved GamePayloadHandler;
 
 
-        /// <summary>
         /// Verarbeitet eingehende Nachrichten
-        /// </summary>
         /// <param name="sender">Enthält eine Referenz zum sendenden Obejkt dem MQTT Basic Client</param>
         /// <param name="e">Enthält die Nachricht des MQTT Clients</param>
         public static void HandleMessageReceived(object sender, MqttApplicationMessageReceivedEventArgs e)
@@ -99,10 +81,8 @@ namespace minigame_center.Model.MQTTClient
             return Regex.IsMatch(input, pattern);
         }
 
-        /// <summary>
         /// Der MQTT Game Client bassiert auf einem rudimentären MQTT Client und fügt weitere Funktionen 
         /// spezifisch für Spiele hinzu. 
-        /// </summary>
         /// <param name="game">Das Topic über das das Spiel ausgehandelt werden soll</param>
         /// <param name="handler">Die Funktion, die ausgeführt werden soll wenn das Spiel begonnen hat</param>
         public MQTTGameClient(string game, OnGamePayloadRecieved handler) : base()
@@ -112,12 +92,9 @@ namespace minigame_center.Model.MQTTClient
             MQTTGameClient.game_topic = game;
         }
 
-        /// <summary>
         /// Verbindet sich mit dem MQTT-Broker, Subscribed auf das MQTT-Topic in dem die Spielerdaten
         /// ausgetauscht werden und defineirt den Gegenspieler. Sollte am Anfang ausgeführt werden
         /// bevor ein Spiel beginnt.
-        /// </summary>
-        /// <returns></returns>
         public async Task Setup()
         {
             try
@@ -165,11 +142,7 @@ namespace minigame_center.Model.MQTTClient
             }
         }
        
-        /// <summary>
         /// Sendet einen BasePayload mit definierten Attributen für Spiele mit 2D Arrays
-        /// </summary>
-        /// <param name="payload"></param>
-        /// <returns></returns>
         public async Task SendPayload(BasePayload payload)
         {
             await Publish(payload.toString(), game_topic);
