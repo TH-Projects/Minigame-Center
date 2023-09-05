@@ -88,7 +88,8 @@ namespace minigame_center.ViewModel
 
         static void OnProcessExit(object sender, EventArgs e)  // This function is called automatically when the application is terminated.
         {
-            if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0) && MQTTGameClient.game_state != GameStatus.FINISHED)
+            if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0) // if a player enters the game during a runing partie
+                && MQTTGameClient.game_state != GameStatus.FINISHED)    // without it at a normal winning situation the looser would be set as winner
             {
                 // Wenn der oponnent gesetzt wurde wird beim schließen der Applikation eine Nachricht abgesendet in der der
                 // der Gegner als gewinner definiert wird
@@ -97,10 +98,13 @@ namespace minigame_center.ViewModel
                     BasePayload payload = new BasePayload();
                     payload.buildGameFinishedMsg(MQTTGameClient.clientID, MQTTGameClient.oponnent, Connect_Four.getGameFieldAsArray());
                     mq.SendPayload(payload);
-                    return;
+                    
                 }
-                // Wurde ein Spiel noch nicht begonnen wird das Topic geleert.
-                mq.Publish(null, "4gewinnt");
+                else
+                {
+                    mq.Publish(null, "4gewinnt");
+
+                }
             }
         }
 
@@ -205,7 +209,6 @@ namespace minigame_center.ViewModel
                             )
                             {
                                 App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Der Gegner hat aufgegeben");
-                                App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Ende des Spiels");
                             }
                             else { 
                                 Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
