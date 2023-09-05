@@ -12,7 +12,7 @@ namespace minigame_center.ViewModel
     public class MenueViewModel : BaseViewModel
     {
         public MenuItemViewModel VierGewinntMenuItemViewModel { get; }
-        public MenuItemViewModel TestUIMenuItemViewModel { get; }
+        public MenuItemViewModel SecondMenuItemViewModel { get; }
         public MenuItemViewModel ThirdMenuItemViewModel { get; }
         public MenuItemViewModel FourthMenuItemViewModel { get; }
 
@@ -26,14 +26,13 @@ namespace minigame_center.ViewModel
                 NavDestinationHeadline = "Vier Gewinnt"
             };
             VierGewinntMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
-            TestUIMenuItemViewModel = new MenuItemViewModel
+            SecondMenuItemViewModel = new MenuItemViewModel
             {
-                ButtonContent = "TestUI",
-                BackgroundImageSource = "../Assets/placeholder.png",
-                NavDestination = new TestUIViewModel(),
-                NavDestinationHeadline = "TestUI"
+                ButtonContent = "",
+                BackgroundImageSource = "../Assets/inProgress.jpg",
+                
             };
-            TestUIMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
+            //TestUIMenuItemViewModel.ButtonClicked += HandleMenuItemClicked;
             ThirdMenuItemViewModel = new MenuItemViewModel
             {
                 ButtonContent = "",

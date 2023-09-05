@@ -165,10 +165,10 @@ namespace minigame_center.ViewModel
                 switch (gameResult)
                 {
                     case GameResult.Won:
-                        App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "");
+                        App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Ende des Spiels");
                         break;
                     case GameResult.Draw:
-                        App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "");
+                        App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Ende des Spiels");
                         break;
                     case GameResult.Running:
                         if (MQTTGameClient.currentMessage.gamefield != null)
@@ -177,13 +177,13 @@ namespace minigame_center.ViewModel
                                 (MQTTGameClient.currentMessage.winner != MQTTGameClient.clientID) && 
                                 (MQTTGameClient.currentMessage.winner != Guid.Empty)
                             ){
-                                App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "");
+                                App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "Ende des Spiels");
                             }
                             else if(
                                 (MQTTGameClient.currentMessage.gamestatus == GameStatus.FINISHED) && 
                                 (MQTTGameClient.currentMessage.winner == Guid.Empty)
                             ){
-                                App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "");
+                                App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Ende des Spiels");
                             }
                             else { 
                                 Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
