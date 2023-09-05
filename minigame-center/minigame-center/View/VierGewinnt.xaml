@@ -31,6 +31,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            
             <Grid Grid.Column="0">
                 <Viewbox>
                     <Label
@@ -43,6 +44,20 @@
                     />
                 </Viewbox>
             </Grid>
+
+            <Grid Grid.Column="2">
+                <Viewbox>
+                    <Label
+                        Content="{Binding MoveLabel}"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Style="{StaticResource DarkLabelStyle}"
+                    />  
+                </Viewbox>
+            </Grid>
+
         </Grid>
         
         <Grid x:Name="GeneratedGrid" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
