@@ -88,7 +88,7 @@ namespace minigame_center.ViewModel
 
         static void OnProcessExit(object sender, EventArgs e)  // This function is called automatically when the application is terminated.
         {
-            if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0))
+            if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0) && MQTTGameClient.game_state != GameStatus.FINISHED)
             {
                 // Wenn der oponnent gesetzt wurde wird beim schließen der Applikation eine Nachricht abgesendet in der der
                 // der Gegner als gewinner definiert wird
