@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Common;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +20,8 @@ namespace minigame_center.ViewModel
         public  string PlayerLabel { get; set; }
         public  string MoveLabel { get; set; }
 
-        private bool isVisible = false;
+        private static bool  waitBool = false;
+
         
         public static Ellipse[,] circlesArray;
         private Grid gameGrid;
@@ -66,7 +68,7 @@ namespace minigame_center.ViewModel
 
         public VierGewinntViewModel()
         {              
-            mq = new MQTTGameClient("4ge4winssn3t", PayloadHandler);
+            mq = new MQTTGameClient("4gewinnt", PayloadHandler);
             Connect_Four.initialiazeField();
             Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
             Connect_Four.Field_X = 7;
@@ -75,13 +77,23 @@ namespace minigame_center.ViewModel
             PlayerLabel = "Suche Spieler...";
             MoveLabel = "";
             OnNavigatedTo();
+
+            AppDomain.CurrentDomain.ProcessExit += OnProcessExit;
+
         }
 
-        public static async void Setup(MenuItemViewModel model)
+        static void OnProcessExit(object sender, EventArgs e)  // This function is called automatically when the application is terminated.
         {
-            //Application.Current.Dispatcher.Invoke(() => App.MainViewModel.NavigateToPage(new LoadingscreenViewModel(), ""));
+
+            //Console.WriteLine("ufräumarbeiten können hier durchgeführt werden.");
+            mq.Publish(null, "4gewinnt");
+        }
+
+        public static async void Setup()
+        {
             await mq.Setup();
-            //Application.Current.Dispatcher.Invoke(() => App.MainViewModel.NavigateToPage(model.NavDestination, ""));
+            Thread.Sleep(400);
+            waitBool = true;
         }
 
         public void OnNavigatedTo()
@@ -197,31 +209,34 @@ namespace minigame_center.ViewModel
 
         private void DropButton_Click(object circle)
         {
-            int column = (int)circle;
-            //This if statement checks if the game is still in RUNNING state and if the current message isn't from yourself
-            if (MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.currentMessage.sender != MQTTGameClient.clientID)
+            if (waitBool == true)
             {
-                Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
-                Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
-
-                if (Connect_Four.SetStonePossible(column))
+                int column = (int)circle;
+                //This if statement checks if the game is still in RUNNING state and if the current message isn't from yourself
+                if (MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.currentMessage.sender != MQTTGameClient.clientID)
                 {
-                    gameResult = Connect_Four.SetStone(column);
-                    //publish a new message
-                    BasePayload newMessage = MQTTGameClient.currentMessage;
-                    switch (gameResult)
+                    Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
+                    Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
+
+                    if (Connect_Four.SetStonePossible(column))
                     {
-                        case GameResult.Won:
-                            newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
-                            break;
-                        case GameResult.Draw:
-                            newMessage.buildGameDrawMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
-                            break;
-                        case GameResult.Running:
-                            newMessage.buildGameRunningMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
-                            break;
+                        gameResult = Connect_Four.SetStone(column);
+                        //publish a new message
+                        BasePayload newMessage = MQTTGameClient.currentMessage;
+                        switch (gameResult)
+                        {
+                            case GameResult.Won:
+                                newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                                break;
+                            case GameResult.Draw:
+                                newMessage.buildGameDrawMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                                break;
+                            case GameResult.Running:
+                                newMessage.buildGameRunningMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
+                                break;
+                        }
+                        mq.SendPayload(newMessage);
                     }
-                    mq.SendPayload(newMessage);
                 }
             }
         }
