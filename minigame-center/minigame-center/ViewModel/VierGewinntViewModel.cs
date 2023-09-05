@@ -213,7 +213,7 @@ namespace minigame_center.ViewModel
             {
                 int column = (int)circle;
                 //This if statement checks if the game is still in RUNNING state and if the current message isn't from yourself
-                if (MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.currentMessage.sender != MQTTGameClient.clientID)
+                if (MQTTGameClient.game_state == GameStatus.RUNNING && MQTTGameClient.currentMessage.sender != MQTTGameClient.clientID)
                 {
                     Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
                     Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);

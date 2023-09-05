@@ -135,7 +135,7 @@ namespace minigame_center.Model.MQTTClient
                 Thread.Sleep(2000);
 
                 //HANDSHAKE
-                if (game_state == GameStatus.NO_RESPONSE && (currentMessage==null || currentMessage.gamestatus!=GameStatus.NO_OPPONENT)) //Player number 1 first message
+                if (currentMessage == null) //Player number 1 first message
                 {
                     player_number = 1;
                     var Payload = new BasePayload();
@@ -143,7 +143,7 @@ namespace minigame_center.Model.MQTTClient
                     Payload.buildNoOpponentMsg(clientID);
                     await SendPayload(Payload);
                 }
-                else if(currentMessage.gamestatus == GameStatus.NO_OPPONENT && currentMessage.sender != clientID)  //Player number 2 response to first message 
+                else if (currentMessage.gamestatus == GameStatus.NO_OPPONENT && currentMessage.sender != clientID && currentMessage.gamestatus != GameStatus.RUNNING)  //Player number 2 response to first message 
                 {                                                                                                   //Sets Status RUNNING isn't able to make a turn because of the if statement in the viewmodel
                     player_number = 2;
                     oponnent = senderID;
