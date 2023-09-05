@@ -112,7 +112,7 @@ namespace minigame_center.Model.MQTTClient
                 Thread.Sleep(2000);
 
                 //HANDSHAKE
-                if (currentMessage == null) //Player number 1 first message
+                if (currentMessage == null || currentMessage.gamestatus == GameStatus.FINISHED) //Player number 1 first message
                 {
                     player_number = 1;
                     var Payload = new BasePayload();

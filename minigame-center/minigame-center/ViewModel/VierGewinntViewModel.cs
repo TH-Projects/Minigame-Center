@@ -43,6 +43,10 @@ namespace minigame_center.ViewModel
 
         private void PayloadHandler(BasePayload payload)
         {
+                if (MQTTGameClient.oponnent == Guid.Empty && payload.sender != MQTTGameClient.clientID)
+                {
+                    MQTTGameClient.oponnent = payload.sender;
+                }
                 if (MQTTGameClient.player_number == 1)
                 {
                     PlayerLabel = "Spieler 1 (Rot)";
@@ -84,9 +88,23 @@ namespace minigame_center.ViewModel
 
         static void OnProcessExit(object sender, EventArgs e)  // This function is called automatically when the application is terminated.
         {
-            if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0))
+            if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0) // if a player enters the game during a runing partie
+                && MQTTGameClient.game_state != GameStatus.FINISHED)    // without it at a normal winning situation the looser would be set as winner
             {
-                mq.Publish(null, "4gewinnt");
+                // Wenn der oponnent gesetzt wurde wird beim schließen der Applikation eine Nachricht abgesendet in der der
+                // der Gegner als gewinner definiert wird
+                if (MQTTGameClient.oponnent != Guid.Empty && MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING)
+                {
+                    BasePayload payload = new BasePayload();
+                    payload.buildGameFinishedMsg(MQTTGameClient.clientID, MQTTGameClient.oponnent, Connect_Four.getGameFieldAsArray());
+                    mq.SendPayload(payload);
+                    
+                }
+                else
+                {
+                    mq.Publish(null, "4gewinnt");
+
+                }
             }
         }
 
@@ -184,6 +202,13 @@ namespace minigame_center.ViewModel
                                 (MQTTGameClient.currentMessage.winner == Guid.Empty)
                             ){
                                 App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Ende des Spiels");
+                            }
+                            else if (
+                                (MQTTGameClient.currentMessage.gamestatus == GameStatus.FINISHED) &&
+                                (MQTTGameClient.currentMessage.winner == MQTTGameClient.clientID)
+                            )
+                            {
+                                App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Der Gegner hat aufgegeben");
                             }
                             else { 
                                 Connect_Four.setGamefieldFromArray(MQTTGameClient.currentMessage.gamefield);
