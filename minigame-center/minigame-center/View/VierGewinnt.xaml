@@ -10,8 +10,42 @@
     <Page.DataContext>
         <local:VierGewinntViewModel/>
     </Page.DataContext>
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../AppStyleDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
-        <Grid x:Name="GeneratedGrid" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Viewbox>
+                    <Label
+                        Content="{Binding PlayerLabel}"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        Style="{StaticResource DarkLabelStyle}"
+                    />
+                </Viewbox>
+            </Grid>
+        </Grid>
+        
+        <Grid x:Name="GeneratedGrid" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <ContentPresenter Content="{Binding ViewGeneratedGrid}" />
         </Grid>
     </Grid>

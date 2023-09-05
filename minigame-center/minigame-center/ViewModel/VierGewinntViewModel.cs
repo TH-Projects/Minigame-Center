@@ -16,6 +16,8 @@ namespace minigame_center.ViewModel
 {
     public class VierGewinntViewModel : BaseViewModel
     {
+        public string PlayerLabel { get; set; }
+
         public static Ellipse[,] circlesArray;
         private Grid gameGrid;
 
@@ -47,7 +49,7 @@ namespace minigame_center.ViewModel
             Connect_Four.Field_X = 7;
             Connect_Four.Field_Y = 5;
             
-
+            PlayerLabel = "No Player name loaded";
             OnNavigatedTo();
         }
 
