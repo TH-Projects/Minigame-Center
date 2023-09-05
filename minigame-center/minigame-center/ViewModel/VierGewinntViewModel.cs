@@ -43,6 +43,10 @@ namespace minigame_center.ViewModel
 
         private void PayloadHandler(BasePayload payload)
         {
+                if (MQTTGameClient.oponnent == Guid.Empty && payload.sender != MQTTGameClient.clientID)
+                {
+                    MQTTGameClient.oponnent = payload.sender;
+                }
                 if (MQTTGameClient.player_number == 1)
                 {
                     PlayerLabel = "Spieler 1 (Rot)";
@@ -86,6 +90,16 @@ namespace minigame_center.ViewModel
         {
             if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0))
             {
+                // Wenn der oponnent gesetzt wurde wird beim schließen der Applikation eine Nachricht abgesendet in der der
+                // der Gegner als gewinner definiert wird
+                if (MQTTGameClient.oponnent != Guid.Empty)
+                {
+                    BasePayload payload = new BasePayload();
+                    payload.buildGameFinishedMsg(MQTTGameClient.clientID, MQTTGameClient.oponnent, Connect_Four.getGameFieldAsArray());
+                    mq.SendPayload(payload);
+                    return;
+                }
+                // Wurde ein Spiel noch nicht begonnen wird das Topic geleert.
                 mq.Publish(null, "4gewinnt");
             }
         }
@@ -183,6 +197,14 @@ namespace minigame_center.ViewModel
                                 (MQTTGameClient.currentMessage.gamestatus == GameStatus.FINISHED) && 
                                 (MQTTGameClient.currentMessage.winner == Guid.Empty)
                             ){
+                                App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Ende des Spiels");
+                            }
+                            else if (
+                                (MQTTGameClient.currentMessage.gamestatus == GameStatus.FINISHED) &&
+                                (MQTTGameClient.currentMessage.winner == MQTTGameClient.clientID)
+                            )
+                            {
+                                App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Der Gegner hat aufgegeben");
                                 App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Ende des Spiels");
                             }
                             else { 
