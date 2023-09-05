@@ -72,7 +72,7 @@ namespace minigame_center.ViewModel
             Connect_Four.Field_X = 7;
             Connect_Four.Field_Y = 5;
             
-            PlayerLabel = "Suche Speiler...";
+            PlayerLabel = "Suche Spieler...";
             MoveLabel = "";
             OnNavigatedTo();
         }
