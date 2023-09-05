@@ -16,9 +16,9 @@ namespace minigame_center.ViewModel
 {
     public class VierGewinntViewModel : BaseViewModel
     {
-        public string PlayerLabel { get; set; }
-        public string MoveLabel { get; set; }
-
+        public  string PlayerLabel { get; set; }
+        public  string MoveLabel { get; set; }
+        
         public static Ellipse[,] circlesArray;
         private Grid gameGrid;
 
@@ -39,19 +39,38 @@ namespace minigame_center.ViewModel
 
         private void PayloadHandler(BasePayload payload)
         {
+            if (MQTTGameClient.player_number == 1)
+            {
+                PlayerLabel = "Spieler 1 (Rot)";
+             
+            }
+            else
+            {
+                PlayerLabel = "Spieler 2 (Grün)";
+              
+            }
+            OnPropertyChanged(nameof(PlayerLabel));
+            if (payload.sender != MQTTGameClient.clientID)
+            {
+                MoveLabel = "Du bist am Zug!";
+            }else
+            {
+                MoveLabel = "Gegner am Zug!";
+            }
+            OnPropertyChanged(nameof(MoveLabel));
             UpdateGUI();
         }
 
         public VierGewinntViewModel()
         {              
-            mq = new MQTTGameClient("4gewinnt", PayloadHandler);
+            mq = new MQTTGameClient("4ge4winn3t", PayloadHandler);
             Connect_Four.initialiazeField();
             Connect_Four.CurrentPlayer = MQTTGameClient.player_number;
             Connect_Four.Field_X = 7;
             Connect_Four.Field_Y = 5;
             
-            PlayerLabel = "No Player name loaded";
-            MoveLabel = "MoveLabel";
+            PlayerLabel = "";
+            MoveLabel = "";
             OnNavigatedTo();
         }
 
@@ -121,8 +140,11 @@ namespace minigame_center.ViewModel
 
         public static void UpdateGUI()
         {
+
             Application.Current.Dispatcher.Invoke(() =>
             {
+          
+              
                 switch (gameResult)
                 {
                     case GameResult.Won:
