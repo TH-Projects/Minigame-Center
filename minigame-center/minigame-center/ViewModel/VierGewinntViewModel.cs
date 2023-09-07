@@ -206,6 +206,7 @@ namespace minigame_center.ViewModel
                                 (MQTTGameClient.currentMessage.gamestatus == GameStatus.FINISHED) && 
                                 (MQTTGameClient.currentMessage.winner == Guid.Empty)
                             ){
+                                MQTTGameClient.game_state = GameStatus.FINISHED;
                                 App.MainViewModel.NavigateToPage(new DrawMessageViewModel(), "Ende des Spiels");
                             }
                             else if (
@@ -263,6 +264,7 @@ namespace minigame_center.ViewModel
                                 newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
                                 break;
                             case GameResult.Draw:
+                                MQTTGameClient.game_state = GameStatus.FINISHED;
                                 newMessage.buildGameDrawMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
                                 break;
                             case GameResult.Running:
