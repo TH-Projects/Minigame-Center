@@ -63,7 +63,7 @@ namespace minigame_center.Model.MQTTClient
                     
                 }
 
-                if (game_state == GameStatus.RUNNING)
+                if (game_state == GameStatus.RUNNING || game_state == GameStatus.FINISHED)
                 {                 
                     GamePayloadHandler(currentMessage);
                 }

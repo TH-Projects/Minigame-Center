@@ -43,31 +43,32 @@ namespace minigame_center.ViewModel
 
         private void PayloadHandler(BasePayload payload)
         {
-                if (MQTTGameClient.oponnent == Guid.Empty && payload.sender != MQTTGameClient.clientID)
-                {
-                    MQTTGameClient.oponnent = payload.sender;
-                }
-                if (MQTTGameClient.player_number == 1)
-                {
-                    PlayerLabel = "Spieler 1 (Rot)";
+            UpdateGUI();
 
-                }
-                else
-                {
-                    PlayerLabel = "Spieler 2 (Grün)";
+            if (MQTTGameClient.oponnent == Guid.Empty && payload.sender != MQTTGameClient.clientID)
+            {
+                MQTTGameClient.oponnent = payload.sender;
+            }
+            if (MQTTGameClient.player_number == 1)
+            {
+                PlayerLabel = "Spieler 1 (Rot)";
 
-                }
-                OnPropertyChanged(nameof(PlayerLabel));
-                if (payload.sender != MQTTGameClient.clientID)
-                {
-                    MoveLabel = "Du bist am Zug!";
-                }
-                else
-                {
-                    MoveLabel = "Gegner am Zug!";
-                }
-                OnPropertyChanged(nameof(MoveLabel));
-                UpdateGUI();
+            }
+            else
+            {
+                PlayerLabel = "Spieler 2 (Grün)";
+
+            }
+            OnPropertyChanged(nameof(PlayerLabel));
+            if (payload.sender != MQTTGameClient.clientID)
+            {
+                MoveLabel = "Du bist am Zug!";
+            }
+            else
+            {
+                MoveLabel = "Gegner am Zug!";
+            }
+            OnPropertyChanged(nameof(MoveLabel));
         }
 
         public VierGewinntViewModel()
@@ -89,7 +90,7 @@ namespace minigame_center.ViewModel
         static void OnProcessExit(object sender, EventArgs e)  // This function is called automatically when the application is terminated.
         {
             if (!(MQTTGameClient.currentMessage.gamestatus == GameStatus.RUNNING && MQTTGameClient.player_number == 0) // if a player enters the game during a runing partie
-                && MQTTGameClient.game_state != GameStatus.FINISHED)    // without it at a normal winning situation the looser would be set as winner
+                && MQTTGameClient.game_state != GameStatus.FINISHED)  
             {
                 // Wenn der oponnent gesetzt wurde wird beim schließen der Applikation eine Nachricht abgesendet in der der
                 // der Gegner als gewinner definiert wird
@@ -182,9 +183,7 @@ namespace minigame_center.ViewModel
         {
 
             Application.Current.Dispatcher.Invoke(() =>
-            {
-          
-              
+            {              
                 switch (gameResult)
                 {
                     case GameResult.Won:
@@ -200,6 +199,7 @@ namespace minigame_center.ViewModel
                                 (MQTTGameClient.currentMessage.winner != MQTTGameClient.clientID) && 
                                 (MQTTGameClient.currentMessage.winner != Guid.Empty)
                             ){
+                                MQTTGameClient.game_state = GameStatus.FINISHED;
                                 App.MainViewModel.NavigateToPage(new LoseMessageViewModel(), "Ende des Spiels");
                             }
                             else if(
@@ -213,6 +213,7 @@ namespace minigame_center.ViewModel
                                 (MQTTGameClient.currentMessage.winner == MQTTGameClient.clientID)
                             )
                             {
+                                MQTTGameClient.game_state = GameStatus.FINISHED;
                                 App.MainViewModel.NavigateToPage(new WinMessageViewModel(), "Der Gegner hat aufgegeben");
                             }
                             else { 
@@ -258,6 +259,7 @@ namespace minigame_center.ViewModel
                         switch (gameResult)
                         {
                             case GameResult.Won:
+                                MQTTGameClient.game_state = GameStatus.FINISHED;
                                 newMessage.buildGameFinishedMsg(MQTTGameClient.clientID, Connect_Four.getGameFieldAsArray());
                                 break;
                             case GameResult.Draw:
