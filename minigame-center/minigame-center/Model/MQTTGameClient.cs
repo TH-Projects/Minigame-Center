@@ -10,6 +10,7 @@ using minigame_center.HelperClasses;
 using minigame_center.Model.Payload;
 using MQTTnet.Server;
 using minigame_center.ViewModel;
+using System.Windows;
 
 namespace minigame_center.Model.MQTTClient
 {
@@ -131,6 +132,12 @@ namespace minigame_center.Model.MQTTClient
                     await SendPayload(payload);
                     return;
 
+                } else
+                {
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {                      
+                                App.MainViewModel.NavigateToPage(new LoadingscreenViewModel(), "");      
+                    });
                 }
 
                 await Console.Out.WriteLineAsync($"This Client is: {player_number} - With Client ID: {clientID}");

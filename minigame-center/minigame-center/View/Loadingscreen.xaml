@@ -10,9 +10,10 @@
     <Grid>
         <Viewbox MaxHeight="140">
             <Label
-            Content="Loading..."
+            Content="Anderes Spiel läuft bereits!"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
+            Foreground="White"
         />
         </Viewbox>
     </Grid>
