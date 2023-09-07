@@ -42,7 +42,7 @@
                     <Border 
                         Background="{TemplateBinding Background}"
                         BorderBrush="{StaticResource ForegroundColorBrush}"
-                        BorderThickness="0.35"
+                        BorderThickness="2"
                         CornerRadius="45">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>

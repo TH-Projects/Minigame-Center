@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:minigame_center"
              >
     <Application.Resources>
-        <BitmapImage x:Key="AppIcon" UriSource="Assets/apple-icon-60x60.ico"/>
+        <ResourceDictionary>
+            <!-- Füge das bestehende Resource Dictionary hinzu -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./AppStyleDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Definiere weitere Ressourcen, wenn nötig -->
+            <BitmapImage x:Key="AppIcon" UriSource="Assets/apple-icon-60x60.ico"/>
+        </ResourceDictionary>
     </Application.Resources>
+
 </Application>

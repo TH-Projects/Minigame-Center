@@ -141,15 +141,20 @@ namespace minigame_center.ViewModel
             {
                 Button dropButton = new Button();
                 dropButton.Content = "*";
+
+                // Setze den Style des Buttons
+                dropButton.Style = (Style)Application.Current.Resources["DarkButtonStyle"];
+
                 dropButton.VerticalAlignment = VerticalAlignment.Stretch;
                 dropButton.HorizontalAlignment = HorizontalAlignment.Stretch;
-                dropButton.Height = 40;
-                dropButton.Margin = new Thickness(5);
+                dropButton.Margin = new Thickness(20);
                 dropButton.Tag = col;
+                dropButton.FontSize = 24;
                 dropButton.Click += (sender, e) => DropButton_Click(dropButton.Tag);
                 gameGrid.Children.Add(dropButton);
                 Grid.SetRow(dropButton, 0);
                 Grid.SetColumn(dropButton, col);
+
             }
 
             circlesArray = new Ellipse[rows, columns];
@@ -162,7 +167,7 @@ namespace minigame_center.ViewModel
                     blackCircle.Fill = Brushes.DarkBlue;
                     blackCircle.VerticalAlignment = VerticalAlignment.Stretch;
                     blackCircle.HorizontalAlignment = HorizontalAlignment.Stretch;
-                    blackCircle.Margin = new Thickness(15, 10, 15, 10);
+                    blackCircle.Margin = new Thickness(17,15,17,15);
                     gameGrid.Children.Add(blackCircle);
                     Grid.SetRow(blackCircle, row);
                     Grid.SetColumn(blackCircle, col);
