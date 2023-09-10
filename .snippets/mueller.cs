@@ -44,7 +44,7 @@ public void GenerateGrid(int rows, int columns)
 
         // Füge die Schaltfläche dem Grid hinzu und platziere sie in der ersten Zeile und der aktuellen Spalte.
         gameGrid.Children.Add(dropButton);
-        Grid.SetRow(dropButton, 0);
+       Grid.SetRow(dropButton, 0); 
         Grid.SetColumn(dropButton, col);
     }
 
@@ -73,22 +73,3 @@ public void GenerateGrid(int rows, int columns)
     }
 }
 
-    circlesArray = new Ellipse[rows, columns];
-
-    for (int row = 1; row < rows; row++)
-    {
-        for (int col = 0; col < columns; col++)
-        {
-            Ellipse blackCircle = new Ellipse();
-            blackCircle.Fill = Brushes.DarkBlue;
-            blackCircle.VerticalAlignment = VerticalAlignment.Stretch;
-            blackCircle.HorizontalAlignment = HorizontalAlignment.Stretch;
-            blackCircle.Margin = new Thickness(17,15,17,15);
-            gameGrid.Children.Add(blackCircle);
-            Grid.SetRow(blackCircle, row);
-            Grid.SetColumn(blackCircle, col);
-
-            circlesArray[row, col] = blackCircle;
-        }
-    }
-}
