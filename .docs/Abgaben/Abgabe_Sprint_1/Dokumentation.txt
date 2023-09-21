@@ -1,2 +1,0 @@
-Die Doku findet sich in unserem Wiki im DevOps.
-https://dev.azure.com/AI2022/A1/_wiki/wikis/A1.wiki/3/Dokumentation

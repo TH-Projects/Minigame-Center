@@ -1,0 +1,2 @@
+.docs/Abgaben/*.zip filter=lfs diff=lfs merge=lfs -text
+.docs/Abgaben/*.wmv filter=lfs diff=lfs merge=lfs -text
